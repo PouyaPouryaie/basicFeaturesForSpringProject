@@ -1,0 +1,4 @@
+#Key and value types
+#Tue Jan 21 17:16:09 IRST 2020
+keyType=java.lang.Long
+valueType=ir.bigz.springbootreal.dao.User

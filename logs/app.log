@@ -1,0 +1,12 @@
+2020-06-06 21:33:19,246 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya-VPCEA2GFX with PID 1233 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2020-06-06 21:33:19,306 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2020-06-06 21:33:19,309 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2020-06-06 21:33:24,229 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 5.754 seconds (JVM running for 8.057)
+2020-06-06 21:34:50,426 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya-VPCEA2GFX with PID 1505 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2020-06-06 21:34:50,438 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2020-06-06 21:34:50,439 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2020-06-06 21:34:55,197 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 5.547 seconds (JVM running for 8.473)
+2020-06-06 21:35:50,388 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya-VPCEA2GFX with PID 1754 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2020-06-06 21:35:50,400 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2020-06-06 21:35:50,403 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2020-06-06 21:35:55,637 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 6.365 seconds (JVM running for 10.448)
