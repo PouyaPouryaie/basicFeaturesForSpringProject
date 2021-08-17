@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public abstract class DaoRepositoryImpl<T, K extends Serializable> implements DaoRepository<T, K> {
@@ -77,8 +78,9 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void delete(K id) {
-        entityManager.remove(find(id));
+        entityManager.remove(find(id).get());
     }
 
     @Override
@@ -94,8 +96,8 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-    public T find(K id) {
-        return entityManager.find(daoType, id);
+    public Optional<T> find(K id) throws IllegalArgumentException {
+        return Optional.of(entityManager.find(daoType, id));
     }
 
     @Override

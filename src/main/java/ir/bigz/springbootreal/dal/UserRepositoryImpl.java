@@ -14,11 +14,11 @@ public class UserRepositoryImpl extends DaoRepositoryImpl<User, Long> implements
     final Logger LOG = LoggerFactory.getLogger(UserRepositoryImpl.class);
 
     @Override
-    public User getUserWithNationalId(int nationalId) {
+    public User getUserWithNationalId(String nationalId) {
 
         User u = null;
         List<User> resultList = new ArrayList<>();
-        String query = "select u from User u where u.nationalId= '" + nationalId + "'";
+        String query = "select u from User u where u.nationalId like '" + nationalId + "'";
 
         try {
             resultList = genericSearch(query);

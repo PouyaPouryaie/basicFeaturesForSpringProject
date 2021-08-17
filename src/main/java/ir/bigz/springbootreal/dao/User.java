@@ -18,7 +18,7 @@ public class User implements Serializable {
     private String name;
 
     @Column(name = "national_id", nullable = false, unique = true)
-    private int nationalId;
+    private String nationalId;
 
     public long getId() {
         return id;
@@ -32,11 +32,11 @@ public class User implements Serializable {
         return name;
     }
 
-    public int getNationalId() {
+    public String getNationalId() {
         return nationalId;
     }
 
-    public void setNationalId(int nationalId) {
+    public void setNationalId(String nationalId) {
         this.nationalId = nationalId;
     }
 
@@ -44,28 +44,12 @@ public class User implements Serializable {
         this.name = name;
     }
 
-/*    @Override
-    public int hashCode() {
-        return nationalId * 4;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-
-        if (obj == this)
-            return true;
-        if (!(obj instanceof User))
-            return false;
-        User user = (User) obj;
-        return (user.nationalId != 0 && this.nationalId == user.nationalId);
-    }*/
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return nationalId == user.nationalId;
+        return nationalId.equals(user.nationalId);
     }
 
     @Override
@@ -78,6 +62,7 @@ public class User implements Serializable {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", nationalId='" + nationalId + '\'' +
                 '}';
     }
 }

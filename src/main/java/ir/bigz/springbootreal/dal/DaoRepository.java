@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface DaoRepository<T, K extends Serializable> {
@@ -18,7 +19,7 @@ public interface DaoRepository<T, K extends Serializable> {
     void delete(K id);
     void deleteAll();
     List<T> getAll();
-    T find(K id);
+    Optional<T> find(K id);
     <S extends T> List<S> find(List<K> entityIds);
     <S extends T> List<S> find(String entityName);
     List<T> genericSearch(String query);

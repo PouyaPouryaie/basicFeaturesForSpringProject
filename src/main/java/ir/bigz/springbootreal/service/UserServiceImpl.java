@@ -2,6 +2,7 @@ package ir.bigz.springbootreal.service;
 
 import ir.bigz.springbootreal.dal.UserRepository;
 import ir.bigz.springbootreal.dao.User;
+import ir.bigz.springbootreal.dao.mapper.UserMapper;
 import ir.bigz.springbootreal.viewmodel.UserModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,36 +13,46 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Component
 public class UserServiceImpl implements UserService {
 
     final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
 
-    //@Autowired
-    //UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
+//    private final CacheService cacheService;
 
-    final UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository,
+                           UserMapper userMapper
+//                           CacheService cacheService
+    ) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
+//        this.cacheService = cacheService;
     }
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
     @Cacheable(value = "userCache", key="#userId", condition = "#userId != null", unless = "#result==null")
-    public User getUser(long userId) {
-
-        return userRepository.find(userId);
+    public UserModel getUser(Long userId) {
+        try {
+            Optional<User> user = userRepository.find(userId);
+            return userMapper.userToUserModel(user.get());
+        }catch (RuntimeException exception){
+            LOG.info("user not found");
+            return null;
+        }
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public User addUser(UserModel userModel) {
-        User user = new User();
+    public UserModel addUser(UserModel userModel) {
         if(userRepository.getUserWithNationalId(userModel.getNationalId()) == null){
-            user.setName(userModel.getName());
-            user.setNationalId(userModel.getNationalId());
-            return userRepository.insert(user);
+            User user = userMapper.userModelToUser(userModel);
+            return userMapper.userToUserModel(userRepository.insert(user));
         }
         else{
             LOG.info("user has already existed not created");
@@ -51,8 +62,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    @CacheEvict(value = "userCache", key = "#userId")
+    @CacheEvict(value = "userCache", beforeInvocation = true, key = "#userId")
     public String deleteUser(long userId){
 
         try{
@@ -62,7 +72,7 @@ public class UserServiceImpl implements UserService {
             }
             else{
                 LOG.info("user not found");
-                return "failed";
+                return "user not found";
             }
         }catch (Exception e){
             LOG.error("delete user not complete \n" + e.getMessage());

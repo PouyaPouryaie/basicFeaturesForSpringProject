@@ -1,12 +1,11 @@
 package ir.bigz.springbootreal.viewmodel;
+import java.io.Serializable;
 
-import javax.persistence.Column;
-
-public class UserModel {
+public class UserModel implements Serializable {
 
     private long id;
     private String name;
-    private int nationalId;
+    private String nationalId;
 
     public long getId() {
         return id;
@@ -24,11 +23,11 @@ public class UserModel {
         this.name = name;
     }
 
-    public int getNationalId() {
+    public String getNationalId() {
         return nationalId;
     }
 
-    public void setNationalId(int nationalId) {
+    public void setNationalId(String nationalId) {
         this.nationalId = nationalId;
     }
 

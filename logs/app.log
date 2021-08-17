@@ -1,12 +1,230 @@
-2020-06-06 21:33:19,246 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya-VPCEA2GFX with PID 1233 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
-2020-06-06 21:33:19,306 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
-2020-06-06 21:33:19,309 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
-2020-06-06 21:33:24,229 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 5.754 seconds (JVM running for 8.057)
-2020-06-06 21:34:50,426 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya-VPCEA2GFX with PID 1505 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
-2020-06-06 21:34:50,438 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
-2020-06-06 21:34:50,439 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
-2020-06-06 21:34:55,197 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 5.547 seconds (JVM running for 8.473)
-2020-06-06 21:35:50,388 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya-VPCEA2GFX with PID 1754 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
-2020-06-06 21:35:50,400 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
-2020-06-06 21:35:50,403 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
-2020-06-06 21:35:55,637 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 6.365 seconds (JVM running for 10.448)
+2021-08-17 15:19:39,376 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplicationTests on pouya with PID 39505 (started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 15:19:39,398 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 15:19:39,400 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 16:13:05,046 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 43332 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 16:13:05,054 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 16:13:05,056 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 16:14:45,947 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 43479 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 16:14:45,952 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 16:14:45,953 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 16:14:47,766 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 2.0 seconds (JVM running for 2.747)
+2021-08-17 16:18:05,372 INFO i.b.s.c.BasicController [http-nio-8080-exec-2] get request for /home
+2021-08-17 16:19:39,077 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 44081 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 16:19:39,086 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 16:19:39,087 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 16:19:40,918 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 2.058 seconds (JVM running for 2.752)
+2021-08-17 16:20:32,857 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 44240 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 16:20:32,864 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 16:20:32,864 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 16:20:35,382 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 2.745 seconds (JVM running for 4.213)
+2021-08-17 16:23:06,914 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 44617 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 16:23:06,919 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 16:23:06,920 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 16:23:09,143 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 2.469 seconds (JVM running for 3.425)
+2021-08-17 16:25:18,665 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 44840 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 16:25:18,672 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 16:25:18,673 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 16:25:20,779 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 2.339 seconds (JVM running for 3.34)
+2021-08-17 16:25:32,545 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-2] user not found
+2021-08-17 16:26:48,459 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 45030 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 16:26:48,466 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 16:26:48,467 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 16:26:50,567 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 2.375 seconds (JVM running for 3.306)
+2021-08-17 16:26:58,078 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-2] user not found
+2021-08-17 16:32:40,801 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 45482 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 16:32:40,806 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 16:32:40,806 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 16:32:42,983 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 2.428 seconds (JVM running for 3.534)
+2021-08-17 16:33:12,700 INFO i.b.s.d.UserRepositoryImpl [http-nio-9090-exec-4] user not found message 
+Index 0 out of bounds for length 0
+2021-08-17 16:34:28,028 INFO i.b.s.d.UserRepositoryImpl [http-nio-9090-exec-6] user not found message 
+Index 0 out of bounds for length 0
+2021-08-17 16:36:05,046 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 45732 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 16:36:05,050 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 16:36:05,051 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 16:36:07,180 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 2.373 seconds (JVM running for 3.481)
+2021-08-17 16:37:32,429 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 46059 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 16:37:32,436 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 16:37:32,436 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 16:37:34,701 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 2.601 seconds (JVM running for 3.535)
+2021-08-17 16:38:06,675 INFO i.b.s.d.UserRepositoryImpl [http-nio-9090-exec-2] user not found message 
+Index 0 out of bounds for length 0
+2021-08-17 16:38:59,546 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-3] user has already existed not created
+2021-08-17 16:42:20,652 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 46379 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 16:42:20,657 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 16:42:20,658 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 16:42:22,679 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 2.231 seconds (JVM running for 3.13)
+2021-08-17 16:51:31,585 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 46850 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 16:51:31,591 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 16:51:31,599 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 16:51:34,382 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 3.131 seconds (JVM running for 4.475)
+2021-08-17 16:54:36,695 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 47104 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 16:54:36,703 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 16:54:36,704 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 16:55:15,015 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 47226 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 16:55:15,021 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 16:55:15,021 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 16:57:23,813 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 47408 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 16:57:23,821 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 16:57:23,822 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 16:59:18,133 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 47532 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 16:59:18,141 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 16:59:18,142 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 16:59:20,755 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 2.952 seconds (JVM running for 4.158)
+2021-08-17 17:00:12,704 INFO i.b.s.c.userCacheEventLogger [Ehcache [_default_]-0] Key: 3 | EventType: CREATED | Old value: null | New value: UserModel{id=3, name='pouya', nationalId=10203040}
+2021-08-17 17:00:38,201 INFO i.b.s.d.UserRepositoryImpl [http-nio-9090-exec-3] user not found message 
+Index 0 out of bounds for length 0
+2021-08-17 17:00:55,170 INFO i.b.s.c.userCacheEventLogger [Ehcache [_default_]-1] Key: 4 | EventType: CREATED | Old value: null | New value: UserModel{id=4, name='ali', nationalId=201290}
+2021-08-17 17:02:26,164 ERROR i.b.s.s.UserServiceImpl [http-nio-9090-exec-8] delete user not complete 
+Unknown entity: java.util.Optional; nested exception is java.lang.IllegalArgumentException: Unknown entity: java.util.Optional
+2021-08-17 17:03:54,802 ERROR i.b.s.s.UserServiceImpl [http-nio-9090-exec-10] delete user not complete 
+Unknown entity: java.util.Optional; nested exception is java.lang.IllegalArgumentException: Unknown entity: java.util.Optional
+2021-08-17 17:04:43,865 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 47997 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 17:04:43,871 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 17:04:43,872 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 17:04:46,478 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 2.919 seconds (JVM running for 4.226)
+2021-08-17 17:05:01,170 INFO i.b.s.c.userCacheEventLogger [Ehcache [_default_]-0] Key: 3 | EventType: REMOVED | Old value: UserModel{id=3, name='pouya', nationalId=10203040} | New value: null
+2021-08-17 17:05:13,073 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-3] user not found
+2021-08-17 17:05:13,076 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-3] user not found
+2021-08-17 17:05:52,436 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-5] user not found
+2021-08-17 17:06:02,225 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-5] user not found
+2021-08-17 17:07:48,479 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 48375 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 17:07:48,486 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 17:07:48,487 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 17:07:51,127 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 2.968 seconds (JVM running for 4.076)
+2021-08-17 17:08:03,100 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-2] user not found
+2021-08-17 17:08:08,183 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-2] user not found
+2021-08-17 17:11:54,244 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 48745 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 17:11:54,253 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 17:11:54,254 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 17:11:56,977 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 2.997 seconds (JVM running for 4.302)
+2021-08-17 17:12:04,350 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-1] user not found
+2021-08-17 17:12:07,826 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-1] user not found
+2021-08-17 17:25:15,464 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 49634 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 17:25:15,471 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 17:25:15,472 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 17:25:18,865 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 3.741 seconds (JVM running for 5.239)
+2021-08-17 17:25:32,538 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-2] user not found
+2021-08-17 17:25:35,089 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-2] user not found
+2021-08-17 17:26:07,229 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 49810 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 17:26:07,236 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 17:26:07,237 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 17:26:10,092 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 3.162 seconds (JVM running for 4.566)
+2021-08-17 17:28:20,917 INFO i.b.s.d.UserRepositoryImpl [http-nio-9090-exec-6] user not found message 
+Index 0 out of bounds for length 0
+2021-08-17 17:28:45,035 INFO i.b.s.c.userCacheEventLogger [Ehcache [_default_]-0] Key: 5 | EventType: CREATED | Old value: null | New value: UserModel{id=5, name='sina', nationalId=209090}
+2021-08-17 17:31:09,185 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 50142 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 17:31:09,191 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 17:31:09,192 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 17:31:11,669 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 2.774 seconds (JVM running for 3.856)
+2021-08-17 17:37:18,667 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 50521 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 17:37:18,673 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 17:37:18,674 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 17:37:21,636 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 3.276 seconds (JVM running for 4.751)
+2021-08-17 17:38:19,639 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 50661 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 17:38:19,645 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 17:38:19,646 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 17:38:22,457 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 3.091 seconds (JVM running for 4.34)
+2021-08-17 17:40:08,013 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 50862 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 17:40:08,020 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 17:40:08,021 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 17:40:11,077 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 3.423 seconds (JVM running for 4.913)
+2021-08-17 17:41:09,491 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 51042 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 17:41:09,497 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 17:41:09,498 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 17:41:12,251 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 3.077 seconds (JVM running for 4.339)
+2021-08-17 17:41:25,329 INFO i.b.s.c.userCacheEventLogger [Ehcache [_default_]-0] Key: 5 | EventType: CREATED | Old value: null | New value: UserModel{id=5, name='sina', nationalId=209090}
+2021-08-17 17:43:07,651 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 51356 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 17:43:07,656 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 17:43:07,657 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 17:43:10,272 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 2.906 seconds (JVM running for 4.149)
+2021-08-17 17:43:20,540 INFO i.b.s.c.userCacheEventLogger [Ehcache [_default_]-0] Key: 5 | EventType: CREATED | Old value: null | New value: UserModel{id=5, name='sina', nationalId=209090}
+2021-08-17 17:54:21,046 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 51751 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 17:54:21,052 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 17:54:21,053 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 17:54:23,733 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 2.977 seconds (JVM running for 4.281)
+2021-08-17 17:54:40,659 INFO i.b.s.c.userCacheEventLogger [Ehcache [_default_]-0] Key: 5 | EventType: CREATED | Old value: null | New value: UserModel{id=5, name='sina', nationalId=209090}
+2021-08-17 17:57:16,399 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 51983 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 17:57:16,405 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 17:57:16,406 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 17:57:19,284 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 3.162 seconds (JVM running for 4.574)
+2021-08-17 17:57:35,152 INFO i.b.s.c.userCacheEventLogger [Ehcache [_default_]-0] Key: 5 | EventType: CREATED | Old value: null | New value: UserModel{id=5, name='sina', nationalId=209090}
+2021-08-17 18:12:08,626 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 52490 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 18:12:08,633 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 18:12:08,633 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 18:12:10,881 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 2.561 seconds (JVM running for 3.882)
+2021-08-17 18:13:29,519 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-5] user not found
+2021-08-17 18:13:31,022 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-5] user not found
+2021-08-17 18:14:28,290 INFO i.b.s.d.UserRepositoryImpl [http-nio-9090-exec-7] user not found message 
+Index 0 out of bounds for length 0
+2021-08-17 18:16:47,847 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 52817 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 18:16:47,853 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 18:16:47,854 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 18:16:50,290 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 2.736 seconds (JVM running for 4.371)
+2021-08-17 18:18:57,806 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 53013 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 18:18:57,813 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 18:18:57,814 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 18:19:00,069 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 2.575 seconds (JVM running for 3.823)
+2021-08-17 18:28:26,176 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 53379 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 18:28:26,183 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 18:28:26,184 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 18:34:47,745 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 53608 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 18:34:47,751 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 18:34:47,751 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 18:34:50,500 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 3.02 seconds (JVM running for 4.36)
+2021-08-17 18:36:46,318 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 53777 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 18:36:46,324 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 18:36:46,325 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 18:36:49,103 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 3.108 seconds (JVM running for 4.364)
+2021-08-17 18:37:07,952 INFO i.b.s.d.UserRepositoryImpl [http-nio-9090-exec-2] user not found message 
+Index 0 out of bounds for length 0
+2021-08-17 18:37:24,750 INFO i.b.s.c.userCacheEventLogger [Ehcache [_default_]-0] Key: 7 | EventType: CREATED | Old value: null | New value: UserModel{id=7, name='pouya', nationalId=101010}
+2021-08-17 18:37:38,653 INFO i.b.s.c.userCacheEventLogger [Ehcache [_default_]-0] Key: 7 | EventType: REMOVED | Old value: UserModel{id=7, name='pouya', nationalId=101010} | New value: null
+2021-08-17 18:38:27,180 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-5] user not found
+2021-08-17 18:38:47,442 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-6] user not found
+2021-08-17 18:38:54,182 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-6] user not found
+2021-08-17 20:02:47,964 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 2986 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 20:02:47,970 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 20:02:47,971 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 20:03:30,958 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 3534 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 20:03:30,963 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 20:03:30,964 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 20:03:33,096 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 2.364 seconds (JVM running for 3.421)
+2021-08-17 20:04:14,818 INFO i.b.s.d.UserRepositoryImpl [http-nio-9090-exec-3] user not found message 
+Index 0 out of bounds for length 0
+2021-08-17 20:04:27,032 INFO i.b.s.c.userCacheEventLogger [Ehcache [_default_]-0] Key: 8 | EventType: CREATED | Old value: null | New value: UserModel{id=8, name='atena', nationalId=1234567890}
+2021-08-17 20:04:44,368 INFO i.b.s.c.userCacheEventLogger [Ehcache [_default_]-0] Key: 8 | EventType: REMOVED | Old value: UserModel{id=8, name='atena', nationalId=1234567890} | New value: null
+2021-08-17 20:04:55,433 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-6] user not found
+2021-08-17 20:04:55,433 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-6] user not found
+2021-08-17 20:08:20,505 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 3794 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 20:08:20,511 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 20:08:20,512 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 20:08:22,659 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 2.408 seconds (JVM running for 3.482)
+2021-08-17 20:08:45,311 INFO i.b.s.d.UserRepositoryImpl [http-nio-9090-exec-2] user not found message 
+Index 0 out of bounds for length 0
+2021-08-17 20:08:55,902 INFO i.b.s.c.userCacheEventLogger [Ehcache [_default_]-0] Key: 9 | EventType: CREATED | Old value: null | New value: UserModel{id=9, name='parmida', nationalId=1234567890}
+2021-08-17 20:09:09,705 INFO i.b.s.c.userCacheEventLogger [Ehcache [_default_]-0] Key: 9 | EventType: REMOVED | Old value: UserModel{id=9, name='parmida', nationalId=1234567890} | New value: null
+2021-08-17 20:09:40,344 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-6] user not found
+2021-08-17 20:09:40,346 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-6] user not found
+2021-08-17 20:10:28,838 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-8] user not found
+2021-08-17 20:10:31,437 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-8] user not found
+2021-08-17 20:12:18,109 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 4315 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 20:12:18,114 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 20:12:18,114 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 20:12:20,220 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 2.324 seconds (JVM running for 3.317)
+2021-08-17 20:12:40,759 INFO i.b.s.d.UserRepositoryImpl [http-nio-9090-exec-1] user not found message 
+Index 0 out of bounds for length 0
+2021-08-17 20:12:58,446 INFO i.b.s.c.userCacheEventLogger [Ehcache [_default_]-0] Key: 10 | EventType: CREATED | Old value: null | New value: UserModel{id=10, name='nasrin', nationalId=1234567890}
+2021-08-17 20:13:14,307 INFO i.b.s.c.userCacheEventLogger [Ehcache [_default_]-0] Key: 10 | EventType: REMOVED | Old value: UserModel{id=10, name='nasrin', nationalId=1234567890} | New value: null
+2021-08-17 20:13:22,011 ERROR i.b.s.s.UserServiceImpl [http-nio-9090-exec-4] delete user not complete 
+No EntityManager with actual transaction available for current thread - cannot reliably process 'remove' call; nested exception is javax.persistence.TransactionRequiredException: No EntityManager with actual transaction available for current thread - cannot reliably process 'remove' call
+2021-08-17 20:13:57,761 ERROR i.b.s.s.UserServiceImpl [http-nio-9090-exec-5] delete user not complete 
+No EntityManager with actual transaction available for current thread - cannot reliably process 'remove' call; nested exception is javax.persistence.TransactionRequiredException: No EntityManager with actual transaction available for current thread - cannot reliably process 'remove' call
+2021-08-17 20:14:30,702 INFO o.s.b.StartupInfoLogger [main] Starting SpringbootRealApplication on pouya with PID 4541 (/home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real/target/classes started by pouya in /home/pouya/Data/Work/Business/Java-Programming/Git/Spring/springboot/springboot-real)
+2021-08-17 20:14:30,706 DEBUG o.s.b.StartupInfoLogger [main] Running with Spring Boot v2.2.2.RELEASE, Spring v5.2.2.RELEASE
+2021-08-17 20:14:30,707 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-08-17 20:14:32,730 INFO o.s.b.StartupInfoLogger [main] Started SpringbootRealApplication in 2.237 seconds (JVM running for 3.199)
+2021-08-17 20:14:47,706 INFO i.b.s.c.userCacheEventLogger [Ehcache [_default_]-0] Key: 10 | EventType: CREATED | Old value: null | New value: UserModel{id=10, name='nasrin', nationalId=1234567890}
+2021-08-17 20:15:17,645 INFO i.b.s.c.userCacheEventLogger [Ehcache [_default_]-0] Key: 10 | EventType: REMOVED | Old value: UserModel{id=10, name='nasrin', nationalId=1234567890} | New value: null
+2021-08-17 20:15:31,559 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-5] user not found
+2021-08-17 20:15:34,117 INFO i.b.s.s.UserServiceImpl [http-nio-9090-exec-5] user not found
