@@ -4,6 +4,8 @@ import ir.bigz.springbootreal.dao.User;
 import ir.bigz.springbootreal.viewmodel.UserModel;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface UserService {
 
@@ -12,4 +14,6 @@ public interface UserService {
     UserModel addUser(UserModel userModel);
 
     String deleteUser(long userId);
+
+    List<UserModel> getAll();
 }

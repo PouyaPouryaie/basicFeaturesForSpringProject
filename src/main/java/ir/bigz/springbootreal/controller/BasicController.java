@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.RollbackException;
+import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -65,6 +66,17 @@ public class BasicController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
         }catch (RuntimeException exception){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
+    @GetMapping(path = "/user/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getAllUser() {
+        try{
+            List<UserModel> result = userService.getAll();
+            return ResponseEntity.ok(result);
+
+        }catch (RuntimeException exception){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 

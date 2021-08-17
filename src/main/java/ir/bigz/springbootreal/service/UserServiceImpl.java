@@ -10,10 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class UserServiceImpl implements UserService {
@@ -77,6 +82,17 @@ public class UserServiceImpl implements UserService {
         }catch (Exception e){
             LOG.error("delete user not complete \n" + e.getMessage());
             return "failed";
+        }
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT)
+    public List<UserModel> getAll() {
+        Stream<User> allUser = userRepository.getAll();
+        try {
+            return allUser.map(userMapper::userToUserModel).collect(Collectors.toList());
+        }catch (RuntimeException exception){
+            return Collections.emptyList();
         }
     }
 }

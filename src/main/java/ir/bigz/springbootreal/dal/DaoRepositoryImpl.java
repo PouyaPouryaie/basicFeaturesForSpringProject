@@ -1,5 +1,6 @@
 package ir.bigz.springbootreal.dal;
 
+import org.hibernate.Session;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Component
 public abstract class DaoRepositoryImpl<T, K extends Serializable> implements DaoRepository<T, K> {
@@ -90,8 +92,10 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-    public List<T> getAll() {
-        return entityManager.createQuery("from " + daoType.getName()).getResultList();
+    public Stream<T> getAll() {
+        Session session = entityManager.unwrap(Session.class);
+        return session.createQuery("from " + daoType.getName()).stream();
+//        return entityManager.createQuery("from " + daoType.getName()).getResultStream();
     }
 
     @Override
