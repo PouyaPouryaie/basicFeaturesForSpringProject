@@ -8,6 +8,9 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerA
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+//TODO add pagination to dao
+//TODO define docker-compose for run-project
+
 @SpringBootApplication(exclude = {
 		DataSourceAutoConfiguration.class,
 		HibernateJpaAutoConfiguration.class,
