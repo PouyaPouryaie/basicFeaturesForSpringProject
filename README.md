@@ -1,5 +1,6 @@
-# spring-boot-real
+# basicFeaturesForSpringProject
 
+this project, implement instance of basic feature, <br> you maybe want use for App base on Spring-boot
 
 ## exception feature
 

@@ -11,7 +11,7 @@
 	<groupId>ir.bigz</groupId>
 	<artifactId>springboot-real</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springboot-real</name>
+	<name>basicFeaturesForSpringProject</name>
 	<description>Demo project for use Spring Boot in project</description>
 
 	<properties>
