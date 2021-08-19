@@ -22,8 +22,9 @@ this project, implement instance of basic feature, <br> you maybe want use for A
 
 ### Run as docker image: <br>
 1 - check active profile on docker and package project <br>
-2 - run docker build for create app image <br>
-3 - run docker compose run for running app <br>
+2 - run docker build command for create app image : docker build -t springapp:latest .
+<br>
+3 - run docker compose run command for running app <br>
 
 
 ## exception feature

@@ -3,7 +3,7 @@ version: '3.9'
 services:
   app:
     container_name: springapp-with-db
-    image: springapp:0.0.4
+    image: springapp:latest
     build: ./
     ports:
       - "9090:9090"
