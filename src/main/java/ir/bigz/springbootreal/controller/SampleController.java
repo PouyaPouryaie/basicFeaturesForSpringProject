@@ -2,8 +2,6 @@ package ir.bigz.springbootreal.controller;
 
 import ir.bigz.springbootreal.service.UserService;
 import ir.bigz.springbootreal.viewmodel.UserModel;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +13,6 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/api/v1")
 public class SampleController {
-
-    Logger log = LoggerFactory.getLogger(SampleController.class);
 
     final
     UserService userService;
@@ -48,15 +44,11 @@ public class SampleController {
 
     @PostMapping(path = "/user/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> deleteUser(@PathVariable("id") long userId) {
-        try{
-            String result = userService.deleteUser(userId);
-            if(result.equals("Success")){
-                return ResponseEntity.ok(result);
-            }
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
-        }catch (RuntimeException exception){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        String result = userService.deleteUser(userId);
+        if(result.equals("Success")){
+            return ResponseEntity.ok(result);
         }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
     }
 
     @GetMapping(path = "/user/all", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 //TODO add pagination to dao
 //TODO add validation
 //TODO complex model
-//TODO global log
 
 @SpringBootApplication(exclude = {
 		DataSourceAutoConfiguration.class,
