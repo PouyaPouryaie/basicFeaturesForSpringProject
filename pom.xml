@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>ir.bigz</groupId>
 	<artifactId>springboot-real</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.4</version>
 	<name>basicFeaturesForSpringProject</name>
 	<description>Demo project for use Spring Boot in project</description>
 
@@ -20,6 +20,25 @@
 		<org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
 		<java.version>11</java.version>
 	</properties>
+
+	<!--  change activeByDefault profile to docker when you want create image and run as container -->
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<spring.profiles.active>dev</spring.profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<id>docker</id>
+			<properties>
+				<spring.profiles.active>docker</spring.profiles.active>
+			</properties>
+		</profile>
+	</profiles>
 
 	<dependencies>
 

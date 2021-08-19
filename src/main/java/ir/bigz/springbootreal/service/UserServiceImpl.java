@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Isolation;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -70,6 +72,26 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    @CachePut(value = "userCache", key="#userId", condition = "#userId != null", unless = "#result==null")
+    public UserModel updateUser(long userId, UserModel userModel) {
+        Optional<User> user = userRepository.find(userId);
+        if(user.isPresent()){
+            User sourceUser = user.get();
+            User updateUser = userMapper.userModelToUser(userModel);
+            mapUserForUpdate(sourceUser, updateUser);
+            return userMapper.userToUserModel(sourceUser);
+        }
+        else{
+            LOG.info(String.format("user with user id: %s not found", userId));
+            throw AppException.newInstance(
+                    HttpErrorCode.ERR_10703,
+                    String.format("user with user id: %s not found", userId)
+            );
+        }
+    }
+
 
     @Override
     @CacheEvict(value = "userCache", beforeInvocation = true, key = "#userId")
@@ -104,5 +126,14 @@ public class UserServiceImpl implements UserService {
             );
         }
 
+    }
+
+    private void mapUserForUpdate(User sourceUser, User updateUser){
+        if(Objects.nonNull(updateUser.getName()) && !updateUser.getName().equals("")){
+            sourceUser.setName(updateUser.getName());
+        }
+        if(Objects.nonNull(updateUser.getNationalId()) && !updateUser.getNationalId().equals("")){
+            sourceUser.setNationalId(updateUser.getNationalId());
+        }
     }
 }

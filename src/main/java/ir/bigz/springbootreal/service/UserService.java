@@ -13,6 +13,8 @@ public interface UserService {
 
     UserModel addUser(UserModel userModel);
 
+    UserModel updateUser(long userId, UserModel userModel);
+
     String deleteUser(long userId);
 
     List<UserModel> getAll();

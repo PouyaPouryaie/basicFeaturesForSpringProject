@@ -38,6 +38,13 @@ public class SampleController {
         return ResponseEntity.ok(userModelResult);
     }
 
+    @PostMapping(path = "/user/update/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<?> updateUser(@RequestBody UserModel userModel, @PathVariable("id") long userId) {
+        UserModel userModelResult = userService.updateUser(userId, userModel);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(userModelResult);
+    }
+
 
     @PostMapping(path = "/user/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> deleteUser(@PathVariable("id") long userId) {
