@@ -11,6 +11,12 @@ this project, implement instance of basic feature, <br> you maybe want use for A
 - Log4j2 
     - logging and config log-message
 - Exception management
+- MapStruct
+    - mapper tools for map view to entity and vice-versa
+- Validation handler
+    - use annotation for validation
+    - use log for validation error
+    - define your validation and use for model
 - decoupling layer
     - controller, service and repository layer for easy extend
 
@@ -32,3 +38,10 @@ this project, implement instance of basic feature, <br> you maybe want use for A
 1 - use AppException for define your own error Exception <br>
 2 - user HttpExceptionModel for define your own error message and show to client <br>
 3 - use HttpErrorCode for unifying error code in project <br>
+
+## validation feature
+
+1 - create your own validation type <br>
+2 - define your own validation process for entity <br>
+3 - use "@validator" annotation on field of entity for validate <br>
+4 - log for validation and save error-message in log file <br>
