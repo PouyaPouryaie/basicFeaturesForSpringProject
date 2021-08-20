@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 //TODO add pagination to dao
-//TODO add validation
 //TODO complex model
 
 @SpringBootApplication(exclude = {

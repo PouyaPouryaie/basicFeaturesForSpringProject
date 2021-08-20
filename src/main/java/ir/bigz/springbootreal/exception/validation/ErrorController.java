@@ -1,5 +1,7 @@
 package ir.bigz.springbootreal.exception.validation;
 
+import ir.bigz.springbootreal.exception.HttpErrorCode;
+import ir.bigz.springbootreal.exception.HttpExceptionModel;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,20 +28,23 @@ public class ErrorController extends ResponseEntityExceptionHandler {
 
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach((error) -> {
-                    String fieldName = ((FieldError) error).getField();
-                    String errorMessage = error.getDefaultMessage();
-                    errors.put(fieldName, errorMessage);
-                });
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
 
-
-
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorResponseModel.builder()
-                    .errors(errors)
-                    .timestamp(timeLog())
-                    .path(request.getDescription(false)).build());
+        return ResponseEntity.status(HttpErrorCode.ERR_10704.getStatus())
+                .body(HttpExceptionModel.builder()
+                        .httpErrorCode(HttpErrorCode.ERR_10704)
+                        .message(HttpErrorCode.ERR_10704.getReason())
+                        .timestamp(timeLog())
+                        .validationError(ValidationErrorResponseModel.builder()
+                                .errors(errors)
+                                .path(request.getDescription(false))
+                                .build()).build());
     }
 
-    private String timeLog(){
+    private String timeLog() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd - HH:mm:ss z");
         return ZonedDateTime.now(ZoneId.of("Asia/Tehran")).format(formatter);
     }

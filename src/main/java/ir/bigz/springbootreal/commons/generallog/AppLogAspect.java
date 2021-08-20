@@ -1,11 +1,10 @@
 package ir.bigz.springbootreal.commons.generallog;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import ir.bigz.springbootreal.exception.AppException;
+import ir.bigz.springbootreal.exception.HttpExceptionModel;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -42,5 +41,14 @@ public class AppLogAspect {
         String methodName = joinPoint.getSignature().getName();
         LOG.info("exception method: {} | errorCode: {} | message: {}",
                 methodName, exception.getHttpErrorCode(), exception.getDetail());
+    }
+
+    @AfterReturning(value = "execution(* ir.bigz.springbootreal.exception.validation.ErrorController.*(..))", returning = "object")
+    public void logAfterThrowValidationException(JoinPoint joinPoint, Object object){
+        HttpExceptionModel httpExceptionModel = (HttpExceptionModel) ((ResponseEntity) object).getBody();
+        LOG.info("validation exception path: {} | errorCode: {} | errors: {}",
+                httpExceptionModel.getValidationError().getPath(),
+                httpExceptionModel.getHttpErrorCode(),
+                httpExceptionModel.getValidationError().getErrors());
     }
 }

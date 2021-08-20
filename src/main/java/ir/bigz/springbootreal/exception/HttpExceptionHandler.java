@@ -17,7 +17,7 @@ public class HttpExceptionHandler {
 
         HttpExceptionModel apiException = new HttpExceptionModel(e.getDetail(),
                 e.getHttpErrorCode(),
-                timeLog());
+                timeLog(), null);
 
         return new ResponseEntity<>(apiException, e.getHttpErrorCode().getStatus());
     }
