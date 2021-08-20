@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -29,7 +30,7 @@ public class SampleController {
 
     @PostMapping(path = "/user/add", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> addUser(@RequestBody UserModel userModel) {
+    public ResponseEntity<?> addUser(@Valid @RequestBody UserModel userModel) {
         UserModel userModelResult = userService.addUser(userModel);
         return ResponseEntity.ok(userModelResult);
     }

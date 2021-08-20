@@ -19,7 +19,7 @@ public class AppLogAspect {
 
     private final Logger LOG = LoggerFactory.getLogger(AppLogAspect.class);
 
-    @Before("ir.bigz.springbootreal.commons.generallog.CommonJoinPoint.ControllerExecution()")
+    @Before("ir.bigz.springbootreal.commons.generallog.CommonJoinPoint.controllerExecution()")
     public void beforeCallControllerMethod(JoinPoint joinPoint){
         String methodName = joinPoint.getSignature().getName();
         Object[] args = joinPoint.getArgs();
@@ -28,7 +28,7 @@ public class AppLogAspect {
                 methodName, reduce);
     }
 
-    @AfterReturning(value = "ir.bigz.springbootreal.commons.generallog.CommonJoinPoint.ControllerExecution()",
+    @AfterReturning(value = "ir.bigz.springbootreal.commons.generallog.CommonJoinPoint.controllerExecution()",
             returning = "obj")
     public void afterReturningResponseOfControllerMethod(JoinPoint joinPoint, Object obj){
         String methodName = joinPoint.getSignature().getName();
@@ -37,7 +37,7 @@ public class AppLogAspect {
         LOG.info("after method: {} | argument: {} | result: {}", methodName, reduce, ((ResponseEntity) obj).getBody());
     }
 
-    @AfterThrowing(pointcut = "execution(* ir.bigz.springbootreal.service.*.*(..))", throwing = "exception")
+    @AfterThrowing(value = "ir.bigz.springbootreal.commons.generallog.CommonJoinPoint.serviceExecution()", throwing = "exception")
     public void logAfterThrowException(JoinPoint joinPoint, AppException exception){
         String methodName = joinPoint.getSignature().getName();
         LOG.info("exception method: {} | errorCode: {} | message: {}",

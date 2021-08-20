@@ -14,9 +14,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -53,7 +51,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public UserModel addUser(UserModel userModel) {
         try {
-            if(userRepository.getUserWithNationalId(userModel.getNationalId()) == null){
+            if(userRepository.getUserWithNationalId(userModel.getNationalCode()) == null){
                 User user = userMapper.userModelToUser(userModel);
                 return userMapper.userToUserModel(userRepository.insert(user));
             }
@@ -61,8 +59,7 @@ public class UserServiceImpl implements UserService {
 
         }catch (RuntimeException exception){
             throw AppException.newInstance(
-                    HttpErrorCode.ERR_10700,
-                    String.format("user has already existed with %s nationalId", userModel.getNationalId())
+                    HttpErrorCode.ERR_10700, String.format("user has already existed with %s nationalId", userModel.getNationalCode())
             );
         }
     }
@@ -118,11 +115,26 @@ public class UserServiceImpl implements UserService {
     }
 
     private void mapUserForUpdate(User sourceUser, User updateUser){
-        if(Objects.nonNull(updateUser.getName()) && !updateUser.getName().equals("")){
-            sourceUser.setName(updateUser.getName());
+        if(!sourceUser.getFirstName().equals(updateUser.getFirstName())){
+            sourceUser.setFirstName(updateUser.getFirstName());
         }
-        if(Objects.nonNull(updateUser.getNationalId()) && !updateUser.getNationalId().equals("")){
-            sourceUser.setNationalId(updateUser.getNationalId());
+        if(!sourceUser.getLastName().equals(updateUser.getLastName())){
+            sourceUser.setLastName(updateUser.getLastName());
+        }
+        if(!sourceUser.getUserName().equals(updateUser.getUserName())){
+            sourceUser.setUserName(updateUser.getUserName());
+        }
+        if(!sourceUser.getNationalCode().equals(updateUser.getNationalCode())){
+            sourceUser.setNationalCode(updateUser.getNationalCode());
+        }
+        if(!sourceUser.getEmail().equals(updateUser.getEmail())){
+            sourceUser.setEmail(updateUser.getEmail());
+        }
+        if(!sourceUser.getMobile().equals(updateUser.getMobile())){
+            sourceUser.setMobile(updateUser.getMobile());
+        }
+        if(!sourceUser.getGender().equals(updateUser.getGender())){
+            sourceUser.setGender(updateUser.getGender());
         }
     }
 }

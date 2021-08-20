@@ -10,15 +10,57 @@ import java.util.Objects;
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
     private long id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
 
-    @Column(name = "national_id", nullable = false, unique = true)
-    private String nationalId;
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
+
+    @Column(name = "user_name", nullable = false)
+    private String userName;
+
+    @Column(name = "national_code", nullable = false, unique = true)
+    private String nationalCode;
+
+    @Column(name = "mobile")
+    private String mobile;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "gender")
+    private String gender;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return nationalCode.equals(user.nationalCode);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nationalCode);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", userName='" + userName + '\'' +
+                ", nationalCode='" + nationalCode + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", email='" + email + '\'' +
+                ", gender='" + gender + '\'' +
+                '}';
+    }
 
     public long getId() {
         return id;
@@ -28,41 +70,59 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public String getNationalId() {
-        return nationalId;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setNationalId(String nationalId) {
-        this.nationalId = nationalId;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return nationalId.equals(user.nationalId);
+    public String getUserName() {
+        return userName;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(nationalId);
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", nationalId='" + nationalId + '\'' +
-                '}';
+    public String getNationalCode() {
+        return nationalCode;
+    }
+
+    public void setNationalCode(String nationalCode) {
+        this.nationalCode = nationalCode;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }
