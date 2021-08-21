@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends DaoRepository<User,Long> {
 
-    User getUserWithNationalId(String nationalId);
+    User getUserWithNationalCode(String nationalCode);
 }

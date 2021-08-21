@@ -10,10 +10,10 @@ import java.util.List;
 public class UserRepositoryImpl extends DaoRepositoryImpl<User, Long> implements UserRepository {
 
     @Override
-    public User getUserWithNationalId(String nationalId) {
+    public User getUserWithNationalCode(String nationalCode) {
 
         List<User> resultList = new ArrayList<>();
-        String query = "select u from User u where u.nationalId like '" + nationalId + "'";
+        String query = "select u from User u where u.nationalCode like '" + nationalCode + "'";
 
         resultList = genericSearch(query);
 

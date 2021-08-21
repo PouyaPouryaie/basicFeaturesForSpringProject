@@ -9,6 +9,7 @@ import ir.bigz.springbootreal.viewmodel.UserModel;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -51,7 +52,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public UserModel addUser(UserModel userModel) {
         try {
-            if(userRepository.getUserWithNationalId(userModel.getNationalCode()) == null){
+            if(userRepository.getUserWithNationalCode(userModel.getNationalCode()) == null){
                 User user = userMapper.userModelToUser(userModel);
                 return userMapper.userToUserModel(userRepository.insert(user));
             }
@@ -105,6 +106,24 @@ public class UserServiceImpl implements UserService {
         try {
             Stream<User> allUser = userRepository.getAll();
             return allUser.map(userMapper::userToUserModel).collect(Collectors.toList());
+        }catch (RuntimeException exception){
+            throw AppException.newInstance(
+                    HttpErrorCode.ERR_10701,
+                    String.format("getAll method has error: %s", exception.getCause())
+            );
+        }
+
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT)
+    public Page<UserModel> getUserSearchResult(Integer pageNumber, Integer pageSize, String sortOrder) {
+        try {
+            Pageable pageable = PageRequest.of(pageNumber, pageSize);
+            String query = "select u from User u order by u.id " + sortOrder;
+            Page<User> users = userRepository.genericSearch(query, pageable);
+            List<UserModel> collect = users.get().map(userMapper::userToUserModel).collect(Collectors.toList());
+            return new PageImpl(collect, pageable, users.getTotalElements());
         }catch (RuntimeException exception){
             throw AppException.newInstance(
                     HttpErrorCode.ERR_10701,

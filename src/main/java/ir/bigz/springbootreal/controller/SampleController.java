@@ -2,6 +2,7 @@ package ir.bigz.springbootreal.controller;
 
 import ir.bigz.springbootreal.service.UserService;
 import ir.bigz.springbootreal.viewmodel.UserModel;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -56,6 +57,14 @@ public class SampleController {
     public ResponseEntity<?> getAllUser() {
         List<UserModel> result = userService.getAll();
         return ResponseEntity.ok(result);
+    }
+
+    @GetMapping(path = "/user/search", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getPage(@RequestParam(name = "pagenumber") Integer pageNumber,
+                                     @RequestParam(name = "pagesize") Integer pageSize,
+                                     @RequestParam(name = "sortorder") String sortOrder) {
+        Page<UserModel> userPageResult = userService.getUserSearchResult(pageNumber, pageSize, sortOrder);
+        return ResponseEntity.ok(userPageResult);
     }
 
 }

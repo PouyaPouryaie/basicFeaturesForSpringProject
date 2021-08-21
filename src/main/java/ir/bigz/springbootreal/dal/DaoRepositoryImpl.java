@@ -1,6 +1,10 @@
 package ir.bigz.springbootreal.dal;
 
+import ir.bigz.springbootreal.dao.User;
 import org.hibernate.Session;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.management.openmbean.InvalidOpenTypeException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -130,5 +135,16 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
     public void clear() {
         entityManager.clear();
+    }
+
+    @Override
+    public Page<T> genericSearch(String query, Pageable pageable){
+        TypedQuery<T> countQuery = entityManager.createQuery(query, daoType);
+        int totalCount = countQuery.getResultList().size();
+
+        TypedQuery<T> typedQuery = entityManager.createQuery(query, daoType);
+        List<T> resultList = typedQuery.setFirstResult((pageable.getPageNumber() - 1) * pageable.getPageSize())
+                .setMaxResults(pageable.getPageSize()).getResultList();
+        return new PageImpl(resultList, pageable, totalCount);
     }
 }

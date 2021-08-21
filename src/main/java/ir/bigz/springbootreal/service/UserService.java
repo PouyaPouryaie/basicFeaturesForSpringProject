@@ -2,6 +2,7 @@ package ir.bigz.springbootreal.service;
 
 import ir.bigz.springbootreal.dao.User;
 import ir.bigz.springbootreal.viewmodel.UserModel;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface UserService {
     String deleteUser(long userId);
 
     List<UserModel> getAll();
+
+    Page<UserModel> getUserSearchResult(Integer pageNumber, Integer pageSize, String sortOrder);
 }

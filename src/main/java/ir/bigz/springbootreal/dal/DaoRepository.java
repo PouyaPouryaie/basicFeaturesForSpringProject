@@ -1,5 +1,7 @@
 package ir.bigz.springbootreal.dal;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
@@ -26,4 +28,6 @@ public interface DaoRepository<T, K extends Serializable> {
     List<T> genericSearch(String query);
     void flush();
     void clear();
+
+    Page<T> genericSearch(String query, Pageable pageable);
 }
