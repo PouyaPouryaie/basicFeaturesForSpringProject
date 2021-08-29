@@ -21,4 +21,6 @@ public interface UserService {
     List<UserModel> getAll();
 
     Page<UserModel> getUserSearchResult(Integer pageNumber, Integer pageSize, String sortOrder);
+
+    Page<UserModel> getAllUserPagebale(Integer pageNumber, Integer pageSize, String sortOrder);
 }

@@ -2,9 +2,11 @@ package ir.bigz.springbootreal.dal;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -21,7 +23,6 @@ public interface DaoRepository<T, K extends Serializable> {
     <S extends T> void delete(S entity);
     void delete(K id);
     void deleteAll();
-    Stream<T> getAll();
     Optional<T> find(K id);
     <S extends T> List<S> find(List<K> entityIds);
     <S extends T> List<S> find(String entityName);
@@ -29,5 +30,10 @@ public interface DaoRepository<T, K extends Serializable> {
     void flush();
     void clear();
 
+    Stream<T> getAll();
+    List<T> getAll(Sort sort);
+    Page<T> getAll(Pageable pageable);
+    List<T> genericSearch(CriteriaQuery<T> criteriaQuery);
+    Page<T> genericSearch(CriteriaQuery<T> criteriaQuery, Pageable pageable);
     Page<T> genericSearch(String query, Pageable pageable);
 }

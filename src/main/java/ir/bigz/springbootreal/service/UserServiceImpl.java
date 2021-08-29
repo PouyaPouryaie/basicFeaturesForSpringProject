@@ -123,7 +123,7 @@ public class UserServiceImpl implements UserService {
             String query = "select u from User u order by u.id " + sortOrder;
             Page<User> users = userRepository.genericSearch(query, pageable);
             List<UserModel> collect = users.get().map(userMapper::userToUserModel).collect(Collectors.toList());
-            return new PageImpl(collect, pageable, users.getTotalElements());
+            return new PageImpl<>(collect, pageable, users.getTotalElements());
         }catch (RuntimeException exception){
             throw AppException.newInstance(
                     HttpErrorCode.ERR_10701,
@@ -131,6 +131,17 @@ public class UserServiceImpl implements UserService {
             );
         }
 
+    }
+
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT)
+    public Page<UserModel> getAllUserPagebale(Integer pageNumber, Integer pageSize, String sortOrder){
+        Sort.Order order = new Sort.Order(Sort.Direction.ASC, sortOrder);
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(order));
+        Page<User> all = userRepository.getAll(pageable);
+        List<UserModel> collect = all.get().map(userMapper::userToUserModel).collect(Collectors.toList());
+        return new PageImpl<>(collect, pageable, all.getTotalElements());
     }
 
     private void mapUserForUpdate(User sourceUser, User updateUser){

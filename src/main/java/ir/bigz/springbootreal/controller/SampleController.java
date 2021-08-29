@@ -67,4 +67,13 @@ public class SampleController {
         return ResponseEntity.ok(userPageResult);
     }
 
+
+    @GetMapping(path = "/user/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getAllUserPage(@RequestParam(name = "pagenumber") Integer pageNumber,
+                                     @RequestParam(name = "pagesize") Integer pageSize,
+                                     @RequestParam(name = "sortorder") String sortOrder) {
+        Page<UserModel> userPageResult = userService.getAllUserPagebale(pageNumber, pageSize, sortOrder);
+        return ResponseEntity.ok(userPageResult);
+    }
+
 }
