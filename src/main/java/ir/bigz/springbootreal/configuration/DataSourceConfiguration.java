@@ -17,6 +17,10 @@ import org.springframework.transaction.TransactionManager;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
 import java.util.Properties;
 
 @Configuration
@@ -33,15 +37,31 @@ public class DataSourceConfiguration {
     }
 
 
+    // @Bean
+    // public DataSource dataSource(){
+    //     DataSourceProperties dataSourceProperties = dataSourceProperties();
+    //     return DataSourceBuilder.create()
+    //             .driverClassName(dataSourceProperties.getDriverClassName())
+    //             .url(dataSourceProperties.getUrl())
+    //             .username(dataSourceProperties.getUsername())
+    //             .password(dataSourceProperties.getPassword())
+    //             .build();
+    // }
+
     @Bean
-    public DataSource dataSource(){
+    public HikariDataSource dataSource(){
+        HikariConfig config = new HikariConfig();
+        HikariDataSource ds;
         DataSourceProperties dataSourceProperties = dataSourceProperties();
-        return DataSourceBuilder.create()
-                .driverClassName(dataSourceProperties.getDriverClassName())
-                .url(dataSourceProperties.getUrl())
-                .username(dataSourceProperties.getUsername())
-                .password(dataSourceProperties.getPassword())
-                .build();
+        config.setJdbcUrl(dataSourceProperties.getUrl());
+        config.setUsername(dataSourceProperties.getUsername());
+        config.setPassword(dataSourceProperties.getPassword());
+        config.addDataSourceProperty( "cachePrepStmts" , "true" );
+        config.addDataSourceProperty( "prepStmtCacheSize" , "250" );
+        config.addDataSourceProperty( "prepStmtCacheSqlLimit" , "2048" );
+        ds = new HikariDataSource( config );
+        return ds;
+
     }
 
     @Bean
