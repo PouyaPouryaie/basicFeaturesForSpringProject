@@ -117,7 +117,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT)
-    public Page<UserModel> getUserSearchResult(Integer pageNumber, Integer pageSize, String sortOrder) {
+    public Page<UserModel> getUserSearchResult(String searchField, String sortOrder, Sort.Direction direction, Integer pageNumber, Integer pageSize) {
         try {
             Pageable pageable = PageRequest.of(pageNumber, pageSize);
             String query = "select u from User u order by u.id " + sortOrder;
@@ -136,8 +136,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT)
-    public Page<UserModel> getAllUserPagebale(Integer pageNumber, Integer pageSize, String sortOrder){
-        Sort.Order order = new Sort.Order(Sort.Direction.ASC, sortOrder);
+    public Page<UserModel> getAllUserPage(String sortOrder, Sort.Direction sortDirection, Integer pageNumber, Integer pageSize){
+        Sort.Order order = new Sort.Order(sortDirection, sortOrder);
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(order));
         Page<User> all = userRepository.getAll(pageable);
         List<UserModel> collect = all.get().map(userMapper::userToUserModel).collect(Collectors.toList());

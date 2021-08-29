@@ -3,6 +3,7 @@ package ir.bigz.springbootreal.controller;
 import ir.bigz.springbootreal.service.UserService;
 import ir.bigz.springbootreal.viewmodel.UserModel;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -60,19 +61,22 @@ public class SampleController {
     }
 
     @GetMapping(path = "/user/search", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getPage(@RequestParam(name = "pagenumber") Integer pageNumber,
-                                     @RequestParam(name = "pagesize") Integer pageSize,
-                                     @RequestParam(name = "sortorder") String sortOrder) {
-        Page<UserModel> userPageResult = userService.getUserSearchResult(pageNumber, pageSize, sortOrder);
+    public ResponseEntity<?> getUserWithSearch(@RequestParam(name = "searchfield") String searchField,
+                                               @RequestParam(name = "sortorder") String sortOrder,
+                                               @RequestParam(name = "direction") String direction,
+                                               @RequestParam(name = "pagenumber") Integer pageNumber,
+                                               @RequestParam(name = "pagesize") Integer pageSize) {
+        Page<UserModel> userPageResult = userService.getUserSearchResult(searchField, sortOrder, Sort.Direction.fromString(direction), pageNumber, pageSize);
         return ResponseEntity.ok(userPageResult);
     }
 
 
-    @GetMapping(path = "/user/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getAllUserPage(@RequestParam(name = "pagenumber") Integer pageNumber,
-                                     @RequestParam(name = "pagesize") Integer pageSize,
-                                     @RequestParam(name = "sortorder") String sortOrder) {
-        Page<UserModel> userPageResult = userService.getAllUserPagebale(pageNumber, pageSize, sortOrder);
+    @GetMapping(path = "/user/all/pagerquest", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getAllUserPage(@RequestParam(name = "sortorder", required = false) String sortOrder,
+                                            @RequestParam(name = "direction") String sortDirection,
+                                            @RequestParam(name = "pagenumber") Integer pageNumber,
+                                            @RequestParam(name = "pagesize") Integer pageSize) {
+        Page<UserModel> userPageResult = userService.getAllUserPage(sortOrder, Sort.Direction.fromString(sortDirection), pageNumber, pageSize);
         return ResponseEntity.ok(userPageResult);
     }
 
