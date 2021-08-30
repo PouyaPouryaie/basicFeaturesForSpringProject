@@ -29,7 +29,7 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
 
     protected Class<T> daoType;
 
-    private CriteriaBuilder criteriaBuilder;
+    protected CriteriaBuilder criteriaBuilder;
 
     @SuppressWarnings("unchecked")
     protected DaoRepositoryImpl() {
@@ -187,7 +187,6 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
     public Page<T> genericSearch(CriteriaQuery<T> query, Pageable pageable){
 
         long totalCount = totalCountOfEntities();
-
 
         TypedQuery<T> typedQuery = entityManager.createQuery(query);
         List<T> resultList = typedQuery

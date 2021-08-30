@@ -2,6 +2,7 @@ package ir.bigz.springbootreal.service;
 
 import ir.bigz.springbootreal.dao.User;
 import ir.bigz.springbootreal.viewmodel.UserModel;
+import ir.bigz.springbootreal.viewmodel.search.UserSearchDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public interface UserService {
 
     List<UserModel> getAll();
 
-    Page<UserModel> getUserSearchResult(String searchField, String sortOrder, Sort.Direction direction, Integer pageNumber, Integer pageSize);
+    Page<UserModel> getUserSearchResult(UserSearchDto userSearchDto, String sortOrder, Sort.Direction direction, Integer pageNumber, Integer pageSize);
 
     Page<UserModel> getAllUserPage(String sortOrder, Sort.Direction sortDirection, Integer pageNumber, Integer pageSize);
 }

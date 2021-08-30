@@ -6,6 +6,7 @@ import ir.bigz.springbootreal.dao.mapper.UserMapper;
 import ir.bigz.springbootreal.exception.AppException;
 import ir.bigz.springbootreal.exception.HttpErrorCode;
 import ir.bigz.springbootreal.viewmodel.UserModel;
+import ir.bigz.springbootreal.viewmodel.search.UserSearchDto;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -117,11 +118,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT)
-    public Page<UserModel> getUserSearchResult(String searchField, String sortOrder, Sort.Direction direction, Integer pageNumber, Integer pageSize) {
+    public Page<UserModel> getUserSearchResult(UserSearchDto userSearchDto, String sortOrder, Sort.Direction direction, Integer pageNumber, Integer pageSize) {
         try {
-            Pageable pageable = PageRequest.of(pageNumber, pageSize);
-            String query = "select u from User u order by u.id " + sortOrder;
-            Page<User> users = userRepository.genericSearch(query, pageable);
+            Sort.Order order = new Sort.Order(direction, sortOrder);
+            Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(order));
+            Page<User> users = userRepository.getUserSearchResult(userSearchDto, pageable);
             List<UserModel> collect = users.get().map(userMapper::userToUserModel).collect(Collectors.toList());
             return new PageImpl<>(collect, pageable, users.getTotalElements());
         }catch (RuntimeException exception){
@@ -136,8 +137,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT)
-    public Page<UserModel> getAllUserPage(String sortOrder, Sort.Direction sortDirection, Integer pageNumber, Integer pageSize){
-        Sort.Order order = new Sort.Order(sortDirection, sortOrder);
+    public Page<UserModel> getAllUserPage(String sortOrder, Sort.Direction direction, Integer pageNumber, Integer pageSize){
+        Sort.Order order = new Sort.Order(direction, sortOrder);
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(order));
         Page<User> all = userRepository.getAll(pageable);
         List<UserModel> collect = all.get().map(userMapper::userToUserModel).collect(Collectors.toList());

@@ -2,6 +2,7 @@ package ir.bigz.springbootreal.controller;
 
 import ir.bigz.springbootreal.service.UserService;
 import ir.bigz.springbootreal.viewmodel.UserModel;
+import ir.bigz.springbootreal.viewmodel.search.UserSearchDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -61,12 +62,12 @@ public class SampleController {
     }
 
     @GetMapping(path = "/user/search", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getUserWithSearch(@RequestParam(name = "searchfield") String searchField,
+    public ResponseEntity<?> getUserWithSearch(@RequestBody UserSearchDto userSearchDto,
                                                @RequestParam(name = "sortorder") String sortOrder,
                                                @RequestParam(name = "direction") String direction,
                                                @RequestParam(name = "pagenumber") Integer pageNumber,
                                                @RequestParam(name = "pagesize") Integer pageSize) {
-        Page<UserModel> userPageResult = userService.getUserSearchResult(searchField, sortOrder, Sort.Direction.fromString(direction), pageNumber, pageSize);
+        Page<UserModel> userPageResult = userService.getUserSearchResult(userSearchDto, sortOrder, Sort.Direction.fromString(direction), pageNumber, pageSize);
         return ResponseEntity.ok(userPageResult);
     }
 
