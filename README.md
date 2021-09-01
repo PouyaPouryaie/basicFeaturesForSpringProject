@@ -19,6 +19,8 @@ this project, implement instance of basic feature, <br> you maybe want use for A
     - define your validation and use for model
 - decoupling layer
     - controller, service and repository layer for easy extend
+- flexible search
+    - use CriteriaQuery and CriteriaBuilder for search base on Entity 
 
 ## Run guide
 ### Run for develop and debug: <br>
@@ -46,3 +48,9 @@ this project, implement instance of basic feature, <br> you maybe want use for A
 2 - define your own validation process for entity <br>
 3 - use "@validator" annotation on field of entity for validate <br>
 4 - log for validation and save error-message in log file <br>
+
+### search feature
+1 - create your own search model <br>
+2 - use pagination for search <br>
+3 - create query dynamic base on search request <br>
+4 - use order and direction for sort data <br>

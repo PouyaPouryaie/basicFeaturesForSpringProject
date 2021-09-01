@@ -1,5 +1,6 @@
 package ir.bigz.springbootreal.viewmodel.search;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserSearchDto implements Serializable {
 
     private String firstName;

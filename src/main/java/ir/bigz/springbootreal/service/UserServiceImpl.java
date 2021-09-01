@@ -122,7 +122,7 @@ public class UserServiceImpl implements UserService {
         try {
             Sort.Order order = new Sort.Order(direction, sortOrder);
             Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(order));
-            Page<User> users = userRepository.getUserSearchResult(userSearchDto, pageable);
+            Page<User> users = userRepository.getUserSearchResult(userSearchDto, order, pageable);
             List<UserModel> collect = users.get().map(userMapper::userToUserModel).collect(Collectors.toList());
             return new PageImpl<>(collect, pageable, users.getTotalElements());
         }catch (RuntimeException exception){

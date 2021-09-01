@@ -63,10 +63,10 @@ public class SampleController {
 
     @GetMapping(path = "/user/search", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getUserWithSearch(@RequestBody UserSearchDto userSearchDto,
-                                               @RequestParam(name = "sortorder") String sortOrder,
-                                               @RequestParam(name = "direction") String direction,
-                                               @RequestParam(name = "pagenumber") Integer pageNumber,
-                                               @RequestParam(name = "pagesize") Integer pageSize) {
+                                               @RequestParam(name = "sortorder", defaultValue = "id") String sortOrder,
+                                               @RequestParam(name = "direction", defaultValue = "desc", required = false) String direction,
+                                               @RequestParam(name = "pagenumber", defaultValue = "1") Integer pageNumber,
+                                               @RequestParam(name = "pagesize", defaultValue = "5") Integer pageSize) {
         Page<UserModel> userPageResult = userService.getUserSearchResult(userSearchDto, sortOrder, Sort.Direction.fromString(direction), pageNumber, pageSize);
         return ResponseEntity.ok(userPageResult);
     }
