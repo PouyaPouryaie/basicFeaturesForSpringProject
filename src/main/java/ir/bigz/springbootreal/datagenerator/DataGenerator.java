@@ -19,14 +19,16 @@ import java.util.stream.IntStream;
 @ConditionalOnProperty(name = "app.generator.enabled", havingValue = "true")
 public class DataGenerator implements CommandLineRunner {
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public DataGenerator(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public void run(String... args) throws Exception {
 
         Faker faker = new Faker();
-
         createUser(faker);
     }
 
@@ -38,7 +40,7 @@ public class DataGenerator implements CommandLineRunner {
                     user.setLastName(faker.name().lastName());
                     user.setUserName(faker.name().username());
                     user.setMobile(faker.regexify("09[0-9]{9}"));
-                    user.setNationalCode(faker.regexify("[0-9]{10}"));
+                    user.setNationalCode(generateNationalCode(faker));
                     if(faker.bool().bool()){
                         user.setGender("man");
                     }
@@ -51,6 +53,35 @@ public class DataGenerator implements CommandLineRunner {
                     return user;
                 }).collect(Collectors.toList());
         userList.forEach(user -> userRepository.insert(user));
+    }
+
+    private String generateNationalCode(Faker faker){
+        String randomSample = faker.regexify("[0-9]{9}0");
+        char[] chars = randomSample.trim().toCharArray();
+        int[] ints = new int[10];
+        int index = 0;
+        for (char c: chars){
+            int i = Integer.parseInt(String.valueOf(c));
+            ints[index] = i;
+            index++;
+        }
+        int sum = 0;
+        for(int i: ints){
+            sum += i * index;
+            index--;
+        }
+        int result  = 0 ;
+        int s = sum % 11;
+        if(s < 2){
+            result = s;
+        }
+        else {
+            result = 11 - s;
+        }
+
+        StringBuffer buffer = new StringBuffer(randomSample);
+        StringBuffer nationalCodeSample = buffer.replace(9,10, String.valueOf(result));
+        return nationalCodeSample.toString();
     }
 
 
