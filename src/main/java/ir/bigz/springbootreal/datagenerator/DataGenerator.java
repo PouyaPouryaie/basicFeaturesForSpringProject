@@ -3,7 +3,6 @@ package ir.bigz.springbootreal.datagenerator;
 import com.github.javafaker.Faker;
 import ir.bigz.springbootreal.dal.UserRepository;
 import ir.bigz.springbootreal.dao.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
@@ -52,7 +51,7 @@ public class DataGenerator implements CommandLineRunner {
                             createDateFromString("2020-10-20"));
                     return user;
                 }).collect(Collectors.toList());
-        userList.forEach(user -> userRepository.insert(user));
+        userList.forEach(userRepository::insert);
     }
 
     private String generateNationalCode(Faker faker){
