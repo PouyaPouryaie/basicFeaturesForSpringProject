@@ -7,12 +7,7 @@ import java.util.Objects;
 @Entity
 @Table(name ="users")
 @Access(AccessType.FIELD)
-public class User implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id")
-    private long id;
+public class User extends BaseEntity implements Serializable {
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -51,8 +46,7 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
+                "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", userName='" + userName + '\'' +
                 ", nationalCode='" + nationalCode + '\'' +
@@ -60,14 +54,6 @@ public class User implements Serializable {
                 ", email='" + email + '\'' +
                 ", gender='" + gender + '\'' +
                 '}';
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getFirstName() {

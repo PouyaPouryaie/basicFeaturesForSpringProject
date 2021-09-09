@@ -5,9 +5,7 @@ import ir.bigz.springbootreal.validation.annotation.Validator;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
-public class UserModel implements Serializable {
-
-    private long id;
+public class UserModel extends BaseModel implements Serializable {
 
     @NotBlank(message = "firstName must not blank")
     private String firstName;
@@ -37,6 +35,28 @@ public class UserModel implements Serializable {
     public UserModel() {
     }
 
+    public UserModel(Long id,
+                     Integer version,
+                     String insertDate,
+                     String updateDate,
+                     boolean activeStatus,
+                     @NotBlank(message = "firstName must not blank") String firstName,
+                     @NotBlank(message = "lastName must not blank") String lastName,
+                     @NotBlank(message = "userName must not blank") String userName,
+                     @Validator(ValidationType.NATIONAL_CODE) String nationalCode,
+                     @Validator(ValidationType.MOBILE) String mobile,
+                     @Validator(ValidationType.EMAIL) String email,
+                     @Validator(ValidationType.GENDER) String gender) {
+        super(id, version, insertDate, updateDate, activeStatus);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userName = userName;
+        this.nationalCode = nationalCode;
+        this.mobile = mobile;
+        this.email = email;
+        this.gender = gender;
+    }
+
     public UserModel(@NotBlank(message = "firstName must not blank") String firstName,
                      @NotBlank(message = "lastName must not blank") String lastName,
                      @NotBlank(message = "userName must not blank") String userName,
@@ -44,7 +64,6 @@ public class UserModel implements Serializable {
                      @Validator(ValidationType.MOBILE) String mobile,
                      @Validator(ValidationType.EMAIL) String email,
                      @Validator(ValidationType.GENDER) String gender) {
-        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
@@ -57,8 +76,7 @@ public class UserModel implements Serializable {
     @Override
     public String toString() {
         return "UserModel{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
+                "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", userName='" + userName + '\'' +
                 ", nationalCode='" + nationalCode + '\'' +
@@ -66,14 +84,6 @@ public class UserModel implements Serializable {
                 ", email='" + email + '\'' +
                 ", gender='" + gender + '\'' +
                 '}';
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getFirstName() {
