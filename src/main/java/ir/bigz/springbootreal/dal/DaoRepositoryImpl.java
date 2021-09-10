@@ -96,8 +96,9 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void deleteAll() {
-
+        getAll().forEach(t -> entityManager.remove(t));
     }
 
     @Override

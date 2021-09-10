@@ -24,11 +24,26 @@ public class BaseEntity {
     private Integer version;
 
     @Column(name = "insert_date")
-    private Timestamp insertDate = Timestamp.valueOf(LocalDateTime.now());
+    private Timestamp insertDate;
 
     @Column(name = "update_date")
     private Timestamp updateDate;
 
     @Column(name = "active_status")
     public boolean activeStatus;
+
+    static BaseEntity baseEntityCreateFactory(){
+        BaseEntity baseEntity = new BaseEntity();
+        baseEntity.insertDate = Timestamp.valueOf(LocalDateTime.now());
+        return baseEntity;
+    }
+
+    @Override
+    public String toString() {
+        return "id=" + id +
+                ", version=" + version +
+                ", insertDate=" + insertDate +
+                ", updateDate=" + updateDate +
+                ", activeStatus=" + activeStatus;
+    }
 }
