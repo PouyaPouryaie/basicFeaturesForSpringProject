@@ -1,5 +1,6 @@
 package ir.bigz.springbootreal.service;
 
+import ir.bigz.springbootreal.commons.util.Utils;
 import ir.bigz.springbootreal.dal.UserRepository;
 import ir.bigz.springbootreal.dao.User;
 import ir.bigz.springbootreal.dao.mapper.UserMapper;
@@ -54,8 +55,11 @@ public class UserServiceImpl implements UserService {
     public UserModel addUser(UserModel userModel) {
         try {
             if(userRepository.getUserWithNationalCode(userModel.getNationalCode()) == null){
+                userModel.setInsertDate(Utils.getLocalTimeNow());
+                userModel.setActiveStatus(true);
                 User user = userMapper.userModelToUser(userModel);
-                return userMapper.userToUserModel(userRepository.insert(user));
+                User insert = userRepository.insert(user);
+                return userMapper.userToUserModel(insert);
             }
             throw new RuntimeException("user has already exist");
 
@@ -75,6 +79,7 @@ public class UserServiceImpl implements UserService {
             User sourceUser = user.get();
             User updateUser = userMapper.userModelToUser(userModel);
             mapUserForUpdate(sourceUser, updateUser);
+            sourceUser.setUpdateDate(Utils.getTimestampNow());
             return userMapper.userToUserModel(sourceUser);
         }catch (RuntimeException exception){
             throw AppException.newInstance(
@@ -166,6 +171,10 @@ public class UserServiceImpl implements UserService {
         }
         if(!sourceUser.getGender().equals(updateUser.getGender())){
             sourceUser.setGender(updateUser.getGender());
+        }
+
+        if(!sourceUser.isActiveStatus() == (updateUser.isActiveStatus())){
+            sourceUser.setActiveStatus(updateUser.isActiveStatus());
         }
     }
 }

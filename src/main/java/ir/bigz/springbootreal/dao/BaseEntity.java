@@ -32,12 +32,6 @@ public class BaseEntity {
     @Column(name = "active_status")
     public boolean activeStatus;
 
-    static BaseEntity baseEntityCreateFactory(){
-        BaseEntity baseEntity = new BaseEntity();
-        baseEntity.insertDate = Timestamp.valueOf(LocalDateTime.now());
-        return baseEntity;
-    }
-
     @Override
     public String toString() {
         return "id=" + id +

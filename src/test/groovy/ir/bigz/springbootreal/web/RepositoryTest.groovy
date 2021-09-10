@@ -67,6 +67,9 @@ class RepositoryTest extends Specification{
 
     }
 
+    //before each test this command run
+    def setup(){}
+
     //after each test this command run
     def cleanup(){
         userRepository.deleteAll()

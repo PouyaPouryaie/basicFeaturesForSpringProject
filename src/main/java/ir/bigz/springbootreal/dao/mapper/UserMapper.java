@@ -30,7 +30,7 @@ public interface UserMapper {
     static String timestampToStringMapper(Timestamp timestamp){
         if(Objects.nonNull(timestamp) && !timestamp.toString().isBlank())
             return Utils.convertTimestamp(timestamp);
-        return "";
+        return null;
     }
 
     @Named("timeStringToTimestampMapper")
