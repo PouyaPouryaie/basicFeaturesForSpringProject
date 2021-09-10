@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>ir.bigz</groupId>
 	<artifactId>springboot-real</artifactId>
-	<version>0.1.5</version>
+	<version>1.0.0</version>
 	<name>basicFeaturesForSpringProject</name>
 	<description>Demo project for use Spring Boot in project</description>
 
