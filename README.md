@@ -17,6 +17,10 @@ this project, implement instance of basic feature, <br> you maybe want use for A
     - use annotation for validation
     - use log for validation error
     - define your validation and use for model
+- TestUtils
+  - generator data with javaFaker
+  - unit and integration test with <b>Spock</b> Framework
+  - SwaggerAPI for show detail of Rest endpoint
 - decoupling layer
     - controller, service and repository layer for easy extend
 - flexible search
@@ -27,6 +31,7 @@ this project, implement instance of basic feature, <br> you maybe want use for A
 1 - check active profile on dev <br>
 2 - run postgre sql on 5432 and create database myapp <br>
 3 - run app <br>
+4 - app.generator.enabled properties set to true, when you want to generate fake data <br>
 
 ### Run as docker image: <br>
 1 - check active profile on docker and package project <br>
@@ -54,3 +59,9 @@ this project, implement instance of basic feature, <br> you maybe want use for A
 2 - use pagination for search <br>
 3 - create query dynamic base on search request <br>
 4 - use order and direction for sort data <br>
+
+### test feature
+1 - generate sample data baseOn model with javaFaker <br>
+2 - Spock framework use for test <br>
+3 - sample test define in test directory with groovy language <br>
+4 - Swagger Api for show details of endpoints <br>
