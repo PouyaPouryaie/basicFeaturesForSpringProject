@@ -21,9 +21,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
 import spock.lang.Specification
 import spock.lang.Title
 
-import java.sql.Timestamp
-import java.time.LocalDateTime
-
 @ContextConfiguration(classes = [UserRepositoryImpl.class, User.class,
         DataSourceConfiguration.class, WebConfiguration.class, UserServiceImpl.class, UserModel.class, UserMapper.class, UserMapperImpl.class])
 @Title("Test service layer")
