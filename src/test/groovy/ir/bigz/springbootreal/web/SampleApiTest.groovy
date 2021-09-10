@@ -1,20 +1,11 @@
 package ir.bigz.springbootreal.web
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import ir.bigz.springbootreal.commons.util.Utils
-import ir.bigz.springbootreal.configuration.CacheConfiguration
-import ir.bigz.springbootreal.configuration.DataSourceConfiguration
-import ir.bigz.springbootreal.configuration.WebConfiguration
 import ir.bigz.springbootreal.controller.SampleController
 import ir.bigz.springbootreal.dal.UserRepository
 import ir.bigz.springbootreal.dao.User
-import ir.bigz.springbootreal.dao.mapper.UserMapper
-import ir.bigz.springbootreal.dao.mapper.UserMapperImpl
-import ir.bigz.springbootreal.exception.validation.ErrorController
-import ir.bigz.springbootreal.exception.validation.ValidationErrorResponseModel
 import ir.bigz.springbootreal.service.UserService
-import ir.bigz.springbootreal.service.UserServiceImpl
-import ir.bigz.springbootreal.validation.*
-import ir.bigz.springbootreal.validation.annotation.Validator
 import ir.bigz.springbootreal.viewmodel.UserModel
 import org.junit.jupiter.api.Test
 import org.spockframework.spring.SpringBean
@@ -23,47 +14,33 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.web.client.TestRestTemplate
-import org.springframework.context.ApplicationContext
-import org.springframework.core.ParameterizedTypeReference
-import org.springframework.http.*
-import org.springframework.test.context.ContextConfiguration
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
+import org.springframework.context.annotation.ComponentScan
+import org.springframework.http.HttpEntity
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
+import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import org.springframework.transaction.annotation.EnableTransactionManagement
+import org.springframework.web.context.WebApplicationContext
 import spock.lang.Specification
-import spock.lang.Subject
 import spock.lang.Title
 
-@ContextConfiguration(classes = [SampleController.class, UserServiceImpl.class, UserModel.class, User.class,
-        UserMapper.class, UserMapperImpl.class, UserRepository.class,DataSourceConfiguration.class,
-        WebConfiguration.class, CacheConfiguration.class,
-        ValidationHandler.class, ValidationUtilsImpl.class, ValidationValidator.class,
-        ValidationErrorResponseModel.class,ErrorController.class, ValidationType.class])
 @Title("sample controller mock test")
-@SpringBootTest(properties = "spring.profiles.active:test", webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
 @EnableAutoConfiguration(exclude = [DataSourceAutoConfiguration.class,
         HibernateJpaAutoConfiguration.class,
         DataSourceTransactionManagerAutoConfiguration.class])
 @EnableTransactionManagement
+@ComponentScan("ir.bigz.springbootreal")
+@WebMvcTest(properties = "spring.profiles.active:test")
 class SampleApiTest extends Specification{
 
     @Autowired
-    ApplicationContext applicationContext
+    private WebApplicationContext webApplicationContext
 
     @Autowired
-    private ValidationUtils validationUtils
-
-    @Autowired
-    ErrorController errorController
-
-    @Autowired
-    ValidationValidator validationValidator
-
-    @Autowired
-    ValidationHandler validationHandler
-
-    @Autowired
-    @Subject
     private SampleController sampleController
 
     @SpringBean
@@ -72,10 +49,13 @@ class SampleApiTest extends Specification{
     @SpringBean
     UserRepository userRepository = Stub(UserRepository.class)
 
-    @Autowired
-    private TestRestTemplate restTemplate
+    private MockMvc mockMvc
 
-    void setup(){}
+    void setup(){
+        this.mockMvc = MockMvcBuilders
+                .webAppContextSetup(webApplicationContext)
+                .build()
+    }
 
     @Test
     def "if getAll request return ok"(){
@@ -87,14 +67,14 @@ class SampleApiTest extends Specification{
         userService.getAll() >> list
 
         when:"call endpoint"
-        def exchange = restTemplate.exchange("/api/v1/user/all",
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<UserModel>>() {
-        })
+
+        def result = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/user/all")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andReturn()
 
         then:"expected return result"
-        exchange.getStatusCode() == HttpStatus.OK
+        result.getResponse().getStatus() == HttpStatus.OK.value()
     }
 
     @Test
@@ -108,18 +88,19 @@ class SampleApiTest extends Specification{
         userRepository.insert(_) >> user
         userRepository.getUserWithNationalCode(_) >> null
 
-        and:"create entity request"
-        HttpHeaders headers = new HttpHeaders()
-        headers.setContentType(MediaType.APPLICATION_JSON)
-        HttpEntity<UserModel> request = new HttpEntity<>(model, headers)
+        and:"create json Object"
+        ObjectMapper objectMapper = new ObjectMapper()
+        def json = objectMapper.writeValueAsString(model)
 
         when:"call endpoint"
-        def response = restTemplate.postForEntity("/api/v1/user/add",
-                request,
-                String.class)
+        def expect = mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/user/add")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json)
+                .accept(MediaType.APPLICATION_JSON))
+                .andReturn()
 
         then:"expected return result"
-        response.getStatusCode() == HttpStatus.OK
+        expect.getResponse().getStatus() == HttpStatus.CREATED.value()
     }
 
 

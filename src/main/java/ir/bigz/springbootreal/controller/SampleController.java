@@ -31,11 +31,11 @@ public class SampleController {
         return ResponseEntity.ok(userModel);
     }
 
-    @PostMapping(path = "/user/add", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/user/add", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> addUser(@Valid @RequestBody UserModel userModel) {
         UserModel userModelResult = userService.addUser(userModel);
-        return ResponseEntity.ok(userModelResult);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userModelResult);
     }
 
     @PostMapping(path = "/user/update/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
