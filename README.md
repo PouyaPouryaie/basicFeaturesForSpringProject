@@ -21,6 +21,7 @@ this project, implement instance of basic feature, <br> you maybe want use for A
   - generator data with javaFaker
   - unit and integration test with <b>Spock</b> Framework
   - SwaggerAPI for show detail of Rest endpoint
+  - TestContainer use for run db as dockerImage for test, and after that image is stop
 - decoupling layer
     - controller, service and repository layer for easy extend
 - flexible search
@@ -65,3 +66,5 @@ this project, implement instance of basic feature, <br> you maybe want use for A
 2 - Spock framework use for test <br>
 3 - sample test define in test directory with groovy language <br>
 4 - Swagger Api for show details of endpoints <br>
+5 - In order to change swagger url, you must be change springdoc.swagger-ui.path property in application-dev.properties <br>
+6 - TestContainer for run db as dockerImage, properties config exist in application-test.properties <br>
