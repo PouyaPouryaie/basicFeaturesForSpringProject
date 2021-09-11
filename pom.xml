@@ -153,6 +153,14 @@
 			<version>3.0.8</version>
 		</dependency>
 
+		<!--	testContainer	-->
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>1.16.0</version>
+			<scope>test</scope>
+		</dependency>
+
 		<!--   swagger-UI   -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
