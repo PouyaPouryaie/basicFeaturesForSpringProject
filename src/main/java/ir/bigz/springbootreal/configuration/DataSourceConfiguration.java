@@ -1,5 +1,6 @@
 package ir.bigz.springbootreal.configuration;
 
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -34,14 +35,22 @@ public class DataSourceConfiguration {
 
 
     @Bean
-    public DataSource dataSource(){
+    public HikariDataSource dataSource(){
         DataSourceProperties dataSourceProperties = dataSourceProperties();
-        return DataSourceBuilder.create()
-                .driverClassName(dataSourceProperties.getDriverClassName())
-                .url(dataSourceProperties.getUrl())
-                .username(dataSourceProperties.getUsername())
-                .password(dataSourceProperties.getPassword())
-                .build();
+        final HikariDataSource dataSource = new HikariDataSource();
+        dataSource.setDriverClassName(dataSourceProperties.getDriverClassName());
+        dataSource.setJdbcUrl(dataSourceProperties.getUrl());
+        dataSource.setUsername(dataSourceProperties.getUsername());
+        dataSource.setPassword(dataSourceProperties.getPassword());
+        dataSource.setConnectionTimeout(Integer.parseInt(env.getProperty("spring.datasource.hikari.connectionTimeout")));
+        dataSource.setMaximumPoolSize(Integer.parseInt(env.getProperty("spring.datasource.hikari.maximumPoolSize")));
+        return dataSource;
+//        return DataSourceBuilder.create()
+//                .driverClassName(dataSourceProperties.getDriverClassName())
+//                .url(dataSourceProperties.getUrl())
+//                .username(dataSourceProperties.getUsername())
+//                .password(dataSourceProperties.getPassword())
+//                .build();
     }
 
     @Bean
