@@ -1,5 +1,6 @@
 package ir.bigz.springbootreal.configuration;
 
+import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -31,23 +32,38 @@ public class DataSourceConfiguration {
 
 
     @Bean
-    public HikariDataSource dataSource(){
+    public DataSource dataSource(){
         DataSourceProperties dataSourceProperties = dataSourceProperties();
-        final HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setDriverClassName(dataSourceProperties.getDriverClassName());
-        dataSource.setJdbcUrl(dataSourceProperties.getUrl());
-        dataSource.setUsername(dataSourceProperties.getUsername());
-        dataSource.setPassword(dataSourceProperties.getPassword());
-        dataSource.setConnectionTimeout(Integer.parseInt(env.getProperty("spring.datasource.hikari.connectionTimeout")));
-        dataSource.setMaximumPoolSize(Integer.parseInt(env.getProperty("spring.datasource.hikari.maximumPoolSize")));
-        return dataSource;
-//        return DataSourceBuilder.create()
-//                .driverClassName(dataSourceProperties.getDriverClassName())
-//                .url(dataSourceProperties.getUrl())
-//                .username(dataSourceProperties.getUsername())
-//                .password(dataSourceProperties.getPassword())
-//                .build();
+        // final HikariDataSource dataSource = new HikariDataSource();
+        // dataSource.setDriverClassName(dataSourceProperties.getDriverClassName());
+        // dataSource.setJdbcUrl(dataSourceProperties.getUrl());
+        // dataSource.setUsername(dataSourceProperties.getUsername());
+        // dataSource.setPassword(dataSourceProperties.getPassword());
+        // dataSource.setConnectionTimeout(Integer.parseInt(env.getProperty("spring.datasource.hikari.connectionTimeout")));
+        // dataSource.setMaximumPoolSize(Integer.parseInt(env.getProperty("spring.datasource.hikari.maximumPoolSize")));
+        // return dataSource;
+       return connectionPoolDataSource(DataSourceBuilder.create()
+               .driverClassName(dataSourceProperties.getDriverClassName())
+               .url(dataSourceProperties.getUrl())
+               .username(dataSourceProperties.getUsername())
+               .password(dataSourceProperties.getPassword())
+               .build());
     }
+
+    protected HikariConfig hikariConfig(
+        DataSource dataSource) {
+    HikariConfig hikariConfig = new HikariConfig();
+    int cpuCores = Runtime.getRuntime().availableProcessors();
+    hikariConfig.setMaximumPoolSize(cpuCores * 4);
+    hikariConfig.setDataSource(dataSource);
+    // hikariConfig.setAutoCommit(false);
+    return hikariConfig;
+}
+
+protected HikariDataSource connectionPoolDataSource(
+        DataSource dataSource) {
+    return new HikariDataSource(hikariConfig(dataSource));
+}
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
