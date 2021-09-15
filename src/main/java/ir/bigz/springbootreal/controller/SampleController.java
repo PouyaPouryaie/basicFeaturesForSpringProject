@@ -26,6 +26,7 @@ public class SampleController {
     }
 
     @GetMapping(path = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> getUserById(@PathVariable("id") long id) {
         UserModel userModel = userService.getUser(id);
         return ResponseEntity.ok(userModel);
@@ -47,6 +48,7 @@ public class SampleController {
 
 
     @PostMapping(path = "/user/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> deleteUser(@PathVariable("id") long userId) {
         String result = userService.deleteUser(userId);
         if(result.equals("Success")){
@@ -56,12 +58,14 @@ public class SampleController {
     }
 
     @GetMapping(path = "/user/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> getAllUser() {
         List<UserModel> result = userService.getAll();
         return ResponseEntity.ok(result);
     }
 
     @GetMapping(path = "/user/search", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> getUserWithSearch(@RequestBody UserSearchDto userSearchDto,
                                                @RequestParam(name = "sortorder", defaultValue = "id") String sortOrder,
                                                @RequestParam(name = "direction", defaultValue = "desc", required = false) String direction,
@@ -73,6 +77,7 @@ public class SampleController {
 
 
     @GetMapping(path = "/user/all/pagerquest", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> getAllUserPage(@RequestParam(name = "sortorder", required = false) String sortOrder,
                                             @RequestParam(name = "direction") String sortDirection,
                                             @RequestParam(name = "pagenumber") Integer pageNumber,

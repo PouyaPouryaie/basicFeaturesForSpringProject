@@ -26,13 +26,13 @@ public class DataSourceConfiguration {
 
     @Bean
     @ConfigurationProperties(prefix = "demo.datasource")
-    public DataSourceProperties dataSourceProperties(){
+    public DataSourceProperties dataSourceProperties() {
         return new DataSourceProperties();
     }
 
 
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         DataSourceProperties dataSourceProperties = dataSourceProperties();
         // final HikariDataSource dataSource = new HikariDataSource();
         // dataSource.setDriverClassName(dataSourceProperties.getDriverClassName());
@@ -42,31 +42,30 @@ public class DataSourceConfiguration {
         // dataSource.setConnectionTimeout(Integer.parseInt(env.getProperty("spring.datasource.hikari.connectionTimeout")));
         // dataSource.setMaximumPoolSize(Integer.parseInt(env.getProperty("spring.datasource.hikari.maximumPoolSize")));
         // return dataSource;
-       return connectionPoolDataSource(DataSourceBuilder.create()
-               .driverClassName(dataSourceProperties.getDriverClassName())
-               .url(dataSourceProperties.getUrl())
-               .username(dataSourceProperties.getUsername())
-               .password(dataSourceProperties.getPassword())
-               .build());
+        return connectionPoolDataSource(DataSourceBuilder.create()
+                .driverClassName(dataSourceProperties.getDriverClassName())
+                .url(dataSourceProperties.getUrl())
+                .username(dataSourceProperties.getUsername())
+                .password(dataSourceProperties.getPassword())
+                .build());
     }
 
-    protected HikariConfig hikariConfig(
-        DataSource dataSource) {
-    HikariConfig hikariConfig = new HikariConfig();
-    int cpuCores = Runtime.getRuntime().availableProcessors();
-    hikariConfig.setMaximumPoolSize(cpuCores * 4);
-    hikariConfig.setDataSource(dataSource);
-    // hikariConfig.setAutoCommit(false);
-    return hikariConfig;
-}
+    protected HikariConfig hikariConfig(DataSource dataSource) {
+        HikariConfig hikariConfig = new HikariConfig();
+        int cpuCores = Runtime.getRuntime().availableProcessors();
+        hikariConfig.setMaximumPoolSize(cpuCores * 4);
+        hikariConfig.setDataSource(dataSource);
+        hikariConfig.setAutoCommit(false);
+        return hikariConfig;
+    }
 
-protected HikariDataSource connectionPoolDataSource(
-        DataSource dataSource) {
-    return new HikariDataSource(hikariConfig(dataSource));
-}
+    protected HikariDataSource connectionPoolDataSource(
+            DataSource dataSource) {
+        return new HikariDataSource(hikariConfig(dataSource));
+    }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setDataSource(dataSource());
         factory.setPackagesToScan(new String[]{"ir.bigz.springbootreal.dao"});
@@ -81,7 +80,7 @@ protected HikariDataSource connectionPoolDataSource(
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager(){
+    public PlatformTransactionManager transactionManager() {
         EntityManagerFactory factory = entityManagerFactory().getObject();
         return new JpaTransactionManager(factory);
     }
