@@ -87,7 +87,7 @@ class RepositoryTest extends Specification{
                 nationalCode: "0014713225",
                 mobile: "09388773155",
                 email: "pouyapouryaie@gmail.com",
-                gender: "man"
+                gender: "male"
         )
     }
 }

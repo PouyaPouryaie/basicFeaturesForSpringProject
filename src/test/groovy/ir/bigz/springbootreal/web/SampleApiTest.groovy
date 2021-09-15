@@ -118,7 +118,7 @@ class SampleApiTest extends Specification{
                 nationalCode: "0014713225",
                 mobile: "09388773155",
                 email: "pouyapouryaie@gmail.com",
-                gender: "man"
+                gender: "male"
         )
     }
 
@@ -134,7 +134,7 @@ class SampleApiTest extends Specification{
                 lastName: "last",
                 nationalCode: '0014713225',
                 mobile: '09388773155',
-                gender: "man"
+                gender: "male"
         )
     }
 

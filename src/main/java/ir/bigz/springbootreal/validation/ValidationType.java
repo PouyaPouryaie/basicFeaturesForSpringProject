@@ -4,7 +4,7 @@ public enum ValidationType {
 
     EMAIL ("email pattern is not correct", new String[]{}),
     MOBILE ("mobile number is not correct", new String[]{}),
-    GENDER ("gender type is not correct", new String[]{"man", "woman"}),
+    GENDER ("gender type is not correct", new String[]{"male", "female"}),
     NATIONAL_CODE ("national code is not correct", new String[]{});
 
     private final String failedMessage;

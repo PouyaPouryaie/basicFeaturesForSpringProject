@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.sql.Timestamp;
 
 @Component
 @ConditionalOnProperty(name = "app.generator.enabled", havingValue = "true")
@@ -40,15 +41,11 @@ public class DataGenerator implements CommandLineRunner {
                     user.setUserName(faker.name().username());
                     user.setMobile(faker.regexify("09[0-9]{9}"));
                     user.setNationalCode(generateNationalCode(faker));
-                    if(faker.bool().bool()){
-                        user.setGender("man");
-                    }
-                    else{
-                        user.setGender("woman");
-                    }
+                    user.setActiveStatus(faker.bool().bool());
+                    user.setGender(faker.bool().bool() ? "male" : "female");
                     user.setEmail(faker.bothify("????##@????.com"));
-                    faker.date().between(createDateFromString("2000-01-01"),
-                            createDateFromString("2020-10-20"));
+                    user.setInsertDate(new Timestamp(faker.date().between(createDateFromString("2000-01-01"),
+                            createDateFromString("2020-10-20")).getTime()));
                     return user;
                 }).collect(Collectors.toList());
         userList.forEach(userRepository::insert);

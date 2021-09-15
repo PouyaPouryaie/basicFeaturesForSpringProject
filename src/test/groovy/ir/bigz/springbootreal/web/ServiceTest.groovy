@@ -84,7 +84,7 @@ class ServiceTest extends Specification{
                 nationalCode: "0014713225",
                 mobile: "09388773155",
                 email: "pouyapouryaie@gmail.com",
-                gender: "man"
+                gender: "male"
         )
     }
 
@@ -100,7 +100,7 @@ class ServiceTest extends Specification{
                 nationalCode: "0014713225",
                 mobile: "09122930872",
                 email: "pouyapouryaie@gmail.com",
-                gender: "man"
+                gender: "male"
         )
     }
 }
