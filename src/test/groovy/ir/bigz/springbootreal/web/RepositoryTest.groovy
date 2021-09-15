@@ -13,7 +13,6 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.transaction.annotation.EnableTransactionManagement
-import spock.lang.Specification
 import spock.lang.Title
 
 import java.sql.Timestamp
@@ -27,7 +26,7 @@ import java.time.LocalDateTime
         HibernateJpaAutoConfiguration.class,
         DataSourceTransactionManagerAutoConfiguration.class])
 @EnableTransactionManagement
-class RepositoryTest extends Specification{
+class RepositoryTest extends InitTestContainerDB {
 
     @Autowired
     private UserRepository userRepository
