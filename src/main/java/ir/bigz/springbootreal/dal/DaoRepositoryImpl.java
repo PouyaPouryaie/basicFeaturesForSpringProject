@@ -1,5 +1,6 @@
 package ir.bigz.springbootreal.dal;
 import org.hibernate.Session;
+import org.hibernate.jpa.QueryHints;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -140,7 +141,9 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
     public Stream<T> getAll() {
         Session session = entityManager.unwrap(Session.class);
-        return session.createQuery("from " + daoType.getName()).stream();
+        return session.createQuery("from " + daoType.getName())
+                .setHint(QueryHints.HINT_FETCH_SIZE, 50)
+                .stream();
     }
 
     @Override
