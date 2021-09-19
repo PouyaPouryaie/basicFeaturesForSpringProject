@@ -1,6 +1,6 @@
 # BasicFeaturesForSpringProject
 
-this project, implement instance of basic feature, <br> you maybe want use for App base on Spring-boot <br>
+This project, implement instance of basic feature, <br> you maybe want use for App base on Spring-boot <br>
 
 ## basicFeature
 - spring-web
@@ -36,9 +36,9 @@ this project, implement instance of basic feature, <br> you maybe want use for A
 
 ### Run as docker image: <br>
 1 - check active profile on docker and package project <br>
-2 - run docker build command for create app image : docker build -t springapp:latest .
+2 - create image from app: <b>docker build -t springapp:latest . </b>
 <br>
-3 - run docker compose run command for running app <br>
+3 - run app: <b>docker compose run</b> <br>
 
 
 ## Features
