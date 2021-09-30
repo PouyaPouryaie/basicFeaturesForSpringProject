@@ -5,7 +5,9 @@ This project, implement instance of basic feature, <br> you maybe want use for A
 ## basicFeature
 - spring-web
 - spring-jpa
-    - with custom configuration for PersistenceContext 
+    - with custom configuration for PersistenceContext
+- Connection-pool
+    - HikariCp with Possibility of customization
 - Ehcache 
     - customize cache config and implement log for cache
 - Log4j2 
@@ -68,3 +70,7 @@ This project, implement instance of basic feature, <br> you maybe want use for A
 4 - Swagger Api for show details of endpoints <br>
 5 - In order to change swagger url, you must be change springdoc.swagger-ui.path property in application-dev.properties <br>
 6 - TestContainer for run db as dockerImage, properties config exist in application-test.properties <br>
+
+### dataSource feature
+1 - choose between use simpleDataSource or HikariCp datasource <br>
+2 - you can customize properties for dataSource in application.properties

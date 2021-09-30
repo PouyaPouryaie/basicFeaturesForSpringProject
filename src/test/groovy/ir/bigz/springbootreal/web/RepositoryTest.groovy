@@ -1,6 +1,8 @@
 package ir.bigz.springbootreal.web
 
 import ir.bigz.springbootreal.configuration.DataSourceConfiguration
+import ir.bigz.springbootreal.configuration.HikariDataSourceInit
+import ir.bigz.springbootreal.configuration.SimpleDataSourceInit
 import ir.bigz.springbootreal.configuration.WebConfiguration
 import ir.bigz.springbootreal.dal.DaoRepository
 import ir.bigz.springbootreal.dal.DaoRepositoryImpl
@@ -25,7 +27,7 @@ import java.sql.Timestamp
 import java.time.LocalDateTime
 
 @ContextConfiguration(classes = [UserRepositoryImpl.class, User.class,
-        DataSourceConfiguration.class, WebConfiguration.class, DataGenerator.class])
+        DataSourceConfiguration.class, SimpleDataSourceInit.class, HikariDataSourceInit.class, WebConfiguration.class, DataGenerator.class])
 @Title("Test repository layer")
 @SpringBootTest(properties = "spring.profiles.active:test")
 @EnableAutoConfiguration(exclude = [DataSourceAutoConfiguration.class,

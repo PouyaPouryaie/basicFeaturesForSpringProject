@@ -1,7 +1,8 @@
 package ir.bigz.springbootreal.web
 
 import ir.bigz.springbootreal.configuration.DataSourceConfiguration
-
+import ir.bigz.springbootreal.configuration.HikariDataSourceInit
+import ir.bigz.springbootreal.configuration.SimpleDataSourceInit
 import ir.bigz.springbootreal.configuration.WebConfiguration
 import ir.bigz.springbootreal.dal.UserRepositoryImpl
 import ir.bigz.springbootreal.dao.User
@@ -24,7 +25,7 @@ import spock.lang.Specification
 
 @Testcontainers
 @ContextConfiguration(classes = [UserRepositoryImpl.class, User.class,
-        DataSourceConfiguration.class, WebConfiguration.class], initializers = InitTestContainerDB.class)
+        DataSourceConfiguration.class, WebConfiguration.class, SimpleDataSourceInit.class, HikariDataSourceInit.class], initializers = InitTestContainerDB.class)
 @SpringBootTest(properties = "spring.profiles.active:test")
 @EnableAutoConfiguration(exclude = [DataSourceAutoConfiguration.class,
         HibernateJpaAutoConfiguration.class,
