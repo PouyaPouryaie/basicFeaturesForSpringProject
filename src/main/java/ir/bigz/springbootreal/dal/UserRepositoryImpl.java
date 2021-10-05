@@ -1,7 +1,7 @@
 package ir.bigz.springbootreal.dal;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ir.bigz.springbootreal.dto.User;
+import ir.bigz.springbootreal.dto.entity.User;
 import ir.bigz.springbootreal.viewmodel.search.UserSearchDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

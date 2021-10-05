@@ -1,4 +1,4 @@
-package ir.bigz.springbootreal.dto;
+package ir.bigz.springbootreal.dto.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

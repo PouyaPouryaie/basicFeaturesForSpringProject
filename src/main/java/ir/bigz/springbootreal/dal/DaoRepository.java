@@ -1,5 +1,7 @@
 package ir.bigz.springbootreal.dal;
 
+import ir.bigz.springbootreal.dto.PageResult;
+import ir.bigz.springbootreal.dto.PagedQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.io.Serializable;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -27,6 +30,8 @@ public interface DaoRepository<T, K extends Serializable> {
     <S extends T> List<S> find(List<K> entityIds);
     <S extends T> List<S> find(String entityName);
     List<T> genericSearch(String query);
+    List<T> nativeQuery(String query, Map<String, Object> parameters);
+    PageResult<T> pageCreateQuery(String nativeQuery, PagedQuery pagedQuery, Map<String, Object> parameterMap);
     void flush();
     void clear();
 

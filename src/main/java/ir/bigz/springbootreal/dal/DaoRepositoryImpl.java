@@ -1,4 +1,6 @@
 package ir.bigz.springbootreal.dal;
+import ir.bigz.springbootreal.dto.PageResult;
+import ir.bigz.springbootreal.dto.PagedQuery;
 import org.hibernate.Session;
 import org.hibernate.jpa.QueryHints;
 import org.springframework.data.domain.Page;
@@ -14,12 +16,11 @@ import javax.management.openmbean.InvalidOpenTypeException;
 import javax.persistence.*;
 import javax.persistence.criteria.*;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.text.MessageFormat;
+import java.util.*;
 import java.util.stream.Stream;
 
 @Component
@@ -31,6 +32,8 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
     protected Class<T> daoType;
 
     protected CriteriaBuilder criteriaBuilder;
+
+    private static int maxPageSize = 1000;
 
     @SuppressWarnings("unchecked")
     protected DaoRepositoryImpl() {
@@ -122,6 +125,80 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
     public List<T> genericSearch(String query) {
 
         return entityManager.createQuery(query, daoType).getResultList();
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
+    public List<T> nativeQuery(String query, Map<String, Object> parameters) {
+
+        Query nativeQuery = entityManager.createNativeQuery(query, daoType);
+        parameters.keySet().forEach(s -> nativeQuery.setParameter(s, parameters.get(s)));
+        return nativeQuery.getResultList();
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
+    public PageResult<T> pageCreateQuery(String nativeQuery, PagedQuery pagedQuery, Map<String, Object> parameterMap) {
+
+        StringBuffer orderString = new StringBuffer();
+        String queryString = nativeQuery;
+        pagedQuery.getOrdering().forEach(
+                orderParam -> {
+                    try {
+                        orderParam = orderParam.trim();
+                        String[] orderField = orderParam.split("_");
+                        Field field = getDeclaredField(daoType, orderField[0]);
+                        if(field == null){
+                            System.out.println("wrong ordering field = " + orderParam);
+                            return;
+                        }
+                        String orderColumn = field.getName().replaceAll("([A-Z])", "_$1").toLowerCase();
+                        if (orderString.length() > 0) {
+                            orderString.append(", ");
+                        }
+                        String order = PagedQuery.ORDER_ASC;
+                        if (orderField.length > 1 && orderField[1].equalsIgnoreCase(PagedQuery.ORDER_DESC)) {
+                            order = PagedQuery.ORDER_DESC;
+                        }
+                        orderString.append(orderColumn + " " + order);
+                    }catch (Exception e){
+                        System.out.println("wrong ordering field = " + orderParam);
+                    }
+                }
+        );
+
+        if (orderString.length() > 0) {
+            queryString = "SELECT * FROM (" + removeDefaultOrderBy(queryString) + ") as q ORDER BY " + orderString;
+        }
+
+        Query query = entityManager.createNativeQuery(queryString, daoType);
+        parameterMap.keySet().forEach(s -> query.setParameter(s, parameterMap.get(s)));
+
+        //todo paginationWindow must be improve
+        if (pagedQuery.getPageSize() > 0 && pagedQuery.getPageSize() < maxPageSize && pagedQuery.getPageNumber() > 0) {
+            int start = ((pagedQuery.getPageNumber() - 1) * pagedQuery.getPageSize());
+            int end = (pagedQuery.getPageNumber() * pagedQuery.getPageSize());
+
+//            queryString = MessageFormat.format(
+//                    "SELECT * FROM ( " +
+//                            "    SELECT q.*, rownum r_ FROM ({0}) q " +
+//                            "    WHERE rownum < {1,number,#}) " +
+//                            "WHERE r_ >= {2,number,#} ", queryString, end, start);
+
+            query.setFirstResult(start);
+            query.setMaxResults(end);
+        }
+
+        List<T> resultQuery = query.getResultList();
+
+        PageResult<T> pagedResult = new PageResult<T>(
+                resultQuery
+                , (pagedQuery.getPageSize() > -1 ? pagedQuery.getPageSize() : resultQuery.size())
+                , pagedQuery.getPageNumber()
+                , pagedQuery.getOffset()
+                , resultQuery.size()
+        );
+        return pagedResult;
     }
 
     @Override
@@ -239,5 +316,26 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
             }
         }
         return orders;
+    }
+
+    protected Field getDeclaredField(Class className, String fieldName) {
+        Field field = null;
+        while (className != null && field == null) {
+            try {
+                field = className.getDeclaredField(fieldName);
+            } catch (NoSuchFieldException ex) {
+            }
+            className = className.getSuperclass();
+        }
+        return field;
+    }
+
+    protected static String removeDefaultOrderBy(String query) {
+        int defaultOrderIndex = query.toLowerCase().lastIndexOf("order by");
+        int lastParenthesisIndex = query.lastIndexOf(")");
+        if (defaultOrderIndex > 0 && defaultOrderIndex > lastParenthesisIndex) {
+            return query.substring(0, defaultOrderIndex);
+        }
+        return query;
     }
 }

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import ir.bigz.springbootreal.commons.util.Utils
 import ir.bigz.springbootreal.controller.SampleController
 import ir.bigz.springbootreal.dal.UserRepository
-import ir.bigz.springbootreal.dao.User
+import ir.bigz.springbootreal.dto.entity.User
 import ir.bigz.springbootreal.service.UserService
 import ir.bigz.springbootreal.viewmodel.UserModel
 import org.junit.jupiter.api.Test

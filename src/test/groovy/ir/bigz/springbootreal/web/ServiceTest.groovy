@@ -4,9 +4,9 @@ import ir.bigz.springbootreal.configuration.DataSourceConfiguration
 import ir.bigz.springbootreal.configuration.WebConfiguration
 import ir.bigz.springbootreal.dal.UserRepository
 import ir.bigz.springbootreal.dal.UserRepositoryImpl
-import ir.bigz.springbootreal.dao.User
-import ir.bigz.springbootreal.dao.mapper.UserMapper
-import ir.bigz.springbootreal.dao.mapper.UserMapperImpl
+import ir.bigz.springbootreal.dto.entity.User
+import ir.bigz.springbootreal.dto.mapper.UserMapper
+import ir.bigz.springbootreal.dto.mapper.UserMapperImpl
 import ir.bigz.springbootreal.service.UserService
 import ir.bigz.springbootreal.service.UserServiceImpl
 import ir.bigz.springbootreal.viewmodel.UserModel

@@ -1,7 +1,7 @@
 package ir.bigz.springbootreal.dto.mapper;
 
 import ir.bigz.springbootreal.commons.util.Utils;
-import ir.bigz.springbootreal.dto.User;
+import ir.bigz.springbootreal.dto.entity.User;
 import ir.bigz.springbootreal.viewmodel.UserModel;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -4,12 +4,11 @@ import ir.bigz.springbootreal.configuration.DataSourceConfiguration
 import ir.bigz.springbootreal.configuration.HikariDataSourceInit
 import ir.bigz.springbootreal.configuration.SimpleDataSourceInit
 import ir.bigz.springbootreal.configuration.WebConfiguration
-import ir.bigz.springbootreal.dal.DaoRepository
-import ir.bigz.springbootreal.dal.DaoRepositoryImpl
 import ir.bigz.springbootreal.dal.UserRepository
 import ir.bigz.springbootreal.dal.UserRepositoryImpl
-import ir.bigz.springbootreal.dao.BaseEntity
-import ir.bigz.springbootreal.dao.User
+import ir.bigz.springbootreal.dto.PagedQuery
+import ir.bigz.springbootreal.dto.entity.BaseEntity
+import ir.bigz.springbootreal.dto.entity.User
 import ir.bigz.springbootreal.datagenerator.DataGenerator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
@@ -65,6 +64,41 @@ class RepositoryTest extends InitTestContainerDB {
         def count = userRepository.getAll().filter(BaseEntity::isActiveStatus).count()
         count == 0
         countActiveUser != count
+
+    }
+
+    def "create query from db"(){
+
+        given: "create query"
+        def query = "select * from users where id >= :number order by first_name asc, gender desc limit 10"
+
+        when: "call query method"
+        Map<String, Object> params = new HashMap<>()
+        params.put("number", 1)
+        def resultList = userRepository.nativeQuery(query, params)
+
+        then: "query result size not equal zero"
+        resultList.size()  >= 0
+
+    }
+
+    def "check pageCreateQuery functionality"(){
+
+        given: "create query"
+        def query = "select * from users where id >= :number"
+        Map<String, Object> pageParams = new HashMap<>()
+        pageParams.put("size", "10")
+        pageParams.put("page", "1")
+        pageParams.put("orderBy", "firstName_asc, gender_desc")
+        PagedQuery pagedQuery = new PagedQuery(pageParams)
+
+        when: "call method"
+        Map<String, Object> queryParams = new HashMap<>()
+        queryParams.put("number", 1)
+        def resultList = userRepository.pageCreateQuery(query, pagedQuery, queryParams)
+
+        then: "query result size not equal zero"
+        resultList.getResult().size()  >= 0
 
     }
 

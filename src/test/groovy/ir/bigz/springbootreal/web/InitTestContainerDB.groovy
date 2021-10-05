@@ -5,7 +5,7 @@ import ir.bigz.springbootreal.configuration.HikariDataSourceInit
 import ir.bigz.springbootreal.configuration.SimpleDataSourceInit
 import ir.bigz.springbootreal.configuration.WebConfiguration
 import ir.bigz.springbootreal.dal.UserRepositoryImpl
-import ir.bigz.springbootreal.dao.User
+import ir.bigz.springbootreal.dto.entity.User
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration

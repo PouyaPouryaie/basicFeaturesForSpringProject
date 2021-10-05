@@ -30,7 +30,7 @@ public class DataSourceConfiguration {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setDataSource(dataSource);
-        factory.setPackagesToScan(new String[]{"ir.bigz.springbootreal.dao"});
+        factory.setPackagesToScan(new String[]{env.getProperty("demo.enity.packageScan")});
         factory.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 
         Properties jpaProperties = new Properties();
