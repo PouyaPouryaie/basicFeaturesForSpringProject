@@ -1,7 +1,7 @@
 package ir.bigz.springbootreal.dal;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ir.bigz.springbootreal.dao.User;
+import ir.bigz.springbootreal.dto.User;
 import ir.bigz.springbootreal.viewmodel.search.UserSearchDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.criteria.*;
 import java.lang.reflect.Field;
-import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 

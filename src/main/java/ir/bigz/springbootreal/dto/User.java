@@ -1,4 +1,4 @@
-package ir.bigz.springbootreal.dao;
+package ir.bigz.springbootreal.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

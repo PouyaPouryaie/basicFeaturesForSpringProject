@@ -1,6 +1,5 @@
 package ir.bigz.springbootreal.service;
 
-import ir.bigz.springbootreal.dao.User;
 import ir.bigz.springbootreal.viewmodel.UserModel;
 import ir.bigz.springbootreal.viewmodel.search.UserSearchDto;
 import org.springframework.data.domain.Page;

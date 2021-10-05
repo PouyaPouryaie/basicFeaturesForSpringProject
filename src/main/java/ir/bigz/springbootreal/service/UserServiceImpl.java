@@ -2,8 +2,8 @@ package ir.bigz.springbootreal.service;
 
 import ir.bigz.springbootreal.commons.util.Utils;
 import ir.bigz.springbootreal.dal.UserRepository;
-import ir.bigz.springbootreal.dao.User;
-import ir.bigz.springbootreal.dao.mapper.UserMapper;
+import ir.bigz.springbootreal.dto.User;
+import ir.bigz.springbootreal.dto.mapper.UserMapper;
 import ir.bigz.springbootreal.exception.AppException;
 import ir.bigz.springbootreal.exception.HttpErrorCode;
 import ir.bigz.springbootreal.viewmodel.UserModel;

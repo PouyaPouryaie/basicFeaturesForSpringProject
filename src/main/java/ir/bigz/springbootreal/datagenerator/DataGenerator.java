@@ -2,7 +2,7 @@ package ir.bigz.springbootreal.datagenerator;
 
 import com.github.javafaker.Faker;
 import ir.bigz.springbootreal.dal.UserRepository;
-import ir.bigz.springbootreal.dao.User;
+import ir.bigz.springbootreal.dto.User;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
