@@ -4,6 +4,8 @@ import ir.bigz.springbootreal.configuration.DataSourceConfiguration
 import ir.bigz.springbootreal.configuration.WebConfiguration
 import ir.bigz.springbootreal.dal.UserRepository
 import ir.bigz.springbootreal.dal.UserRepositoryImpl
+import ir.bigz.springbootreal.datagenerator.DataGenerator
+import ir.bigz.springbootreal.dto.PagedQuery
 import ir.bigz.springbootreal.dto.entity.User
 import ir.bigz.springbootreal.dto.mapper.UserMapper
 import ir.bigz.springbootreal.dto.mapper.UserMapperImpl
@@ -20,8 +22,10 @@ import org.springframework.test.context.ContextConfiguration
 import org.springframework.transaction.annotation.EnableTransactionManagement
 import spock.lang.Title
 
+import javax.transaction.Transactional
+
 @ContextConfiguration(classes = [UserRepositoryImpl.class, User.class,
-        DataSourceConfiguration.class, WebConfiguration.class, UserServiceImpl.class, UserModel.class, UserMapper.class, UserMapperImpl.class])
+        DataSourceConfiguration.class, WebConfiguration.class, UserServiceImpl.class, UserModel.class, UserMapper.class, UserMapperImpl.class, DataGenerator.class])
 @Title("Test service layer")
 @SpringBootTest(properties = "spring.profiles.active:test")
 @EnableAutoConfiguration(exclude = [DataSourceAutoConfiguration.class,
@@ -65,6 +69,31 @@ class ServiceTest extends InitTestContainerDB {
         result.getId() != null
         result.getUpdateDate() != null
 
+    }
+
+    def "check getUserSearchV2 method is worked"(){
+        given: "create pagedQuery"
+        Map<String, Object> pageParams = new HashMap<>()
+        pageParams.put("size", "10")
+        pageParams.put("page", "1")
+        pageParams.put("orderBy", "firstName_asc, gender_desc")
+        PagedQuery pagedQuery = new PagedQuery(pageParams)
+
+        and: "create queryString"
+        Map<String, Object> queryParams = new HashMap<>()
+        queryParams.put("firstName", "h")
+
+        when: "call method"
+        def result = userService.getUserSearchV2(queryParams, pagedQuery)
+
+        then: "check result size"
+        result.getResult().size() > 0
+    }
+
+    //before each test this command run
+    def setup(){
+        DataGenerator dataGenerator = new DataGenerator(userRepository)
+        dataGenerator.run()
     }
 
     def cleanup(){
