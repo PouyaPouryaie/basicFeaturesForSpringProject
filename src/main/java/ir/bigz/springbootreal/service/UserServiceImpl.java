@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    private static final String USER_QUERY = "select * from users where 1=1 ";
+    private static final String USER_QUERY = "select * from users";
 
 
     public UserServiceImpl(UserRepository userRepository,
@@ -160,7 +160,8 @@ public class UserServiceImpl implements UserService {
         Map<String, Object> parametersMap = new HashMap<>();
         Map<String, String> conditionsMap = new HashMap<>();
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append(USER_QUERY);
+        stringBuffer.append(USER_QUERY); //base query
+        stringBuffer.append(Utils.getWhereSimple()); //add where to query
         Utils.buildNativeQueryCondition(queryString,
                 conditionsMap,
                 parametersMap,
@@ -171,7 +172,7 @@ public class UserServiceImpl implements UserService {
 
         conditionsMap.keySet().forEach(s -> stringBuffer.append(conditionsMap.get(s)));
 
-        PageResult<User> userPageResult = userRepository.pageCreateQuery(stringBuffer.toString(), pagedQuery, parametersMap);
+        PageResult<User> userPageResult = userRepository.pageCreateQuery(stringBuffer.toString(), pagedQuery, parametersMap, true);
 
         List<UserModel> collect = userPageResult.getResult().stream().map(userMapper::userToUserModel).collect(Collectors.toList());
 

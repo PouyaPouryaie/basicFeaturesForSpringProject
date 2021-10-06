@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.math.BigInteger;
 import java.text.MessageFormat;
 import java.util.*;
 import java.util.stream.Stream;
@@ -138,7 +139,7 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-    public PageResult<T> pageCreateQuery(String nativeQuery, PagedQuery pagedQuery, Map<String, Object> parameterMap) {
+    public PageResult<T> pageCreateQuery(String nativeQuery, PagedQuery pagedQuery, Map<String, Object> parameterMap, boolean getTotalCount) {
 
         StringBuffer orderString = new StringBuffer();
         String queryString = nativeQuery;
@@ -168,7 +169,7 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
         );
 
         if (orderString.length() > 0) {
-            queryString = "SELECT * FROM (" + removeDefaultOrderBy(queryString) + ") as q ORDER BY " + orderString;
+            queryString = "SELECT * FROM (" + removeDefaultOrderBy(queryString) + ") q ORDER BY " + orderString;
         }
 
         Query query = entityManager.createNativeQuery(queryString, daoType);
@@ -191,12 +192,17 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
 
         List<T> resultQuery = query.getResultList();
 
+        Long total = 0L;
+        if (getTotalCount && pagedQuery.getPageSize() > -1) {
+            total = totalCountOfSearch(queryString, parameterMap);
+        }
+
         PageResult<T> pagedResult = new PageResult<T>(
                 resultQuery
                 , (pagedQuery.getPageSize() > -1 ? pagedQuery.getPageSize() : resultQuery.size())
                 , pagedQuery.getPageNumber()
                 , pagedQuery.getOffset()
-                , resultQuery.size()
+                , total != 0 ? total : resultQuery.size()
         );
         return pagedResult;
     }
@@ -300,6 +306,14 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
         query.select(exp1);
         TypedQuery<Long> typedQuery = entityManager.createQuery(query);
         return typedQuery.getSingleResult();
+    }
+
+    protected Long totalCountOfSearch(String queryString, Map<String, Object> parameterMap) {
+        queryString = MessageFormat.format("SELECT count(*) count FROM (SELECT * FROM ({0}) query) counter", queryString);
+        Query query = entityManager.createNativeQuery(queryString);
+        parameterMap.keySet().forEach(s -> query.setParameter(s, parameterMap.get(s)));
+        List resultList = query.getResultList();
+        return ((BigInteger)resultList.get(0)).longValue();
     }
 
     protected List<Order> orderByClauseBuilder(Root<T> root, Sort sort){

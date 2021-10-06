@@ -95,7 +95,7 @@ class RepositoryTest extends InitTestContainerDB {
         when: "call method"
         Map<String, Object> queryParams = new HashMap<>()
         queryParams.put("number", 1)
-        def resultList = userRepository.pageCreateQuery(query, pagedQuery, queryParams)
+        def resultList = userRepository.pageCreateQuery(query, pagedQuery, queryParams, true)
 
         then: "query result size not equal zero"
         resultList.getResult().size()  >= 0

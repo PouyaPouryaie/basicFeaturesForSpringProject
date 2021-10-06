@@ -62,6 +62,8 @@ This project, implement instance of basic feature, <br> you maybe want use for A
 2 - use pagination for search <br>
 3 - create query dynamic base on search request <br>
 4 - use order and direction for sort data <br>
+5 - sample rest search request: <br> 
+- http://localhost:9090/api/v1/user/search/v2?firstName=h&orderBy=firstName_asc, gender_desc&page=1&size=5 <br>
 
 ### test feature
 1 - generate sample data baseOn model with javaFaker <br>

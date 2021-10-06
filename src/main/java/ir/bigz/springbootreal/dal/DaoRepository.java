@@ -31,7 +31,7 @@ public interface DaoRepository<T, K extends Serializable> {
     <S extends T> List<S> find(String entityName);
     List<T> genericSearch(String query);
     List<T> nativeQuery(String query, Map<String, Object> parameters);
-    PageResult<T> pageCreateQuery(String nativeQuery, PagedQuery pagedQuery, Map<String, Object> parameterMap);
+    PageResult<T> pageCreateQuery(String nativeQuery, PagedQuery pagedQuery, Map<String, Object> parameterMap, boolean getTotalCount);
     void flush();
     void clear();
 

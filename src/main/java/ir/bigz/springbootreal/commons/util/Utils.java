@@ -111,12 +111,12 @@ public class Utils {
     public static <T> void buildNativeQueryCondition(Map<String, String> queryString,
                                                      Map<String, String> conditionsMap,
                                                      Map<String, Object> parametersMap,
-                                                     String fieldName,
-                                                     String parameter,
+                                                     String fieldNameOnDataBase,
+                                                     String parameterQueryStringMap,
                                                      SqlOperation operation,
                                                      Class<T> type) {
         if (queryString != null) {
-            String value = queryString.get(parameter);
+            String value = queryString.get(parameterQueryStringMap);
             T parameterVal = null;
             String queryCondition = "";
             if (type.equals(String.class)) {
@@ -144,32 +144,36 @@ public class Utils {
                     if (type.equals(String.class)) {
                         parameterVal = (T) value;
                     }
-                    parametersMap.put(parameter, parameterVal);
-                    queryCondition = "and " + fieldName + " " + operation.operationSign + " " + ":" + parameter;
+                    parametersMap.put(parameterQueryStringMap, parameterVal);
+                    queryCondition = "and " + fieldNameOnDataBase + " " + operation.operationSign + " " + ":" + parameterQueryStringMap;
                 } else if (operation == SqlOperation.CONTAINS || operation == SqlOperation.NOT_CONTAINS) {
                     if (type.equals(String.class)) {
-                        parametersMap.put(parameter, "%" + value + "%");
-                        queryCondition = "and " + fieldName + " " + operation.operationSign + " :" + parameter;
+                        parametersMap.put(parameterQueryStringMap, "%" + value + "%");
+                        queryCondition = "and " + fieldNameOnDataBase + " " + operation.operationSign + " :" + parameterQueryStringMap;
                     }
                 } else if (operation == SqlOperation.STARTS_WITH) {
                     if (type.equals(String.class)) {
-                        parametersMap.put(parameter, value + "%");
-                        queryCondition = "and " + fieldName + " " + operation.operationSign + " " + ":" + parameter;
+                        parametersMap.put(parameterQueryStringMap, value + "%");
+                        queryCondition = "and " + fieldNameOnDataBase + " " + operation.operationSign + " " + ":" + parameterQueryStringMap;
                     }
                 } else if (operation == SqlOperation.ENDS_WITH) {
                     if (type.equals(String.class)) {
-                        parametersMap.put(parameter, "%" + value);
-                        queryCondition = "and " + fieldName + " " + operation.operationSign + " " + ":" + parameter;
+                        parametersMap.put(parameterQueryStringMap, "%" + value);
+                        queryCondition = "and " + fieldNameOnDataBase + " " + operation.operationSign + " " + ":" + parameterQueryStringMap;
                     }
                 } else if (operation == SqlOperation.IN) {
                     String[] listArray = value.split(",");
-                    parametersMap.put(parameter, Arrays.asList(listArray));
-                    queryCondition = "and " + fieldName + " " + operation.operationSign + " (" + ":" + parameter + ")";
+                    parametersMap.put(parameterQueryStringMap, Arrays.asList(listArray));
+                    queryCondition = "and " + fieldNameOnDataBase + " " + operation.operationSign + " (" + ":" + parameterQueryStringMap + ")";
                 }
-            }
 
-            conditionsMap.put(parameter, queryCondition);
+                conditionsMap.put(parameterQueryStringMap, queryCondition);
+            }
         }
 
+    }
+
+    public static String getWhereSimple(){
+        return  " where 1=1 ";
     }
 }

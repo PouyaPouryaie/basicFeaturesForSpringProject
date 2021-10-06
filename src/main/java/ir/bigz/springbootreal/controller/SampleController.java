@@ -1,5 +1,6 @@
 package ir.bigz.springbootreal.controller;
 
+import ir.bigz.springbootreal.dto.PageResult;
 import ir.bigz.springbootreal.service.UserService;
 import ir.bigz.springbootreal.viewmodel.UserModel;
 import ir.bigz.springbootreal.viewmodel.search.UserSearchDto;
@@ -16,7 +17,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/v1")
-public class SampleController {
+public class SampleController extends AbstractController{
 
     final
     UserService userService;
@@ -72,6 +73,13 @@ public class SampleController {
                                                @RequestParam(name = "pagenumber", defaultValue = "1") Integer pageNumber,
                                                @RequestParam(name = "pagesize", defaultValue = "5") Integer pageSize) {
         Page<UserModel> userPageResult = userService.getUserSearchResult(userSearchDto, sortOrder, Sort.Direction.fromString(direction), pageNumber, pageSize);
+        return ResponseEntity.ok(userPageResult);
+    }
+
+    @GetMapping(path = "/user/search/v2", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> getUserWithSearchV2() {
+        PageResult<UserModel> userPageResult = userService.getUserSearchV2(getQueryString(), getPagedQuery());
         return ResponseEntity.ok(userPageResult);
     }
 
