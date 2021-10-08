@@ -157,17 +157,24 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT)
     public PageResult<UserModel> getUserSearchV2(Map<String, String> queryString, PagedQuery pagedQuery) {
+
         Map<String, Object> parametersMap = new HashMap<>();
         Map<String, String> conditionsMap = new HashMap<>();
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append(USER_QUERY); //base query
         stringBuffer.append(Utils.getWhereSimple()); //add where to query
+        Map<String, String> parameterQueryWithFieldNameMap = new HashMap<>(); //map between queryString and entityColumn
+        parameterQueryWithFieldNameMap.put("firstName", "first_name");
+        parameterQueryWithFieldNameMap.put("lastName", "last_name");
+        Map<String, SqlOperation> parameterQueryWithOperationMap = new HashMap<>(); // map between queryString and queryCondition
+        parameterQueryWithOperationMap.put("firstName", SqlOperation.CONTAINS);
+        parameterQueryWithOperationMap.put("lastName", SqlOperation.CONTAINS);
+
         Utils.buildNativeQueryCondition(queryString,
                 conditionsMap,
                 parametersMap,
-                "first_name",
-                "firstName",
-                SqlOperation.CONTAINS,
+                parameterQueryWithFieldNameMap,
+                parameterQueryWithOperationMap,
                 String.class);
 
         conditionsMap.keySet().forEach(s -> stringBuffer.append(conditionsMap.get(s)));

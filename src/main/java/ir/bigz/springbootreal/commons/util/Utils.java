@@ -9,6 +9,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 import static ir.bigz.springbootreal.dto.ValueCondition.*;
@@ -111,69 +112,72 @@ public class Utils {
     public static <T> void buildNativeQueryCondition(Map<String, String> queryString,
                                                      Map<String, String> conditionsMap,
                                                      Map<String, Object> parametersMap,
-                                                     String fieldNameOnDataBase,
-                                                     String parameterQueryStringMap,
-                                                     SqlOperation operation,
+                                                     Map<String, String> parameterQueryWithFieldNameMap,
+                                                     Map<String, SqlOperation> parameterQueryWithOperationMap,
                                                      Class<T> type) {
-        if (queryString != null) {
-            String value = queryString.get(parameterQueryStringMap);
-            T parameterVal = null;
-            String queryCondition = "";
-            if (type.equals(String.class)) {
-                parameterVal = (T) "";
-            }
-            if (value != null && !Utils.isNull(value)) {
-                if (operation == SqlOperation.EQUAL ||
-                        operation == SqlOperation.NOT_EQUAL ||
-                        operation == SqlOperation.GREATER_THAN ||
-                        operation == SqlOperation.GREATER_THAN_OR_EQUAL ||
-                        operation == SqlOperation.LESS_THAN ||
-                        operation == SqlOperation.LESS_THAN_OR_EQUAL) {
-                    if (type.equals(Integer.class)) {
-                        parameterVal = (T) Integer.valueOf(value);
-                    }
-                    if (type.equals(Double.class)) {
-                        parameterVal = (T) Double.valueOf(value);
-                    }
-                    if (type.equals(Long.class)) {
-                        parameterVal = (T) Long.valueOf(value);
-                    }
-                    if (type.equals(Boolean.class)) {
-                        parameterVal = (T) Boolean.valueOf(value);
-                    }
-                    if (type.equals(String.class)) {
-                        parameterVal = (T) value;
-                    }
-                    parametersMap.put(parameterQueryStringMap, parameterVal);
-                    queryCondition = "and " + fieldNameOnDataBase + " " + operation.operationSign + " " + ":" + parameterQueryStringMap;
-                } else if (operation == SqlOperation.CONTAINS || operation == SqlOperation.NOT_CONTAINS) {
-                    if (type.equals(String.class)) {
-                        parametersMap.put(parameterQueryStringMap, "%" + value + "%");
-                        queryCondition = "and " + fieldNameOnDataBase + " " + operation.operationSign + " :" + parameterQueryStringMap;
-                    }
-                } else if (operation == SqlOperation.STARTS_WITH) {
-                    if (type.equals(String.class)) {
-                        parametersMap.put(parameterQueryStringMap, value + "%");
-                        queryCondition = "and " + fieldNameOnDataBase + " " + operation.operationSign + " " + ":" + parameterQueryStringMap;
-                    }
-                } else if (operation == SqlOperation.ENDS_WITH) {
-                    if (type.equals(String.class)) {
-                        parametersMap.put(parameterQueryStringMap, "%" + value);
-                        queryCondition = "and " + fieldNameOnDataBase + " " + operation.operationSign + " " + ":" + parameterQueryStringMap;
-                    }
-                } else if (operation == SqlOperation.IN) {
-                    String[] listArray = value.split(",");
-                    parametersMap.put(parameterQueryStringMap, Arrays.asList(listArray));
-                    queryCondition = "and " + fieldNameOnDataBase + " " + operation.operationSign + " (" + ":" + parameterQueryStringMap + ")";
-                }
+        parameterQueryWithFieldNameMap.keySet().forEach(
+                paramQuery -> {
+                    if (queryString != null) {
+                        String value = queryString.get(paramQuery);
+                        T parameterVal = null;
+                        String queryCondition = "";
+                        if (type.equals(String.class)) {
+                            parameterVal = (T) "";
+                        }
+                        SqlOperation operation = parameterQueryWithOperationMap.get(paramQuery);
+                        if (value != null && !Utils.isNull(value)) {
+                            if (operation == SqlOperation.EQUAL ||
+                                    operation == SqlOperation.NOT_EQUAL ||
+                                    operation == SqlOperation.GREATER_THAN ||
+                                    operation == SqlOperation.GREATER_THAN_OR_EQUAL ||
+                                    operation == SqlOperation.LESS_THAN ||
+                                    operation == SqlOperation.LESS_THAN_OR_EQUAL) {
+                                if (type.equals(Integer.class)) {
+                                    parameterVal = (T) Integer.valueOf(value);
+                                }
+                                if (type.equals(Double.class)) {
+                                    parameterVal = (T) Double.valueOf(value);
+                                }
+                                if (type.equals(Long.class)) {
+                                    parameterVal = (T) Long.valueOf(value);
+                                }
+                                if (type.equals(Boolean.class)) {
+                                    parameterVal = (T) Boolean.valueOf(value);
+                                }
+                                if (type.equals(String.class)) {
+                                    parameterVal = (T) value;
+                                }
+                                parametersMap.put(paramQuery, parameterVal);
+                                queryCondition = " and " + parameterQueryWithFieldNameMap.get(paramQuery) + " " + operation.operationSign + " " + ":" + paramQuery;
+                            } else if (operation == SqlOperation.CONTAINS || operation == SqlOperation.NOT_CONTAINS) {
+                                if (type.equals(String.class)) {
+                                    parametersMap.put(paramQuery, "%" + value + "%");
+                                    queryCondition = " and " + parameterQueryWithFieldNameMap.get(paramQuery) + " " + operation.operationSign + " " + ":" + paramQuery;
+                                }
+                            } else if (operation == SqlOperation.STARTS_WITH) {
+                                if (type.equals(String.class)) {
+                                    parametersMap.put(paramQuery, value + "%");
+                                    queryCondition = " and " + parameterQueryWithFieldNameMap.get(paramQuery) + " " + operation.operationSign + " " + ":" + paramQuery;
+                                }
+                            } else if (operation == SqlOperation.ENDS_WITH) {
+                                if (type.equals(String.class)) {
+                                    parametersMap.put(paramQuery, "%" + value);
+                                    queryCondition = " and " + parameterQueryWithFieldNameMap.get(paramQuery) + " " + operation.operationSign + " " + ":" + paramQuery;
+                                }
+                            } else if (operation == SqlOperation.IN) {
+                                String[] listArray = value.split(",");
+                                parametersMap.put(paramQuery, Arrays.asList(listArray));
+                                queryCondition = " and " + parameterQueryWithFieldNameMap.get(paramQuery) + " " + operation.operationSign + " (" + ":" + paramQuery + ")";
+                            }
 
-                conditionsMap.put(parameterQueryStringMap, queryCondition);
-            }
-        }
+                            conditionsMap.put(paramQuery, queryCondition);
+                        }
+                    }
+                });
 
     }
 
     public static String getWhereSimple(){
-        return  " where 1=1 ";
+        return  " where 1=1";
     }
 }
