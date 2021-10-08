@@ -58,10 +58,10 @@ This project, implement instance of basic feature, <br> you maybe want use for A
 4 - log for validation and save error-message in log file <br>
 
 ### search feature
-1 - create your own search model <br>
-2 - use pagination for search <br>
-3 - create query dynamic base on search request <br>
-4 - use order and direction for sort data <br>
+1 - query clause, order for result and pagination can define in client Request as queryString and handle in AbstractController <br>
+2 - buildNativeQueryCondition method in Utils class use for create native query base on request queryString <br>
+3 - dynamic order and direction for sort data handle in daoRepository <br>
+4 - more detail about search feature, see searchEngineV2.drawio <br> 
 5 - sample rest search request: <br> 
 - http://localhost:9090/api/v1/user/search/v2?firstName=h&orderBy=firstName_asc, gender_desc&page=1&size=5 <br>
 

@@ -1,6 +1,8 @@
 package ir.bigz.springbootreal.dal;
 import ir.bigz.springbootreal.dto.PageResult;
 import ir.bigz.springbootreal.dto.PagedQuery;
+import ir.bigz.springbootreal.exception.AppException;
+import ir.bigz.springbootreal.exception.HttpErrorCode;
 import org.hibernate.Session;
 import org.hibernate.jpa.QueryHints;
 import org.springframework.data.domain.Page;
@@ -150,7 +152,6 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
                         String[] orderField = orderParam.split("_");
                         Field field = getDeclaredField(daoType, orderField[0]);
                         if(field == null){
-                            System.out.println("wrong ordering field = " + orderParam);
                             return;
                         }
                         String orderColumn = field.getName().replaceAll("([A-Z])", "_$1").toLowerCase();
@@ -163,7 +164,9 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
                         }
                         orderString.append(orderColumn + " " + order);
                     }catch (Exception e){
-                        System.out.println("wrong ordering field = " + orderParam);
+                        throw AppException.newInstance(
+                                HttpErrorCode.ERR_10705, String.format("field %s ordering is wrong", orderParam)
+                        );
                     }
                 }
         );

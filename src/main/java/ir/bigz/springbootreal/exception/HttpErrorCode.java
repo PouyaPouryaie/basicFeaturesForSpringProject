@@ -8,7 +8,8 @@ public enum HttpErrorCode {
     ERR_10701	(10701, "process of the request has been error", HttpStatus.BAD_REQUEST),
     ERR_10702	(10702, "User Not Found", HttpStatus.NOT_FOUND),
     ERR_10703	(10703, "Invalid Entity For Update", HttpStatus.BAD_REQUEST),
-    ERR_10704	(10704, "validation Error", HttpStatus.BAD_REQUEST);
+    ERR_10704	(10704, "validation Error", HttpStatus.BAD_REQUEST),
+    ERR_10705	(10705, "create query process has been error", HttpStatus.BAD_REQUEST);
 
     private final int code;
     private final HttpStatus status;
