@@ -1,10 +1,12 @@
 package ir.bigz.springbootreal.dto;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 
 @Getter
+@ToString
 public class PageResult<T> {
 
     private final List<T> result;
