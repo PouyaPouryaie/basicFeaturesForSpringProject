@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/v1")
+@RequestMapping("/api")
 public class SampleController extends AbstractController{
 
     final
@@ -26,21 +26,21 @@ public class SampleController extends AbstractController{
         this.userService = userService;
     }
 
-    @GetMapping(path = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/v1/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> getUserById(@PathVariable("id") long id) {
         UserModel userModel = userService.getUser(id);
         return ResponseEntity.ok(userModel);
     }
 
-    @PostMapping(path = "/user/add", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/v1/user/add", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> addUser(@Valid @RequestBody UserModel userModel) {
         UserModel userModelResult = userService.addUser(userModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(userModelResult);
     }
 
-    @PostMapping(path = "/user/update/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/v1/user/update/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> updateUser(@RequestBody UserModel userModel, @PathVariable("id") long userId) {
         UserModel userModelResult = userService.updateUser(userId, userModel);
@@ -48,7 +48,7 @@ public class SampleController extends AbstractController{
     }
 
 
-    @PostMapping(path = "/user/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/v1/user/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> deleteUser(@PathVariable("id") long userId) {
         String result = userService.deleteUser(userId);
@@ -58,14 +58,14 @@ public class SampleController extends AbstractController{
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);
     }
 
-    @GetMapping(path = "/user/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/v1/user/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> getAllUser() {
         List<UserModel> result = userService.getAll();
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping(path = "/user/search", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/v1/user/search", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> getUserWithSearch(@RequestBody UserSearchDto userSearchDto,
                                                @RequestParam(name = "sortorder", defaultValue = "id") String sortOrder,
@@ -76,7 +76,7 @@ public class SampleController extends AbstractController{
         return ResponseEntity.ok(userPageResult);
     }
 
-    @GetMapping(path = "/user/search/v2", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/v2/user/search", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> getUserWithSearchV2() {
         PageResult<UserModel> userPageResult = userService.getUserSearchV2(getQueryString(), getPagedQuery());
@@ -84,7 +84,7 @@ public class SampleController extends AbstractController{
     }
 
 
-    @GetMapping(path = "/user/all/pagerquest", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/v1/user/all/pagerquest", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> getAllUserPage(@RequestParam(name = "sortorder", required = false) String sortOrder,
                                             @RequestParam(name = "direction") String sortDirection,

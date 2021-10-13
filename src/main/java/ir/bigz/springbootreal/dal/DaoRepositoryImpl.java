@@ -130,6 +130,7 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
         return entityManager.createQuery(query, daoType).getResultList();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
     public List<T> nativeQuery(String query, Map<String, Object> parameters) {
@@ -139,11 +140,12 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
         return nativeQuery.getResultList();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
     public PageResult<T> pageCreateQuery(String nativeQuery, PagedQuery pagedQuery, Map<String, Object> parameterMap, boolean getTotalCount) {
 
-        StringBuffer orderString = new StringBuffer();
+        StringBuilder orderString = new StringBuilder();
         String queryString = nativeQuery;
         pagedQuery.getOrdering().forEach(
                 orderParam -> {
@@ -182,13 +184,6 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
         if (pagedQuery.getPageSize() > 0 && pagedQuery.getPageSize() < maxPageSize && pagedQuery.getPageNumber() > 0) {
             int start = ((pagedQuery.getPageNumber() - 1) * pagedQuery.getPageSize());
             int end = (pagedQuery.getPageNumber() * pagedQuery.getPageSize());
-
-//            queryString = MessageFormat.format(
-//                    "SELECT * FROM ( " +
-//                            "    SELECT q.*, rownum r_ FROM ({0}) q " +
-//                            "    WHERE rownum < {1,number,#}) " +
-//                            "WHERE r_ >= {2,number,#} ", queryString, end, start);
-
             query.setFirstResult(start);
             query.setMaxResults(end);
         }
@@ -200,14 +195,13 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
             total = totalCountOfSearch(queryString, parameterMap);
         }
 
-        PageResult<T> pagedResult = new PageResult<T>(
+        return new PageResult<>(
                 resultQuery
                 , (pagedQuery.getPageSize() > -1 ? pagedQuery.getPageSize() : resultQuery.size())
                 , pagedQuery.getPageNumber()
                 , pagedQuery.getOffset()
                 , total != 0 ? total : resultQuery.size()
         );
-        return pagedResult;
     }
 
     @Override

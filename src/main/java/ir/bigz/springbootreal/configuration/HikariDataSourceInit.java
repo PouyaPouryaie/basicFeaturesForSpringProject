@@ -28,9 +28,9 @@ public class HikariDataSourceInit{
 
     @Bean(name = "HikariDataSourceInit")
     public DataSource dataSource(){
-//        HikariConfig hikariConfig = new HikariConfig(hikariProperties()); // use for production
-        HikariConfig hikariConfig = new HikariConfig();
-        hikariConfig.setDataSource(InitDataSource());
+       HikariConfig hikariConfig = new HikariConfig(hikariProperties()); // use for production
+        // HikariConfig hikariConfig = new HikariConfig();
+        // hikariConfig.setDataSource(InitDataSource());
         int cpuCores = Runtime.getRuntime().availableProcessors();
         hikariConfig.setMaximumPoolSize(cpuCores * 4);
         hikariConfig.setConnectionTimeout(Long.parseLong(env.getProperty("hikari.connectionTimeout")));

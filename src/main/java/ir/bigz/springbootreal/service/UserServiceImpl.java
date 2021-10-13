@@ -160,9 +160,9 @@ public class UserServiceImpl implements UserService {
 
         Map<String, Object> parametersMap = new HashMap<>();
         Map<String, String> conditionsMap = new HashMap<>();
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append(USER_QUERY); //base query
-        stringBuffer.append(Utils.getWhereSimple()); //add where to query
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(USER_QUERY); //base query
+        stringBuilder.append(Utils.getWhereSimple()); //add where to query
         Map<String, String> parameterQueryWithFieldNameMap = new HashMap<>(); //map between queryString and entityColumn
         parameterQueryWithFieldNameMap.put("firstName", "first_name");
         parameterQueryWithFieldNameMap.put("lastName", "last_name");
@@ -177,19 +177,17 @@ public class UserServiceImpl implements UserService {
                 parameterQueryWithOperationMap,
                 String.class);
 
-        conditionsMap.keySet().forEach(s -> stringBuffer.append(conditionsMap.get(s)));
+        conditionsMap.keySet().forEach(s -> stringBuilder.append(conditionsMap.get(s)));
 
-        PageResult<User> userPageResult = userRepository.pageCreateQuery(stringBuffer.toString(), pagedQuery, parametersMap, true);
+        PageResult<User> userPageResult = userRepository.pageCreateQuery(stringBuilder.toString(), pagedQuery, parametersMap, true);
 
         List<UserModel> collect = userPageResult.getResult().stream().map(userMapper::userToUserModel).collect(Collectors.toList());
 
-        PageResult<UserModel> userModelPageResult = new PageResult<>(collect,
+        return new PageResult<>(collect,
                 userPageResult.getPageSize(),
                 userPageResult.getPageNumber(),
                 userPageResult.getOffset(),
                 userPageResult.getTotal());
-
-        return userModelPageResult;
     }
 
     private void mapUserForUpdate(User sourceUser, User updateUser) {
