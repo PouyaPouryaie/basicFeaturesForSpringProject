@@ -1,16 +1,23 @@
 package ir.bigz.springbootreal.commons.util;
 
+import ir.bigz.springbootreal.dto.PagedQuery;
 import ir.bigz.springbootreal.dto.SqlOperation;
 import ir.bigz.springbootreal.dto.ValueCondition;
+import ir.bigz.springbootreal.exception.AppException;
+import ir.bigz.springbootreal.exception.HttpErrorCode;
+import org.javatuples.Quartet;
+import org.springframework.data.domain.Sort;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.lang.reflect.Field;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static ir.bigz.springbootreal.dto.ValueCondition.*;
 
@@ -62,6 +69,65 @@ public class Utils {
 
     public static boolean isEqual(String s1, String s2) {
         return (!isNull(s1) && !isNull(s2) && s1.equals(s2));
+    }
+
+    public static <K> Predicate getCriteriaPredicate(CriteriaBuilder criteriaBuilder, Root<K> root,Quartet<String, String, SqlOperation, ValueCondition> rule, String value){
+
+        SqlOperation operation = rule.getValue2();
+        switch (operation){
+            case GREATER_THAN:
+                return criteriaBuilder.greaterThan(root.get(rule.getValue1()), createValueFromValueCondition(value, rule.getValue3()));
+            case GREATER_THAN_OR_EQUAL:
+                return criteriaBuilder.greaterThanOrEqualTo(root.get(rule.getValue1()), createValueFromValueCondition(value, rule.getValue3()));
+            case CONTAINS:
+                return criteriaBuilder.like(root.get(rule.getValue1()), createValueFromValueCondition(value, rule.getValue3()));
+            case LESS_THAN:
+                return criteriaBuilder.lessThan(root.get(rule.getValue1()), createValueFromValueCondition(value, rule.getValue3()));
+            case LESS_THAN_OR_EQUAL:
+                return criteriaBuilder.lessThanOrEqualTo(root.get(rule.getValue1()), createValueFromValueCondition(value, rule.getValue3()));
+            default:
+                return criteriaBuilder.equal(root.get(rule.getValue1()), createValueFromValueCondition(value, EQUAL));
+        }
+    }
+
+    private static String createValueFromValueCondition(String value, ValueCondition condition){
+        switch (condition){
+            case CONTAINS: case NOT_CONTAINS: return  "%" + value + "%";
+            case STARTS_WITH: return value + "%";
+            case ENDS_WITH: return "%" + value;
+            default: return value;
+        }
+    }
+
+    public static List<Sort.Order> getSortOrderFromPagedQuery(PagedQuery pagedQuery, Class clazz){
+
+        List<Sort.Order> orders = new ArrayList<>();
+
+        pagedQuery.getOrdering().forEach(
+                orderParam -> {
+                    try {
+                        orderParam = orderParam.trim();
+                        String[] orderField = orderParam.split("_");
+                        Field field = getDeclaredField(clazz, orderField[0]);
+                        if(field == null){
+                            return;
+                        }
+                        String orderColumn = field.getName();
+                        String orderDirection = PagedQuery.ORDER_ASC;
+                        if (orderField.length > 1 && orderField[1].equalsIgnoreCase(PagedQuery.ORDER_DESC)) {
+                            orderDirection = PagedQuery.ORDER_DESC;
+                        }
+                        Sort.Order order = new Sort.Order(Sort.Direction.valueOf(orderDirection), orderColumn);
+                        orders.add(order);
+                    }catch (Exception e){
+                        throw AppException.newInstance(
+                                HttpErrorCode.ERR_10705, String.format("field %s ordering is wrong", orderParam)
+                        );
+                    }
+                }
+        );
+
+        return orders;
     }
 
 
@@ -179,5 +245,17 @@ public class Utils {
 
     public static String getWhereSimple(){
         return  " where 1=1";
+    }
+
+    public static Field getDeclaredField(Class className, String fieldName) {
+        Field field = null;
+        while (className != null && field == null) {
+            try {
+                field = className.getDeclaredField(fieldName);
+            } catch (NoSuchFieldException ex) {
+            }
+            className = className.getSuperclass();
+        }
+        return field;
     }
 }

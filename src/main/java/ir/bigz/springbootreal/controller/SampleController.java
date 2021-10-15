@@ -76,14 +76,6 @@ public class SampleController extends AbstractController{
         return ResponseEntity.ok(userPageResult);
     }
 
-    @GetMapping(path = "/v2/user/search", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> getUserWithSearchV2() {
-        PageResult<UserModel> userPageResult = userService.getUserSearchV2(getQueryString(), getPagedQuery());
-        return ResponseEntity.ok(userPageResult);
-    }
-
-
     @GetMapping(path = "/v1/user/all/pagerquest", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> getAllUserPage(@RequestParam(name = "sortorder", required = false) String sortOrder,
@@ -91,6 +83,20 @@ public class SampleController extends AbstractController{
                                             @RequestParam(name = "pagenumber") Integer pageNumber,
                                             @RequestParam(name = "pagesize") Integer pageSize) {
         Page<UserModel> userPageResult = userService.getAllUserPage(sortOrder, Sort.Direction.fromString(sortDirection), pageNumber, pageSize);
+        return ResponseEntity.ok(userPageResult);
+    }
+
+    @GetMapping(path = "/v2/user/search", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> getUserSearchWithNativeQuery() {
+        PageResult<UserModel> userPageResult = userService.getUserSearchWithNativeQuery(getQueryString(), getPagedQuery());
+        return ResponseEntity.ok(userPageResult);
+    }
+
+    @GetMapping(path = "/v3/user/search", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> getUserSearchWithCriteriaBuilder() {
+        Page<UserModel> userPageResult = userService.getUserSearchWithCriteriaBuilder(getQueryString(), getPagedQuery());
         return ResponseEntity.ok(userPageResult);
     }
 

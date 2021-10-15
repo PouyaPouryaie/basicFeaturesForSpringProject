@@ -28,5 +28,7 @@ public interface UserService {
 
     Page<UserModel> getAllUserPage(String sortOrder, Sort.Direction sortDirection, Integer pageNumber, Integer pageSize);
 
-    PageResult<UserModel> getUserSearchV2(Map<String, String> queryString, PagedQuery pagedQuery);
+    PageResult<UserModel> getUserSearchWithNativeQuery(Map<String, String> queryString, PagedQuery pagedQuery);
+
+    Page<UserModel> getUserSearchWithCriteriaBuilder(Map<String, String> queryString, PagedQuery pagedQuery);
 }

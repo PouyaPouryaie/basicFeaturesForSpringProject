@@ -5,12 +5,15 @@ import ir.bigz.springbootreal.dal.UserRepository;
 import ir.bigz.springbootreal.dto.PageResult;
 import ir.bigz.springbootreal.dto.PagedQuery;
 import ir.bigz.springbootreal.dto.SqlOperation;
+import ir.bigz.springbootreal.dto.ValueCondition;
 import ir.bigz.springbootreal.dto.entity.User;
+import ir.bigz.springbootreal.dto.entity.User_;
 import ir.bigz.springbootreal.dto.mapper.UserMapper;
 import ir.bigz.springbootreal.exception.AppException;
 import ir.bigz.springbootreal.exception.HttpErrorCode;
 import ir.bigz.springbootreal.viewmodel.UserModel;
 import ir.bigz.springbootreal.viewmodel.search.UserSearchDto;
+import org.javatuples.Quartet;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -156,7 +159,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT)
-    public PageResult<UserModel> getUserSearchV2(Map<String, String> queryString, PagedQuery pagedQuery) {
+    public PageResult<UserModel> getUserSearchWithNativeQuery(Map<String, String> queryString, PagedQuery pagedQuery) {
 
         Map<String, Object> parametersMap = new HashMap<>();
         Map<String, String> conditionsMap = new HashMap<>();
@@ -188,6 +191,38 @@ public class UserServiceImpl implements UserService {
                 userPageResult.getPageNumber(),
                 userPageResult.getOffset(),
                 userPageResult.getTotal());
+    }
+
+    @Override
+    public Page<UserModel> getUserSearchWithCriteriaBuilder(Map<String, String> queryString, PagedQuery pagedQuery) {
+
+        // tuple define for map data from queryString in query search base on sql operation and value condition rules
+        List<Quartet<String, String, SqlOperation, ValueCondition>> rules = new ArrayList<>();
+        Quartet<String, String, SqlOperation, ValueCondition> firstNameTuple = new Quartet<>(
+                "firstName", "firstName", SqlOperation.CONTAINS, ValueCondition.CONTAINS);
+        Quartet<String, String, SqlOperation, ValueCondition> insertDateTuple = new Quartet<>(
+                "dateFrom", "insertDate", SqlOperation.GREATER_THAN, ValueCondition.EQUAL);
+        rules.add(firstNameTuple);
+        rules.add(insertDateTuple);
+
+        // define pageable object base on pagedQuery
+        List<Sort.Order> orderFromPagedQuery = Utils.getSortOrderFromPagedQuery(pagedQuery, User.class);
+        Pageable pageable = PageRequest.of(pagedQuery.getPageNumber(),
+                pagedQuery.getPageSize(),
+                Sort.by(orderFromPagedQuery));
+
+        // call repo
+        // tuples, queryString, pageable to repository
+        try{
+            Page<User> userQueryWithCriteriaBuilder = userRepository.getUserQueryWithCriteriaBuilder(queryString, rules, pageable);
+            List<UserModel> collect = userQueryWithCriteriaBuilder.get().map(userMapper::userToUserModel).collect(Collectors.toList());
+            return new PageImpl<>(collect, pageable, userQueryWithCriteriaBuilder.getTotalElements());
+        }catch (RuntimeException exception) {
+            throw AppException.newInstance(
+                    HttpErrorCode.ERR_10701,
+                    String.format("getUserSearchWithCriteriaBuilder method has error: %s", exception.getCause())
+            );
+        }
     }
 
     private void mapUserForUpdate(User sourceUser, User updateUser) {

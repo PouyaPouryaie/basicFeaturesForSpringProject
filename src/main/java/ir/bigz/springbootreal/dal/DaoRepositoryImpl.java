@@ -1,4 +1,5 @@
 package ir.bigz.springbootreal.dal;
+import ir.bigz.springbootreal.commons.util.Utils;
 import ir.bigz.springbootreal.dto.PageResult;
 import ir.bigz.springbootreal.dto.PagedQuery;
 import ir.bigz.springbootreal.exception.AppException;
@@ -152,7 +153,7 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
                     try {
                         orderParam = orderParam.trim();
                         String[] orderField = orderParam.split("_");
-                        Field field = getDeclaredField(daoType, orderField[0]);
+                        Field field = Utils.getDeclaredField(daoType, orderField[0]);
                         if(field == null){
                             return;
                         }
@@ -270,7 +271,8 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
     public Page<T> genericSearch(CriteriaQuery<T> query, Pageable pageable){
 
-        long totalCount = totalCountOfEntities();
+        TypedQuery<T> countQuery = entityManager.createQuery(query.toString(), daoType);
+        int totalCount = countQuery.getResultList().size();
 
         TypedQuery<T> typedQuery = entityManager.createQuery(query);
         List<T> resultList = typedQuery
@@ -327,18 +329,6 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
             }
         }
         return orders;
-    }
-
-    protected Field getDeclaredField(Class className, String fieldName) {
-        Field field = null;
-        while (className != null && field == null) {
-            try {
-                field = className.getDeclaredField(fieldName);
-            } catch (NoSuchFieldException ex) {
-            }
-            className = className.getSuperclass();
-        }
-        return field;
     }
 
     protected static String removeDefaultOrderBy(String query) {
