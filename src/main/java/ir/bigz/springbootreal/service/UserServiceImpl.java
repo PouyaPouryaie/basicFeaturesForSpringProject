@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
     @Cacheable(value = "userCache", key = "#userId", condition = "#userId != null", unless = "#result==null")
     public UserModel getUser(Long userId) {
         try {
-            Optional<User> user = userRepository.find(userId);
+            Optional<User> user = userRepository.findById(userId);
             return userMapper.userToUserModel(user.get());
         } catch (RuntimeException exception) {
             throw AppException.newInstance(
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
                 userModel.setInsertDate(Utils.getLocalTimeNow());
                 userModel.setActiveStatus(true);
                 User user = userMapper.userModelToUser(userModel);
-                User insert = userRepository.insert(user);
+                User insert = userRepository.save(user);
                 return userMapper.userToUserModel(insert);
             }
             throw new RuntimeException("user has already exist");
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
     @CachePut(value = "userCache", key = "#userId", condition = "#userId != null", unless = "#result==null")
     public UserModel updateUser(long userId, UserModel userModel) {
         try {
-            Optional<User> user = userRepository.find(userId);
+            Optional<User> user = userRepository.findById(userId);
             User sourceUser = user.get();
             User updateUser = userMapper.userModelToUser(userModel);
             mapUserForUpdate(sourceUser, updateUser);
@@ -101,8 +101,8 @@ public class UserServiceImpl implements UserService {
     @CacheEvict(value = "userCache", beforeInvocation = true, key = "#userId")
     public String deleteUser(long userId) {
         try {
-            userRepository.find(userId);
-            userRepository.delete(userId);
+            userRepository.findById(userId);
+            userRepository.deleteById(userId);
             return "Success";
 
         } catch (RuntimeException exception) {
@@ -117,7 +117,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT)
     public List<UserModel> getAll() {
         try {
-            Stream<User> allUser = userRepository.getAll();
+            Stream<User> allUser = userRepository.findAll();
             return allUser.map(userMapper::userToUserModel).collect(Collectors.toList());
         } catch (RuntimeException exception) {
             throw AppException.newInstance(
@@ -152,7 +152,7 @@ public class UserServiceImpl implements UserService {
     public Page<UserModel> getAllUserPage(String sortOrder, Sort.Direction direction, Integer pageNumber, Integer pageSize) {
         Sort.Order order = new Sort.Order(direction, sortOrder);
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(order));
-        Page<User> all = userRepository.getAll(pageable);
+        Page<User> all = userRepository.findAll(pageable);
         List<UserModel> collect = all.get().map(userMapper::userToUserModel).collect(Collectors.toList());
         return new PageImpl<>(collect, pageable, all.getTotalElements());
     }

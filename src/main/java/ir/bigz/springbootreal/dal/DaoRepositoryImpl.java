@@ -71,13 +71,13 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public <S extends T> S insert(S entity) {
+    public <S extends T> S save(S entity) {
         entityManager.persist(entity);
         return entity;
     }
 
     @Override
-    public <S extends T> Iterable<S> insert(Iterable<S> entities) {
+    public <S extends T> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
@@ -88,7 +88,7 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
     }
 
     @Override
-    public <S extends T> Iterable<S> update(Iterable<S> entities) {
+    public <S extends T> Iterable<S> updateAll(Iterable<S> entities) {
         return null;
     }
 
@@ -99,25 +99,30 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public void delete(K id) {
-        entityManager.remove(find(id).get());
+    public void deleteById(K id) {
+        entityManager.remove(findById(id).get());
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void deleteAll() {
-        getAll().forEach(t -> entityManager.remove(t));
+        findAll().forEach(t -> entityManager.remove(t));
+    }
+
+    @Override
+    public void deleteAllById(Iterable<? extends K> entities) {
+
+    }
+
+    @Override
+    public void deleteAll(Iterable<? extends T> entities) {
+
     }
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-    public Optional<T> find(K id) throws IllegalArgumentException {
+    public Optional<T> findById(K id) throws IllegalArgumentException {
         return Optional.of(entityManager.find(daoType, id));
-    }
-
-    @Override
-    public <S extends T> List<S> find(List<K> entityIds) {
-        return null;
     }
 
     @Override
@@ -220,7 +225,7 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
     @SuppressWarnings("unchecked")
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-    public Stream<T> getAll() {
+    public Stream<T> findAll() {
         Session session = entityManager.unwrap(Session.class);
         return session.createQuery("from " + daoType.getName())
                 .setHint(QueryHints.HINT_FETCH_SIZE, 50)
@@ -229,7 +234,7 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-    public List<T> getAll(Sort sort) {
+    public List<T> findAll(Sort sort) {
         CriteriaQuery<T> query = criteriaBuilder.createQuery(daoType);
         Root<T> root = query.from(daoType);
         query.orderBy(orderByClauseBuilder(root, sort));
@@ -240,7 +245,7 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-    public Page<T> getAll(Pageable pageable) {
+    public Page<T> findAll(Pageable pageable) {
 
         long totalCount = totalCountOfEntities();
 

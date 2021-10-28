@@ -85,7 +85,7 @@ class SampleApiTest extends Specification{
         def model = generateUserModel()
 
         and:"define behavior of userRepository methods"
-        userRepository.insert(_) >> user
+        userRepository.save(_) >> user
         userRepository.getUserWithNationalCode(_) >> null
 
         and:"create json Object"

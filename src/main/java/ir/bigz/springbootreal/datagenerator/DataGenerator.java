@@ -48,7 +48,7 @@ public class DataGenerator implements CommandLineRunner {
                             createDateFromString("2020-10-20")).getTime()));
                     return user;
                 }).collect(Collectors.toList());
-        userList.forEach(userRepository::insert);
+        userList.forEach(userRepository::save);
     }
 
     private String generateNationalCode(Faker faker){

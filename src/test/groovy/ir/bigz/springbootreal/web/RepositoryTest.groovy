@@ -44,7 +44,7 @@ class RepositoryTest extends InitTestContainerDB {
         def user = generateUser()
 
         when: "insert entity to db and assign id to entity"
-        userRepository.insert(user)
+        userRepository.save(user)
 
         then: "entity has id, success persist"
         user.getId() != null
@@ -54,14 +54,14 @@ class RepositoryTest extends InitTestContainerDB {
     @Transactional
     def "deactivate user with stream data and not throw exception"(){
 
-        def countActiveUser = userRepository.getAll().filter(BaseEntity::isActiveStatus).count()
+        def countActiveUser = userRepository.findAll().filter(BaseEntity::isActiveStatus).count()
 
         when: "deactivate users"
-        userRepository.getAll()
+        userRepository.findAll()
                 .filter(BaseEntity::isActiveStatus).peek(user -> { user.setActiveStatus(false) }).count()
 
         then: "after deactivate user, count active must be zero"
-        def count = userRepository.getAll().filter(BaseEntity::isActiveStatus).count()
+        def count = userRepository.findAll().filter(BaseEntity::isActiveStatus).count()
         count == 0
         countActiveUser != count
 
@@ -109,10 +109,10 @@ class RepositoryTest extends InitTestContainerDB {
         def user = generateUser()
 
         and: "insert user to db"
-        userRepository.insert(user)
+        userRepository.save(user)
 
         when: "find user and update"
-        def find = userRepository.find(user.getId())
+        def find = userRepository.findById(user.getId())
 
         and: "update date"
         find.get().setUserName("sample2")
@@ -120,7 +120,7 @@ class RepositoryTest extends InitTestContainerDB {
         userRepository.update(find.get())
 
         then: "if properties are updated so test is success"
-        def result = userRepository.find(user.id)
+        def result = userRepository.findById(user.id)
         result.get().getUserName() == "sample2"
 
     }

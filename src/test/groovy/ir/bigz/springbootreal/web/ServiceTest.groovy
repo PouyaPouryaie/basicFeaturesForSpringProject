@@ -84,7 +84,7 @@ class ServiceTest extends InitTestContainerDB {
         queryParams.put("firstName", "h")
 
         when: "call method"
-        def result = userService.getUserSearchV2(queryParams, pagedQuery)
+        def result = userService.getUserSearchWithNativeQuery(queryParams, pagedQuery)
 
         then: "check result size"
         result.getResult().size() > 0
