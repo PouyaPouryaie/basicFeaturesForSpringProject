@@ -62,8 +62,8 @@ This project, implement instance of basic feature, <br> you maybe want use for A
 2 - buildNativeQueryCondition method in Utils class use for create native query base on request queryString <br>
 3 - dynamic order and direction for sort data handle in daoRepository <br>
 4 - more detail about search feature, see searchEngineV2.drawio <br> 
-5 - sample rest search request: <br> 
-- http://localhost:9090/api/v2/user/search?firstName=h&orderBy=firstName_asc, gender_desc&page=1&size=5 <br>
+5 - sample rest search request: <br>
+```http://localhost:9090/api/v2/user/search?firstName=h&orderBy=firstName_asc, gender_desc&page=1&size=5```
 
 ### search v3 base on CriteriaBuilder feature
 1 - query clause, order for result and pagination can define in client Request as queryString and handle in AbstractController <br>
@@ -71,7 +71,7 @@ This project, implement instance of basic feature, <br> you maybe want use for A
 3 - define Sort.Order object of spring with getSortOrderFromPagedQuery method to use for order by Clause<br>
 4 - then use getUserQueryWithCriteriaBuilder in userRepository for create query and get Result<br>
 5 - sample rest search request: <br>
-- http://localhost:9090/api/v2/user/search?firstName=h&orderBy=firstName_asc, gender_desc&page=1&size=5 <br>
+```http://localhost:9090/api/v2/user/search?firstName=h&orderBy=firstName_asc, gender_desc&page=1&size=5```
 
 ### test feature
 1 - generate sample data baseOn model with javaFaker <br>
