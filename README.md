@@ -2,7 +2,7 @@
 
 This project, implement instance of basic feature, <br> you maybe want use for App base on Spring-boot <br>
 
-## basicFeature
+## Features: 
 - spring-web
 - spring-jpa
     - with custom configuration for PersistenceContext
@@ -43,7 +43,7 @@ This project, implement instance of basic feature, <br> you maybe want use for A
 3 - run app: <b>docker compose run</b> <br>
 
 
-## Features
+## Features Explain: 
 ### exception feature
 
 1 - use AppException for define your own error Exception <br>
