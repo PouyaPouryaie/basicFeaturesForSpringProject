@@ -2,11 +2,19 @@ version: '3.9'
 
 services:
   app:
+    # "`-._,-'"`-._,-'"`-._,-'"`-._,-'"`-._,-'"`-._,-'"`-._,-'"`-._,-'"`-._,-
+    # An important note about accessing database encryption:
+    # -----------------------------------------------------------------------
+    #  JASYPT_ENCRYPTOR_PASSWORD: secret-key added to environment to use this function
+    # "`-._,-'"`-._,-'"`-._,-'"`-._,-'"`-._,-'"`-._,-'"`-._,-'"`-._,-'"`-._,-
+    #
     container_name: springapp-with-db
     image: springapp:latest
     build: ./
     ports:
       - "9090:9090"
+    environment:
+#      - JASYPT_ENCRYPTOR_PASSWORD: secret-key
     depends_on:
       - dbpostgresql
   dbpostgresql:

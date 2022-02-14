@@ -27,7 +27,9 @@ This project, implement instance of basic feature, <br> you maybe want use for A
 - decoupling layer
     - controller, service and repository layer for easy extend
 - flexible search
-    - use CriteriaQuery and CriteriaBuilder for search base on Entity 
+    - use CriteriaQuery and CriteriaBuilder for search base on Entity
+- jasypt
+    - use for encrypt password and added to config file, then decrypted pass in runtime
 
 ## Run guide
 ### Run for develop and debug: <br>
@@ -84,3 +86,26 @@ This project, implement instance of basic feature, <br> you maybe want use for A
 ### dataSource feature
 1 - choose between use simpleDataSource or HikariCp datasource <br>
 2 - you can customize properties for dataSource in application.properties
+
+### database password generator
+if you want to use encrypt password in config file for access database, you must follow below statement. <br>
+
+1 - use jasypt for generate encrypted database password with secret-key
+~~~
+java -cp jasypt-1.9.3.jar org.jasypt.intf.cli.JasyptPBEStringEncryptionCLI input={password} password={secret-key} algorithm=PBEWithMD5AndTripleDES
+~~~
+2 - add output into application.properties <br>
+note: I use '<b>ENC()<b>' as convention to use check password for decrypt or not. <br>
+
+normal datasource:
+~~~
+demo.datasource.password="ENC({output})"
+~~~
+hikari datasource:
+~~~
+hikari.dataSource.password="ENC({output})"
+~~~
+3 - run program and add in program environment secret-key:
+~~~
+--jasypt.encryptor.password={secret-key}
+~~~

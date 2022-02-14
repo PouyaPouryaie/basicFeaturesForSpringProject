@@ -5,7 +5,7 @@ server.port=9090
 demo.datasource.driver-class-name=org.postgresql.Driver
 demo.datasource.url=jdbc:postgresql://localhost:5432/myapp
 demo.datasource.username=postgres
-demo.datasource.password="ENC(vlB3w8KRSweC2PdYoVHpjYW+GQxeTSCv)"
+demo.datasource.password=postgres
 
 ################### Hibernate Configuration ##########################
 demo.jpa.hibernate.ddl-auto=update
@@ -18,7 +18,10 @@ spring.cache.jcache.config=classpath:ehcache.xml
 ################### Hikari DataSource Configuration ##########################
 hikari.dataSourceClassName=org.postgresql.ds.PGSimpleDataSource
 hikari.dataSource.user=postgres
-hikari.dataSource.password="ENC(vlB3w8KRSweC2PdYoVHpjYW+GQxeTSCv)"
+# when connecting to database and using encrypted password in config
+# hikari.dataSource.password="ENC(vlB3w8KRSweC2PdYoVHpjYW+GQxeTSCv)"
+# else use below properties
+# hikari.dataSource.password=postgres
 hikari.dataSource.databaseName=myapp
 hikari.dataSource.portNumber=5432
 hikari.dataSource.serverName=localhost
