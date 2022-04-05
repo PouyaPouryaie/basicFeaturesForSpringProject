@@ -12,11 +12,10 @@ import java.util.List;
 @Service
 public class ValidationValidator implements ConstraintValidator<Validator, String> {
 
+    boolean nullOption;
     List<String> allowed;
     ValidationType validationsType;
-
     private final ValidationHandler validationHandler;
-
     public ValidationValidator(ValidationHandler validationHandler) {
         this.validationHandler = validationHandler;
     }
@@ -24,6 +23,7 @@ public class ValidationValidator implements ConstraintValidator<Validator, Strin
     @Override
     public void initialize(Validator constraintAnnotation) {
         validationsType = constraintAnnotation.value();
+        nullOption = constraintAnnotation.nullOption();
         if(constraintAnnotation.allowed().length > 0){
             allowed = Arrays.asList(constraintAnnotation.allowed());
         }
@@ -38,7 +38,7 @@ public class ValidationValidator implements ConstraintValidator<Validator, Strin
     @Override
     public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
 
-        if(!validationHandler.apply(validationsType, allowed, value)){
+        if(!validationHandler.apply(validationsType, allowed, value, nullOption)){
             constraintValidatorContext.disableDefaultConstraintViolation();
             constraintValidatorContext.buildConstraintViolationWithTemplate(validationsType.getFailedMessage())
                     .addConstraintViolation();

@@ -17,19 +17,17 @@ public class UserModel extends BaseModel implements Serializable {
     private String userName;
 
     @NotBlank(message = "national code must not blank")
-    @Validator(ValidationType.NATIONAL_CODE)
+    @Validator(value = ValidationType.NATIONAL_CODE)
     private String nationalCode;
 
-    @NotBlank(message = "mobile must not blank")
-    @Validator(ValidationType.MOBILE)
+    @Validator(value = ValidationType.MOBILE, nullOption = true)
     private String mobile;
 
-    @NotBlank(message = "email must not blank")
-    @Validator(ValidationType.EMAIL)
+    @Validator(value = ValidationType.EMAIL, nullOption = true)
     private String email;
 
     @NotBlank(message = "gender must not blank")
-    @Validator(ValidationType.GENDER)
+    @Validator(value = ValidationType.GENDER)
     private String gender;
 
     public UserModel() {
@@ -44,8 +42,8 @@ public class UserModel extends BaseModel implements Serializable {
                      @NotBlank(message = "lastName must not blank") String lastName,
                      @NotBlank(message = "userName must not blank") String userName,
                      @Validator(ValidationType.NATIONAL_CODE) String nationalCode,
-                     @Validator(ValidationType.MOBILE) String mobile,
-                     @Validator(ValidationType.EMAIL) String email,
+                     @Validator(value = ValidationType.MOBILE, nullOption = true) String mobile,
+                     @Validator(value = ValidationType.EMAIL, nullOption = true) String email,
                      @Validator(ValidationType.GENDER) String gender) {
         super(id, version, insertDate, updateDate, activeStatus);
         this.firstName = firstName;

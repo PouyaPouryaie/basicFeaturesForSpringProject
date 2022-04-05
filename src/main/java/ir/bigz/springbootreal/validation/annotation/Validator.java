@@ -19,5 +19,6 @@ public @interface Validator {
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
     String[] allowed() default {};
+    boolean nullOption() default false;
     ValidationType value();
 }
