@@ -122,9 +122,9 @@ hikari.dataSource.password="ENC({output})"
 ~~~
 
 ### Jobs Run Tool
-1 - define class implement Runnable in order to execute job base on schedule 
-2 - define bean (AlertServiceJob) in BeanConfig class for your jobs
-3 - define trigger time in properties ```(ex: app.jobs.alertServiceJob=0 */1 * ? * *)``` file
-4 - @EnableScheduling on SpringApp
+1) define class implement Runnable in order to execute job base on schedule 
+2) define bean (AlertServiceJob) in BeanConfig class for your jobs
+3) define trigger time in properties ```(ex: app.jobs.alertServiceJob=0 */1 * ? * *)``` file
+4) @EnableScheduling on SpringApp
 
 notice: that name of bean in BeanConfig must be equal with name of key in properties file.
