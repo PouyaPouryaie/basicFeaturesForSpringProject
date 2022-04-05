@@ -2,6 +2,15 @@
 
 This project, implement instance of basic feature, <br> you maybe want use for App base on Spring-boot <br>
 
+### Note for upgrade to 2.4.X 
+1) for active profile config: <br>
+for before 2.4.x you can activate profile in pom file and add <b>@spring.profiles.active@</b> in application.properties <br>
+and then properties apply in project base on profile that active. <br>
+for 2.4.x or above
+    - if you want to use same as old solution you must add ```spring.config.use-legacy-processing=true``` in application.properties
+    - if you want to migrate in new approach please check https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-Config-Data-Migration-Guide
+
+
 ## Features: 
 - spring-web
 - spring-jpa
@@ -30,6 +39,8 @@ This project, implement instance of basic feature, <br> you maybe want use for A
     - use CriteriaQuery and CriteriaBuilder for search base on Entity
 - jasypt
     - use for encrypt password and added to config file, then decrypted pass in runtime
+- Jobs
+    - use Spring TaskScheduler for run jobs 
 
 ## Run guide
 ### Run for develop and debug: <br>
@@ -109,3 +120,11 @@ hikari.dataSource.password="ENC({output})"
 ~~~
 --jasypt.encryptor.password={secret-key}
 ~~~
+
+### Jobs Run Tool
+1 - define class implement Runnable in order to execute job base on schedule 
+2 - define bean (AlertServiceJob) in BeanConfig class for your jobs
+3 - define trigger time in properties ```(ex: app.jobs.alertServiceJob=0 */1 * ? * *)``` file
+4 - @EnableScheduling on SpringApp
+
+notice: that name of bean in BeanConfig must be equal with name of key in properties file.

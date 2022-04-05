@@ -16,12 +16,12 @@ import java.util.Properties;
 /**
  * {@link HikariDataSourceInit} use for build connection-pool base on HikariCp with customize properties,
  * and then added to {@link DataSourceConfiguration} class as datasource for use in app.
- * also if you want use for production uncomment line 32 and comment line 33 and 34
- * and if you want test with testContainer uncomment line 33 and 34 and comment line 32
+ * also if you want use for production uncomment line 41 and comment line 42 and 43
+ * and if you want test with testContainer uncomment line 42 and 43 and comment line 41
  *
  * DataBase password encryption with JASYPT:
  * first of all use jasypt to encrypted db-password and added into application.properties file,
- * then uncomment line 34 (encryptorPassword)
+ * then uncomment line 37 (encryptorPassword)
  * at the end add --jasypt.encryptor.password={secret-key} in program environment
  */
 
@@ -38,9 +38,9 @@ public class HikariDataSourceInit{
 
     @Bean(name = "HikariDataSourceInit")
     public DataSource dataSource(){
-       HikariConfig hikariConfig = new HikariConfig(hikariProperties()); // use for production
-        // HikariConfig hikariConfig = new HikariConfig();
-        // hikariConfig.setDataSource(InitDataSource());
+//       HikariConfig hikariConfig = new HikariConfig(hikariProperties()); // use for production
+         HikariConfig hikariConfig = new HikariConfig();
+         hikariConfig.setDataSource(InitDataSource());
         int cpuCores = Runtime.getRuntime().availableProcessors();
         hikariConfig.setMaximumPoolSize(cpuCores * 4);
         hikariConfig.setConnectionTimeout(Long.parseLong(env.getProperty("hikari.connectionTimeout")));
