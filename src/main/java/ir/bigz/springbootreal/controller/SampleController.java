@@ -4,6 +4,7 @@ import ir.bigz.springbootreal.dto.PageResult;
 import ir.bigz.springbootreal.service.UserService;
 import ir.bigz.springbootreal.viewmodel.UserModel;
 import ir.bigz.springbootreal.viewmodel.search.UserSearchDto;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -13,18 +14,29 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
 public class SampleController extends AbstractController{
 
-    final
-    UserService userService;
+    final UserService userService;
 
-    public SampleController(UserService userService) {
+    final MessageSource source;
+
+    public SampleController(UserService userService, MessageSource source) {
         this.userService = userService;
+        this.source = source;
     }
+
+    @GetMapping("/v1/welcome")
+    public ResponseEntity<?> getLocaleMessage(
+            @RequestHeader(name = "Accept-Language", required = false) final Locale locale,
+            @RequestParam(name = "username", defaultValue = "Albert Xin", required = false) final String username) {
+        return ResponseEntity.ok(source.getMessage("welcome.message", new Object[]{username}, locale));
+    }
+
 
     @GetMapping(path = "/v1/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
