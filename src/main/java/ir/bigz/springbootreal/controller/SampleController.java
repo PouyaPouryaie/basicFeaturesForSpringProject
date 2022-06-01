@@ -4,7 +4,10 @@ import ir.bigz.springbootreal.dto.PageResult;
 import ir.bigz.springbootreal.service.UserService;
 import ir.bigz.springbootreal.viewmodel.UserModel;
 import ir.bigz.springbootreal.viewmodel.search.UserSearchDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -25,15 +28,25 @@ public class SampleController extends AbstractController{
 
     final MessageSource source;
 
+    @Autowired
+    @Qualifier("loadErrorMessageSource")
+    ReloadableResourceBundleMessageSource loadMessageSource;
+
     public SampleController(UserService userService, MessageSource source) {
         this.userService = userService;
         this.source = source;
     }
 
+    @GetMapping("/v1/geterror")
+    public ResponseEntity<?> getErrorMessage(
+            @RequestHeader(name = "Accept-Language", required = false) final Locale locale) {
+        return ResponseEntity.ok(loadMessageSource.getMessage("Exception", new Object[0], locale));
+    }
+
     @GetMapping("/v1/welcome")
     public ResponseEntity<?> getLocaleMessage(
             @RequestHeader(name = "Accept-Language", required = false) final Locale locale,
-            @RequestParam(name = "username", defaultValue = "Albert Xin", required = false) final String username) {
+            @RequestParam(name = "username", defaultValue = "Java Geek", required = false) final String username) {
         return ResponseEntity.ok(source.getMessage("welcome.message", new Object[]{username}, locale));
     }
 
