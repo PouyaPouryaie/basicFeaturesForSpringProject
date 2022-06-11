@@ -13,6 +13,8 @@ import org.springframework.core.env.Environment;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+import static org.hibernate.cfg.Environment.*;
+
 /**
  * {@link HikariDataSourceInit} use for build connection-pool base on HikariCp with customize properties,
  * and then added to {@link DataSourceConfiguration} class as datasource for use in app.
@@ -46,6 +48,9 @@ public class HikariDataSourceInit{
         hikariConfig.setConnectionTimeout(Long.parseLong(env.getProperty("hikari.connectionTimeout")));
         hikariConfig.setIdleTimeout(Long.parseLong(env.getProperty("hikari.idleTimeout")));
         hikariConfig.setMaxLifetime(Long.parseLong(env.getProperty("hikari.maxLifetime")));
+        hikariConfig.addDataSourceProperty(STATEMENT_BATCH_SIZE, env.getProperty("demo.jpa.properties.hibernate.jdbc.batch_size"));
+        hikariConfig.addDataSourceProperty(ORDER_INSERTS, env.getProperty("demo.jpa.properties.hibernate.order_inserts"));
+        hikariConfig.addDataSourceProperty(ORDER_UPDATES, env.getProperty("demo.jpa.properties.hibernate.order_updates"));
         return new HikariDataSource(hikariConfig);
     }
 
@@ -78,6 +83,9 @@ public class HikariDataSourceInit{
         hikariProps.setProperty("dataSource.user", env.getProperty("hikari.dataSource.user"));
         hikariProps.setProperty("dataSource.password", plainPassword);
         hikariProps.setProperty("dataSource.databaseName", env.getProperty("hikari.dataSource.databaseName"));
+        hikariProps.setProperty(STATEMENT_BATCH_SIZE, env.getProperty("demo.jpa.properties.hibernate.jdbc.batch_size"));
+        hikariProps.setProperty(ORDER_INSERTS, env.getProperty("demo.jpa.properties.hibernate.order_inserts"));
+        hikariProps.setProperty(ORDER_UPDATES, env.getProperty("demo.jpa.properties.hibernate.order_updates"));
         return hikariProps;
     }
 
