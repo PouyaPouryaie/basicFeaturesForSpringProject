@@ -7,7 +7,6 @@ import ir.bigz.springbootreal.dto.PagedQuery;
 import ir.bigz.springbootreal.dto.SqlOperation;
 import ir.bigz.springbootreal.dto.ValueCondition;
 import ir.bigz.springbootreal.dto.entity.User;
-import ir.bigz.springbootreal.dto.entity.User_;
 import ir.bigz.springbootreal.dto.mapper.UserMapper;
 import ir.bigz.springbootreal.exception.AppException;
 import ir.bigz.springbootreal.exception.HttpErrorCode;
@@ -51,7 +50,7 @@ public class UserServiceImpl implements UserService {
             return userMapper.userToUserModel(user.get());
         } catch (RuntimeException exception) {
             throw AppException.newInstance(
-                    HttpErrorCode.ERR_10702,
+                    HttpErrorCode.USER_NOT_FOUND,
                     String.format("user with id, %s not found", userId)
             );
         }
@@ -72,7 +71,7 @@ public class UserServiceImpl implements UserService {
 
         } catch (RuntimeException exception) {
             throw AppException.newInstance(
-                    HttpErrorCode.ERR_10700, String.format("user has already existed with %s nationalId", userModel.getNationalCode())
+                    HttpErrorCode.INVALID_ENTITY_FOR_INSERT, String.format("user has already existed with %s nationalId", userModel.getNationalCode())
             );
         }
     }
@@ -90,7 +89,7 @@ public class UserServiceImpl implements UserService {
             return userMapper.userToUserModel(sourceUser);
         } catch (RuntimeException exception) {
             throw AppException.newInstance(
-                    HttpErrorCode.ERR_10703,
+                    HttpErrorCode.INVALID_ENTITY_FOR_UPDATE,
                     String.format("user with userId %s, not found", userId)
             );
         }
@@ -107,7 +106,7 @@ public class UserServiceImpl implements UserService {
 
         } catch (RuntimeException exception) {
             throw AppException.newInstance(
-                    HttpErrorCode.ERR_10701,
+                    HttpErrorCode.INTERNAL_ERROR,
                     String.format("user with id %s, not found", userId)
             );
         }
@@ -121,7 +120,7 @@ public class UserServiceImpl implements UserService {
             return allUser.map(userMapper::userToUserModel).collect(Collectors.toList());
         } catch (RuntimeException exception) {
             throw AppException.newInstance(
-                    HttpErrorCode.ERR_10701,
+                    HttpErrorCode.INTERNAL_ERROR,
                     String.format("getAll method has error: %s", exception.getCause())
             );
         }
@@ -139,7 +138,7 @@ public class UserServiceImpl implements UserService {
             return new PageImpl<>(collect, pageable, users.getTotalElements());
         } catch (RuntimeException exception) {
             throw AppException.newInstance(
-                    HttpErrorCode.ERR_10701,
+                    HttpErrorCode.INTERNAL_ERROR,
                     String.format("getAll method has error: %s", exception.getCause())
             );
         }
@@ -219,7 +218,7 @@ public class UserServiceImpl implements UserService {
             return new PageImpl<>(collect, pageable, userQueryWithCriteriaBuilder.getTotalElements());
         }catch (RuntimeException exception) {
             throw AppException.newInstance(
-                    HttpErrorCode.ERR_10701,
+                    HttpErrorCode.INTERNAL_ERROR,
                     String.format("getUserSearchWithCriteriaBuilder method has error: %s", exception.getCause())
             );
         }

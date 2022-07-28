@@ -26,11 +26,11 @@ public class AppException extends ResponseStatusException{
     }
 
     static public AppException newInstance(HttpErrorCode errorCode, String message, Throwable cause) {
-        return new AppException(errorCode.getStatus(), message, cause, errorCode, null);
+        return new AppException(errorCode.getHttpStatus(), message, cause, errorCode, null);
     }
 
     static public AppException newInstance(HttpErrorCode errorCode, String detail) {
-        return new AppException(errorCode.getStatus(), null, null, errorCode, detail);
+        return new AppException(errorCode.getHttpStatus(), null, null, errorCode, detail);
     }
 
 

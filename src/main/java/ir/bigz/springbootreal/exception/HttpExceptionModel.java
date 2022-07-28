@@ -10,8 +10,9 @@ import lombok.Getter;
 @Builder
 public class HttpExceptionModel {
 
+    private String uuid;
+    private final int errorCode;
     private final String message;
-    private final HttpErrorCode httpErrorCode;
     private final String timestamp;
     private final ValidationErrorResponseModel validationError;
 }

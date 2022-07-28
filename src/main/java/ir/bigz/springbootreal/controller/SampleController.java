@@ -1,6 +1,7 @@
 package ir.bigz.springbootreal.controller;
 
 import ir.bigz.springbootreal.dto.PageResult;
+import ir.bigz.springbootreal.messages.MessageContainer;
 import ir.bigz.springbootreal.service.UserService;
 import ir.bigz.springbootreal.viewmodel.UserModel;
 import ir.bigz.springbootreal.viewmodel.search.UserSearchDto;
@@ -47,7 +48,9 @@ public class SampleController extends AbstractController{
     public ResponseEntity<?> getLocaleMessage(
             @RequestHeader(name = "Accept-Language", required = false) final Locale locale,
             @RequestParam(name = "username", defaultValue = "Java Geek", required = false) final String username) {
-        return ResponseEntity.ok(source.getMessage("welcome.message", new Object[]{username}, locale));
+        MessageContainer messageContainer = MessageContainer.create();
+        messageContainer.add("welcome.message", new Object[]{username});
+        return getSuccessMessage(source, messageContainer, locale);
     }
 
 

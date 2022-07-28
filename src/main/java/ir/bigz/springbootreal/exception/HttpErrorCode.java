@@ -2,34 +2,37 @@ package ir.bigz.springbootreal.exception;
 
 import org.springframework.http.HttpStatus;
 
-public enum HttpErrorCode {
+public enum HttpErrorCode implements ExceptionType{
 
-    ERR_10700	(10700, "Invalid Entity For Persist", HttpStatus.BAD_REQUEST),
-    ERR_10701	(10701, "process of the request has been error", HttpStatus.BAD_REQUEST),
-    ERR_10702	(10702, "User Not Found", HttpStatus.NOT_FOUND),
-    ERR_10703	(10703, "Invalid Entity For Update", HttpStatus.BAD_REQUEST),
-    ERR_10704	(10704, "validation Error", HttpStatus.BAD_REQUEST),
-    ERR_10705	(10705, "create query process has been error", HttpStatus.BAD_REQUEST);
+    INVALID_ENTITY_FOR_INSERT  (10700, "invalid_entity_for_insert", HttpStatus.BAD_REQUEST),
+    INTERNAL_ERROR             (10701, "internal_server_error", HttpStatus.INTERNAL_SERVER_ERROR),
+    USER_NOT_FOUND             (10702, "user_not_found", HttpStatus.NOT_FOUND),
+    INVALID_ENTITY_FOR_UPDATE  (10703, "invalid_entity_for_update", HttpStatus.BAD_REQUEST),
+    VALIDATION_ERROR           (10704, "validation_error", HttpStatus.BAD_REQUEST),
+    CREATE_QUERY_ERROR         (10705, "create_query_error", HttpStatus.BAD_REQUEST);
 
-    private final int code;
-    private final HttpStatus status;
-    private final String reason;
+    private final CustomExceptionType customExceptionType;
 
-    HttpErrorCode(int code, String reason, HttpStatus status) {
-        this.code = code;
-        this.status = status;
-        this.reason = reason;
+    HttpErrorCode(int errorCode, String reasonMessage, HttpStatus httpStatus) {
+        this.customExceptionType = new CustomExceptionType(httpStatus, errorCode, reasonMessage);
     }
 
-    public int getCode() {
-        return code;
+    @Override
+    public HttpStatus getHttpStatus() {
+        return this.customExceptionType.httpStatus;
     }
 
-    public HttpStatus getStatus() {
-        return status;
+    @Override
+    public int getErrorCode() {
+        return this.customExceptionType.errorCode;
     }
 
-    public String getReason() {
-        return reason;
+    @Override
+    public String getReasonMessage() {
+        return this.customExceptionType.reasonMessage;
+    }
+
+    public CustomExceptionType getCustomExceptionType() {
+        return customExceptionType;
     }
 }

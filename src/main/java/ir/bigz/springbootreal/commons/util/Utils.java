@@ -121,7 +121,7 @@ public class Utils {
                         orders.add(order);
                     }catch (Exception e){
                         throw AppException.newInstance(
-                                HttpErrorCode.ERR_10705, String.format("field %s ordering is wrong", orderParam)
+                                HttpErrorCode.CREATE_QUERY_ERROR, String.format("field %s ordering is wrong", orderParam)
                         );
                     }
                 }

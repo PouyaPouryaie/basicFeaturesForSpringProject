@@ -33,10 +33,10 @@ public class ErrorController extends ResponseEntityExceptionHandler {
             errors.put(fieldName, errorMessage);
         });
 
-        return ResponseEntity.status(HttpErrorCode.ERR_10704.getStatus())
+        return ResponseEntity.status(HttpErrorCode.VALIDATION_ERROR.getHttpStatus())
                 .body(HttpExceptionModel.builder()
-                        .httpErrorCode(HttpErrorCode.ERR_10704)
-                        .message(HttpErrorCode.ERR_10704.getReason())
+                        .errorCode(HttpErrorCode.VALIDATION_ERROR.getErrorCode())
+                        .message(HttpErrorCode.VALIDATION_ERROR.getReasonMessage())
                         .timestamp(timeLog())
                         .validationError(ValidationErrorResponseModel.builder()
                                 .errors(errors)
