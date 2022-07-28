@@ -1,10 +1,11 @@
 package ir.bigz.springbootreal.exception.validation;
 
-import ir.bigz.springbootreal.exception.HttpErrorCode;
+import ir.bigz.springbootreal.exception.SampleExceptionType;
 import ir.bigz.springbootreal.exception.HttpExceptionModel;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNullApi;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -33,10 +34,10 @@ public class ErrorController extends ResponseEntityExceptionHandler {
             errors.put(fieldName, errorMessage);
         });
 
-        return ResponseEntity.status(HttpErrorCode.VALIDATION_ERROR.getHttpStatus())
+        return ResponseEntity.status(SampleExceptionType.VALIDATION_ERROR.getHttpStatus())
                 .body(HttpExceptionModel.builder()
-                        .errorCode(HttpErrorCode.VALIDATION_ERROR.getErrorCode())
-                        .message(HttpErrorCode.VALIDATION_ERROR.getReasonMessage())
+                        .errorCode(SampleExceptionType.VALIDATION_ERROR.getErrorCode())
+                        .message(SampleExceptionType.VALIDATION_ERROR.getReasonMessage())
                         .timestamp(timeLog())
                         .validationError(ValidationErrorResponseModel.builder()
                                 .errors(errors)

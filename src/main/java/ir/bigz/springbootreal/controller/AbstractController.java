@@ -27,22 +27,20 @@ public abstract class AbstractController {
 
     protected PagedQuery getPagedQuery() {
         return new PagedQuery(request().getParameterMap().entrySet().stream()
-                .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()[0])));
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue()[0])));
     }
 
     protected PagedQuery getPagedQuery(Map<String, String> extraParams) {
         var params = request().getParameterMap().entrySet().stream()
-                .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()[0]));
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue()[0]));
         if (extraParams != null)
             params.putAll(extraParams);
         return new PagedQuery(params);
     }
 
     protected Map<String, String> getQueryString() {
-        Map<String, String> result = new HashMap<>();
-        result.putAll(request().getParameterMap().entrySet().stream()
-                .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()[0])));
-        return result;
+        return new HashMap<>(request().getParameterMap().entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue()[0])));
     }
 
     protected Map<String, String> getUnlimitedSizeParam() {
@@ -60,16 +58,16 @@ public abstract class AbstractController {
                         messageContainer.getMessages().get(0).getMessageParams(), Objects.nonNull(locale) ? locale : Locale.getDefault()));
     }
 
-    protected ResponseEntity<?> getErrorMessage(MessageSource messageSource, ExceptionType exceptionType, Object[] messageParams) {
+    protected ResponseEntity<?> getErrorMessage(MessageSource messageSource, ExceptionType exceptionType, Locale locale, Object[] messageParams) {
         return ResponseEntity.status(exceptionType.getHttpStatus())
                 .headers(httpHeaders -> httpHeaders.set("Content-Type", MediaType.APPLICATION_JSON_VALUE + "; charset=utf-8"))
-                .body(getErrorModelResponse(exceptionType, messageSource, messageParams));
+                .body(getErrorModelResponse(exceptionType, messageSource, locale, messageParams));
     }
 
-    private HttpExceptionModel getErrorModelResponse(ExceptionType exceptionType, MessageSource messageSource, Object... messageParams) {
+    private HttpExceptionModel getErrorModelResponse(ExceptionType exceptionType, MessageSource messageSource, Locale locale, Object... messageParams) {
         return HttpExceptionModel.builder()
                 .errorCode(exceptionType.getErrorCode())
-                .message(messageSource.getMessage(exceptionType.getReasonMessage(), messageParams, Locale.getDefault()))
+                .message(messageSource.getMessage(exceptionType.getReasonMessage(), messageParams, Objects.nonNull(locale) ? locale : Locale.getDefault()))
                 .timestamp(Utils.getTimestampNow().toString())
                 .build();
     }

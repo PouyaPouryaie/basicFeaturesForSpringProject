@@ -1,7 +1,9 @@
 package ir.bigz.springbootreal.controller;
 
 import ir.bigz.springbootreal.dto.PageResult;
+import ir.bigz.springbootreal.exception.SampleExceptionType;
 import ir.bigz.springbootreal.messages.MessageContainer;
+import ir.bigz.springbootreal.service.MessageService;
 import ir.bigz.springbootreal.service.UserService;
 import ir.bigz.springbootreal.viewmodel.UserModel;
 import ir.bigz.springbootreal.viewmodel.search.UserSearchDto;
@@ -23,9 +25,11 @@ import java.util.Locale;
 @RestController
 @CrossOrigin
 @RequestMapping("/api")
-public class SampleController extends AbstractController{
+public class SampleController extends AbstractController {
 
     final UserService userService;
+
+    final MessageService messageService;
 
     final MessageSource source;
 
@@ -33,23 +37,26 @@ public class SampleController extends AbstractController{
     @Qualifier("loadErrorMessageSource")
     ReloadableResourceBundleMessageSource loadMessageSource;
 
-    public SampleController(UserService userService, MessageSource source) {
+    public SampleController(UserService userService, MessageService messageService, MessageSource source) {
         this.userService = userService;
+        this.messageService = messageService;
         this.source = source;
     }
 
     @GetMapping("/v1/geterror")
     public ResponseEntity<?> getErrorMessage(
             @RequestHeader(name = "Accept-Language", required = false) final Locale locale) {
-        return ResponseEntity.ok(loadMessageSource.getMessage("Exception", new Object[0], locale));
+        MessageContainer messageContainer = messageService.getErrorMessage("internal_error");
+        return getErrorMessage(loadMessageSource,
+                SampleExceptionType.of(messageContainer.getErrorMessages().get(0).getMessageKey()),
+                locale, messageContainer.getErrorMessages().get(0).getMessageParams());
     }
 
     @GetMapping("/v1/welcome")
     public ResponseEntity<?> getLocaleMessage(
             @RequestHeader(name = "Accept-Language", required = false) final Locale locale,
             @RequestParam(name = "username", defaultValue = "Java Geek", required = false) final String username) {
-        MessageContainer messageContainer = MessageContainer.create();
-        messageContainer.add("welcome.message", new Object[]{username});
+        MessageContainer messageContainer = messageService.getNormalMessage("welcome.message", username);
         return getSuccessMessage(source, messageContainer, locale);
     }
 
@@ -80,7 +87,7 @@ public class SampleController extends AbstractController{
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> deleteUser(@PathVariable("id") long userId) {
         String result = userService.deleteUser(userId);
-        if(result.equals("Success")){
+        if (result.equals("Success")) {
             return ResponseEntity.ok(result);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(result);

@@ -1,6 +1,5 @@
 package ir.bigz.springbootreal.exception;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,13 +14,16 @@ public class HttpExceptionHandler {
 
     @ExceptionHandler(value = {AppException.class})
     public ResponseEntity<Object> handleApiRequestException(AppException e){
+
         UUID uuid = UUID.randomUUID();
+        HttpExceptionModel apiException = new HttpExceptionModel(
+                uuid.toString(),
+                e.getSampleExceptionType().getErrorCode(),
+                e.getDetail(),
+                timeLog(),
+                null);
 
-        HttpExceptionModel apiException = new HttpExceptionModel(uuid.toString(),
-                e.getHttpErrorCode().getErrorCode(),  e.getDetail(),
-                timeLog(), null);
-
-        return new ResponseEntity<>(apiException, e.getHttpErrorCode().getHttpStatus());
+        return new ResponseEntity<>(apiException, e.getSampleExceptionType().getHttpStatus());
     }
 
     private String timeLog(){

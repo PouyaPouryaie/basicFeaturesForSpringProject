@@ -3,7 +3,7 @@ import ir.bigz.springbootreal.commons.util.Utils;
 import ir.bigz.springbootreal.dto.PageResult;
 import ir.bigz.springbootreal.dto.PagedQuery;
 import ir.bigz.springbootreal.exception.AppException;
-import ir.bigz.springbootreal.exception.HttpErrorCode;
+import ir.bigz.springbootreal.exception.SampleExceptionType;
 import org.hibernate.Session;
 import org.hibernate.jpa.QueryHints;
 import org.springframework.data.domain.Page;
@@ -37,7 +37,7 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
 
     protected CriteriaBuilder criteriaBuilder;
 
-    private static int maxPageSize = 1000;
+    private static final int maxPageSize = 1000;
 
     @SuppressWarnings("unchecked")
     protected DaoRepositoryImpl() {
@@ -100,7 +100,7 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void deleteById(K id) {
-        entityManager.remove(findById(id).get());
+        findById(id).ifPresent(t -> entityManager.remove(t));
     }
 
     @Override
@@ -170,10 +170,10 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
                         if (orderField.length > 1 && orderField[1].equalsIgnoreCase(PagedQuery.ORDER_DESC)) {
                             order = PagedQuery.ORDER_DESC;
                         }
-                        orderString.append(orderColumn + " " + order);
+                        orderString.append(orderColumn).append(" ").append(order);
                     }catch (Exception e){
                         throw AppException.newInstance(
-                                HttpErrorCode.CREATE_QUERY_ERROR, String.format("field %s ordering is wrong", orderParam)
+                                SampleExceptionType.CREATE_QUERY_ERROR, String.format("field %s ordering is wrong", orderParam)
                         );
                     }
                 }
@@ -323,13 +323,10 @@ public abstract class DaoRepositoryImpl<T, K extends Serializable> implements Da
     protected List<Order> orderByClauseBuilder(Root<T> root, Sort sort){
 
         List<Order> orders = new ArrayList<>();
-        Iterator<Sort.Order> iterator = sort.iterator();
-        while(iterator.hasNext()){
-            Sort.Order order = iterator.next();
-            if(order.getDirection() == Sort.Direction.ASC){
+        for (Sort.Order order : sort) {
+            if (order.getDirection() == Sort.Direction.ASC) {
                 orders.add(criteriaBuilder.asc(root.get(order.getProperty())));
-            }
-            else{
+            } else {
                 orders.add(criteriaBuilder.desc(root.get(order.getProperty())));
             }
         }
