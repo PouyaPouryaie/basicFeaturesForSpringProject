@@ -4,7 +4,7 @@ import ir.bigz.springbootreal.dto.PagedQuery;
 import ir.bigz.springbootreal.dto.SqlOperation;
 import ir.bigz.springbootreal.dto.ValueCondition;
 import ir.bigz.springbootreal.exception.AppException;
-import ir.bigz.springbootreal.exception.HttpErrorCode;
+import ir.bigz.springbootreal.exception.SampleExceptionType;
 import org.javatuples.Quartet;
 import org.springframework.data.domain.Sort;
 
@@ -53,7 +53,7 @@ public class Utils {
     }
 
     public static boolean isNull(String s) {
-        return s == null || s.equals("") || s.toLowerCase().equals("null");
+        return s == null || s.equals("") || s.equalsIgnoreCase("null");
     }
 
     public static boolean isNotNull(Object obj) {
@@ -121,7 +121,7 @@ public class Utils {
                         orders.add(order);
                     }catch (Exception e){
                         throw AppException.newInstance(
-                                HttpErrorCode.ERR_10705, String.format("field %s ordering is wrong", orderParam)
+                                SampleExceptionType.CREATE_QUERY_ERROR, String.format("field %s ordering is wrong", orderParam)
                         );
                     }
                 }

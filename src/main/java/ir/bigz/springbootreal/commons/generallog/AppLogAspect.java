@@ -1,19 +1,14 @@
 package ir.bigz.springbootreal.commons.generallog;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import ir.bigz.springbootreal.commons.util.Utils;
 import ir.bigz.springbootreal.exception.AppException;
 import ir.bigz.springbootreal.exception.HttpExceptionModel;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -56,15 +51,15 @@ public class AppLogAspect {
     public void logAfterThrowException(JoinPoint joinPoint, AppException exception){
         String methodName = joinPoint.getSignature().getName();
         LOG.info("exception method: {} | errorCode: {} | message: {}",
-                methodName, exception.getHttpErrorCode(), exception.getDetail());
+                methodName, exception.getSampleExceptionType().getErrorCode(), exception.getDetail());
     }
 
-    @AfterReturning(value = "execution(* ir.bigz.springbootreal.exception.validation.ErrorController.*(..))", returning = "object")
+    @AfterReturning(value = "@annotation(ir.bigz.springbootreal.validation.annotation.ValidationLogResponseHandled)", returning = "object")
     public void logAfterThrowValidationException(JoinPoint joinPoint, Object object){
         HttpExceptionModel httpExceptionModel = (HttpExceptionModel) ((ResponseEntity) object).getBody();
         LOG.info("validation exception path: {} | errorCode: {} | errors: {}",
                 httpExceptionModel.getValidationError().getPath(),
-                httpExceptionModel.getHttpErrorCode(),
+                httpExceptionModel.getErrorCode(),
                 httpExceptionModel.getValidationError().getErrors());
     }
 }
