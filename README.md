@@ -100,6 +100,7 @@ for 2.4.x or above
 ### dataSource feature
 1 - choose between use simpleDataSource or HikariCp datasource <br>
 2 - you can customize properties for dataSource in application.properties
+3 - you can define batch config for use execute batch for update and insert to db
 
 ### database password generator
 if you want to use encrypt password in config file for access database, you must follow below statement. <br>
