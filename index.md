@@ -37,7 +37,7 @@ Your Pages site will use the layout and styles from the Jekyll theme you have se
 Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
  -->
 
-#  Welcome to Spring - Boilerplate Project
+# BasicFeaturesForSpringProject
 
 This project, implement instance of basic feature, <br> you maybe want use for App base on Spring-boot <br>
 
@@ -80,6 +80,9 @@ for 2.4.x or above
     - use for encrypt password and added to config file, then decrypted pass in runtime
 - Jobs
     - use Spring TaskScheduler for run jobs 
+- Message Source
+    - use message-source to define message in one file and use in whole project
+    - use locale for config language of app for show message from different source
 
 ## Run guide
 ### Run for develop and debug: <br>
@@ -167,4 +170,14 @@ hikari.dataSource.password="ENC({output})"
 4) @EnableScheduling on SpringApp
 
 notice: that name of bean in BeanConfig must be equal with name of key in properties file.
+
+### Message Source
+1) define LocaleConfig to implement  Base config to define messageSource
+   1) how load message source (ex: loadMessageSource method in LocaleConfig class)
+   2) how define bean for use message source for specific category (ex: errorCodeSourceDesc method in LocaleConfig class)
+   3) how define config for resolve locale (ex: localeResolver method in LocaleConfig class)
+2) add message key from message-source bundle into code (ex: SampleExceptionType enum class)
+3) the code is written use locale by header, and you should set Accept-Language in request header
+4) define message and messageContainer for use to send identical messageResponse for error or normal message
+
 
