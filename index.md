@@ -172,12 +172,12 @@ hikari.dataSource.password="ENC({output})"
 notice: that name of bean in BeanConfig must be equal with name of key in properties file.
 
 ### Message Source
-1) define LocaleConfig to implement  Base config to define messageSource <br>
-   1) how load message source (ex: loadMessageSource method in LocaleConfig class) <br>
-   2) how define bean for use message source for specific category (ex: errorCodeSourceDesc method in LocaleConfig class) <br>
-   3) how define config for resolve locale (ex: localeResolver method in LocaleConfig class) <br>
-2) add message key from message-source bundle into code (ex: SampleExceptionType enum class) <br>
-3) the code is written use locale by header, and you should set Accept-Language in request header <br>
-4) define message and messageContainer for use to send identical messageResponse for error or normal message <br>
+1) define LocaleConfig to implement  Base config to define messageSource
+   - how load message source (ex: loadMessageSource method in LocaleConfig class)
+   - how define bean for use message source for specific category (ex: errorCodeSourceDesc method in LocaleConfig class)
+   - how define config for resolve locale (ex: localeResolver method in LocaleConfig class)
+2) add message key from message-source bundle into code (ex: SampleExceptionType enum class)
+3) the code is written use locale by header, and you should set Accept-Language in request header
+4) define message and messageContainer for use to send identical messageResponse for error or normal message
 
 
