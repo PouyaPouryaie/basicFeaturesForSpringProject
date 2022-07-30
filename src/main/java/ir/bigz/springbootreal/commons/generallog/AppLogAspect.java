@@ -54,7 +54,7 @@ public class AppLogAspect {
                 methodName, exception.getSampleExceptionType().getErrorCode(), exception.getDetail());
     }
 
-    @AfterReturning(value = "execution(* ir.bigz.springbootreal.exception.validation.ErrorController.*(..))", returning = "object")
+    @AfterReturning(value = "@annotation(ir.bigz.springbootreal.validation.annotation.ValidationLogResponseHandled)", returning = "object")
     public void logAfterThrowValidationException(JoinPoint joinPoint, Object object){
         HttpExceptionModel httpExceptionModel = (HttpExceptionModel) ((ResponseEntity) object).getBody();
         LOG.info("validation exception path: {} | errorCode: {} | errors: {}",

@@ -13,10 +13,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class AbstractController {
@@ -66,6 +63,7 @@ public abstract class AbstractController {
 
     private HttpExceptionModel getErrorModelResponse(ExceptionType exceptionType, MessageSource messageSource, Locale locale, Object... messageParams) {
         return HttpExceptionModel.builder()
+                .uuid(UUID.randomUUID().toString())
                 .errorCode(exceptionType.getErrorCode())
                 .message(messageSource.getMessage(exceptionType.getReasonMessage(), messageParams, Objects.nonNull(locale) ? locale : Locale.getDefault()))
                 .timestamp(Utils.getTimestampNow().toString())
