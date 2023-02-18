@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.criteria.*;
+import jakarta.persistence.criteria.*;
 import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;

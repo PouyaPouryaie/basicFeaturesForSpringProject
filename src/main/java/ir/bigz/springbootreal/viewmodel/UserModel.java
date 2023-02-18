@@ -1,8 +1,10 @@
 package ir.bigz.springbootreal.viewmodel;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ir.bigz.springbootreal.validation.ValidationType;
 import ir.bigz.springbootreal.validation.annotation.Validator;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 public class UserModel extends BaseModel implements Serializable {
@@ -14,10 +16,14 @@ public class UserModel extends BaseModel implements Serializable {
     private String lastName;
 
     @NotBlank(message = "userName must not blank")
+    @JsonProperty(value = "username")
+    @JsonAlias(value = {"username", "userName"})
     private String userName;
 
     @NotBlank(message = "national code must not blank")
     @Validator(value = ValidationType.NATIONAL_CODE)
+    @JsonProperty(value = "nationalCode")
+    @JsonAlias(value = {"nationalCode", "NC"})
     private String nationalCode;
 
     @Validator(value = ValidationType.MOBILE, nullOption = true)

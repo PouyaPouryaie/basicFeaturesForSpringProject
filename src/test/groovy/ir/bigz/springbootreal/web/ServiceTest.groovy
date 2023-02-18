@@ -22,7 +22,7 @@ import org.springframework.test.context.ContextConfiguration
 import org.springframework.transaction.annotation.EnableTransactionManagement
 import spock.lang.Title
 
-import javax.transaction.Transactional
+import jakarta.transaction.Transactional
 
 @ContextConfiguration(classes = [UserRepositoryImpl.class, User.class,
         DataSourceConfiguration.class, WebConfiguration.class, UserServiceImpl.class, UserModel.class, UserMapper.class, UserMapperImpl.class, DataGenerator.class])

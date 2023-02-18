@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
 import spock.lang.Shared
 import spock.lang.Title
 
-import javax.transaction.Transactional
+import jakarta.transaction.Transactional
 import java.sql.Timestamp
 import java.time.LocalDateTime
 
