@@ -20,5 +20,7 @@ public interface UserRepository extends DaoRepository<User,Long> {
 
     Page<User> getUserSearchResult(UserSearchDto userSearchDto, Sort.Order order, Pageable pageable);
 
-    Page<User> getUserQueryWithCriteriaBuilder(Map<String, String> queryString, List<Quartet<String, String, SqlOperation, ValueCondition>> rules, Pageable pageable);
+    Page<User> getUserQueryWithCriteriaBuilder(Map<String, String> queryString,
+                                               List<Quartet<String, String, SqlOperation, ValueCondition>> rules,
+                                               Pageable pageable);
 }

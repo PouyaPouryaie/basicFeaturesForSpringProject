@@ -1,6 +1,7 @@
 package ir.bigz.springbootreal.service;
 
-import ir.bigz.springbootreal.viewmodel.UserModel;
+import ir.bigz.springbootreal.viewmodel.UserModelRequest;
+import ir.bigz.springbootreal.viewmodel.UserModelResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class AlertServiceJob implements Runnable {
 
     @Override
     public void run() {
-        List<UserModel> all = userService.getAll();
+        List<UserModelResponse> all = userService.getAll();
         System.out.println("count of data is " + all.size());
     }
 }

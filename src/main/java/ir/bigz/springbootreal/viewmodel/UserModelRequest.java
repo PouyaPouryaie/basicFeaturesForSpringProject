@@ -7,7 +7,7 @@ import ir.bigz.springbootreal.validation.annotation.Validator;
 import jakarta.validation.constraints.NotBlank;
 import java.io.Serializable;
 
-public class UserModel extends BaseModel implements Serializable {
+public class UserModelRequest extends BaseModel implements Serializable {
 
     @NotBlank(message = "firstName must not blank")
     private String firstName;
@@ -36,21 +36,21 @@ public class UserModel extends BaseModel implements Serializable {
     @Validator(value = ValidationType.GENDER)
     private String gender;
 
-    public UserModel() {
+    public UserModelRequest() {
     }
 
-    public UserModel(Long id,
-                     Integer version,
-                     String insertDate,
-                     String updateDate,
-                     boolean activeStatus,
-                     @NotBlank(message = "firstName must not blank") String firstName,
-                     @NotBlank(message = "lastName must not blank") String lastName,
-                     @NotBlank(message = "userName must not blank") String userName,
-                     @Validator(ValidationType.NATIONAL_CODE) String nationalCode,
-                     @Validator(value = ValidationType.MOBILE, nullOption = true) String mobile,
-                     @Validator(value = ValidationType.EMAIL, nullOption = true) String email,
-                     @Validator(ValidationType.GENDER) String gender) {
+    public UserModelRequest(Long id,
+                            Integer version,
+                            String insertDate,
+                            String updateDate,
+                            boolean activeStatus,
+                            @NotBlank(message = "firstName must not blank") String firstName,
+                            @NotBlank(message = "lastName must not blank") String lastName,
+                            @NotBlank(message = "userName must not blank") String userName,
+                            @Validator(ValidationType.NATIONAL_CODE) String nationalCode,
+                            @Validator(value = ValidationType.MOBILE, nullOption = true) String mobile,
+                            @Validator(value = ValidationType.EMAIL, nullOption = true) String email,
+                            @Validator(ValidationType.GENDER) String gender) {
         super(id, version, insertDate, updateDate, activeStatus);
         this.firstName = firstName;
         this.lastName = lastName;
@@ -61,13 +61,13 @@ public class UserModel extends BaseModel implements Serializable {
         this.gender = gender;
     }
 
-    public UserModel(@NotBlank(message = "firstName must not blank") String firstName,
-                     @NotBlank(message = "lastName must not blank") String lastName,
-                     @NotBlank(message = "userName must not blank") String userName,
-                     @Validator(ValidationType.NATIONAL_CODE) String nationalCode,
-                     @Validator(ValidationType.MOBILE) String mobile,
-                     @Validator(ValidationType.EMAIL) String email,
-                     @Validator(ValidationType.GENDER) String gender) {
+    public UserModelRequest(@NotBlank(message = "firstName must not blank") String firstName,
+                            @NotBlank(message = "lastName must not blank") String lastName,
+                            @NotBlank(message = "userName must not blank") String userName,
+                            @Validator(ValidationType.NATIONAL_CODE) String nationalCode,
+                            @Validator(ValidationType.MOBILE) String mobile,
+                            @Validator(ValidationType.EMAIL) String email,
+                            @Validator(ValidationType.GENDER) String gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;

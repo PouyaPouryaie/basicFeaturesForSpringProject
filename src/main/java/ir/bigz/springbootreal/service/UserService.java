@@ -2,7 +2,8 @@ package ir.bigz.springbootreal.service;
 
 import ir.bigz.springbootreal.dto.PageResult;
 import ir.bigz.springbootreal.dto.PagedQuery;
-import ir.bigz.springbootreal.viewmodel.UserModel;
+import ir.bigz.springbootreal.viewmodel.UserModelRequest;
+import ir.bigz.springbootreal.viewmodel.UserModelResponse;
 import ir.bigz.springbootreal.viewmodel.search.UserSearchDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -14,21 +15,21 @@ import java.util.Map;
 @Service
 public interface UserService {
 
-    UserModel getUser(Long userId);
+    UserModelResponse getUser(Long userId);
 
-    UserModel addUser(UserModel userModel);
+    UserModelResponse addUser(UserModelRequest userModelRequest);
 
-    UserModel updateUser(long userId, UserModel userModel);
+    UserModelResponse updateUser(long userId, UserModelRequest userModelRequest);
 
     String deleteUser(long userId);
 
-    List<UserModel> getAll();
+    List<UserModelResponse> getAll();
 
-    Page<UserModel> getUserSearchResult(UserSearchDto userSearchDto, String sortOrder, Sort.Direction direction, Integer pageNumber, Integer pageSize);
+    Page<UserModelResponse> getUserSearchResult(UserSearchDto userSearchDto, String sortOrder, Sort.Direction direction, Integer pageNumber, Integer pageSize);
 
-    Page<UserModel> getAllUserPage(String sortOrder, Sort.Direction sortDirection, Integer pageNumber, Integer pageSize);
+    Page<UserModelResponse> getAllUserPage(String sortOrder, Sort.Direction sortDirection, Integer pageNumber, Integer pageSize);
 
-    PageResult<UserModel> getUserSearchWithNativeQuery(Map<String, String> queryString, PagedQuery pagedQuery);
+    PageResult<UserModelResponse> getUserSearchWithNativeQuery(Map<String, String> queryString, PagedQuery pagedQuery);
 
-    Page<UserModel> getUserSearchWithCriteriaBuilder(Map<String, String> queryString, PagedQuery pagedQuery);
+    Page<UserModelResponse> getUserSearchWithCriteriaBuilder(Map<String, String> queryString, PagedQuery pagedQuery);
 }

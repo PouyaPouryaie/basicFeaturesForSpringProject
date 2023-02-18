@@ -2,7 +2,8 @@ package ir.bigz.springbootreal.dto.mapper;
 
 import ir.bigz.springbootreal.commons.util.Utils;
 import ir.bigz.springbootreal.dto.entity.User;
-import ir.bigz.springbootreal.viewmodel.UserModel;
+import ir.bigz.springbootreal.viewmodel.UserModelRequest;
+import ir.bigz.springbootreal.viewmodel.UserModelResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -14,17 +15,13 @@ import java.util.Objects;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    @Mappings({
-            @Mapping(source = "insertDate", target = "insertDate", qualifiedByName = "timestampToStringMapper"),
-            @Mapping(source = "updateDate", target = "updateDate", qualifiedByName = "timestampToStringMapper")
-    })
-    UserModel userToUserModel(User user);
+    UserModelResponse userToUserModelResponse(User user);
 
     @Mappings({
             @Mapping(source = "insertDate", target = "insertDate", qualifiedByName = "timeStringToTimestampMapper"),
             @Mapping(source = "updateDate", target = "updateDate", qualifiedByName = "timeStringToTimestampMapper")
     })
-    User userModelToUser(UserModel userModel);
+    User userModelToUser(UserModelRequest userModelRequest);
 
     @Named("timestampToStringMapper")
     static String timestampToStringMapper(Timestamp timestamp){
