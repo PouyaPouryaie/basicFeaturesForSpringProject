@@ -11,7 +11,7 @@ import ir.bigz.springbootreal.dto.mapper.UserMapper
 import ir.bigz.springbootreal.dto.mapper.UserMapperImpl
 import ir.bigz.springbootreal.service.UserService
 import ir.bigz.springbootreal.service.UserServiceImpl
-import ir.bigz.springbootreal.viewmodel.UserModel
+import ir.bigz.springbootreal.viewmodel.UserModelRequest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
@@ -22,10 +22,8 @@ import org.springframework.test.context.ContextConfiguration
 import org.springframework.transaction.annotation.EnableTransactionManagement
 import spock.lang.Title
 
-import javax.transaction.Transactional
-
 @ContextConfiguration(classes = [UserRepositoryImpl.class, User.class,
-        DataSourceConfiguration.class, WebConfiguration.class, UserServiceImpl.class, UserModel.class, UserMapper.class, UserMapperImpl.class, DataGenerator.class])
+        DataSourceConfiguration.class, WebConfiguration.class, UserServiceImpl.class, UserModelRequest.class, UserMapper.class, UserMapperImpl.class, DataGenerator.class])
 @Title("Test service layer")
 @SpringBootTest(properties = "spring.profiles.active:test")
 @EnableAutoConfiguration(exclude = [DataSourceAutoConfiguration.class,
@@ -100,8 +98,8 @@ class ServiceTest extends InitTestContainerDB {
         userRepository.deleteAll()
     }
 
-    private static UserModel generateUserModel() {
-        return new UserModel(
+    private static UserModelRequest generateUserModel() {
+        return new UserModelRequest(
                 id: null,
                 insertDate: null,
                 updateDate: null,
@@ -116,8 +114,8 @@ class ServiceTest extends InitTestContainerDB {
         )
     }
 
-    private static UserModel generateUserModelForUpdate() {
-        return new UserModel(
+    private static UserModelRequest generateUserModelForUpdate() {
+        return new UserModelRequest(
                 id: null,
                 insertDate: null,
                 updateDate: null,

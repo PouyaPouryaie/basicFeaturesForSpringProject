@@ -5,6 +5,7 @@ import ir.bigz.springbootreal.dto.PagedQuery;
 import ir.bigz.springbootreal.exception.ExceptionType;
 import ir.bigz.springbootreal.exception.HttpExceptionModel;
 import ir.bigz.springbootreal.messages.MessageContainer;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.stream.Collectors;
 

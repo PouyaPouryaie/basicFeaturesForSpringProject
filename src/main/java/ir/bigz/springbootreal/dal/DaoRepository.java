@@ -2,13 +2,13 @@ package ir.bigz.springbootreal.dal;
 
 import ir.bigz.springbootreal.dto.PageResult;
 import ir.bigz.springbootreal.dto.PagedQuery;
+import jakarta.persistence.criteria.CriteriaQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
-import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;

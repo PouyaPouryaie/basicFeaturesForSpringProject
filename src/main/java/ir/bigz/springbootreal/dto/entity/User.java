@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -64,5 +64,33 @@ public class User extends BaseEntity implements Serializable {
                 ", gender='" + gender + '\'' +
                 ", " + super.toString() +
                 "} ";
+    }
+
+    public static void updateUserFields(User sourceUser, User updateUser) {
+        if (!sourceUser.getFirstName().equals(updateUser.getFirstName())) {
+            sourceUser.setFirstName(updateUser.getFirstName());
+        }
+        if (!sourceUser.getLastName().equals(updateUser.getLastName())) {
+            sourceUser.setLastName(updateUser.getLastName());
+        }
+        if (!sourceUser.getUserName().equals(updateUser.getUserName())) {
+            sourceUser.setUserName(updateUser.getUserName());
+        }
+        if (!sourceUser.getNationalCode().equals(updateUser.getNationalCode())) {
+            sourceUser.setNationalCode(updateUser.getNationalCode());
+        }
+        if (!sourceUser.getEmail().equals(updateUser.getEmail())) {
+            sourceUser.setEmail(updateUser.getEmail());
+        }
+        if (!sourceUser.getMobile().equals(updateUser.getMobile())) {
+            sourceUser.setMobile(updateUser.getMobile());
+        }
+        if (!sourceUser.getGender().equals(updateUser.getGender())) {
+            sourceUser.setGender(updateUser.getGender());
+        }
+
+        if (!sourceUser.isActiveStatus() == (updateUser.isActiveStatus())) {
+            sourceUser.setActiveStatus(updateUser.isActiveStatus());
+        }
     }
 }

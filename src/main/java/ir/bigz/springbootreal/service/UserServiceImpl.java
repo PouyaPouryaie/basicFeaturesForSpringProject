@@ -10,7 +10,8 @@ import ir.bigz.springbootreal.dto.entity.User;
 import ir.bigz.springbootreal.dto.mapper.UserMapper;
 import ir.bigz.springbootreal.exception.AppException;
 import ir.bigz.springbootreal.exception.SampleExceptionType;
-import ir.bigz.springbootreal.viewmodel.UserModel;
+import ir.bigz.springbootreal.viewmodel.UserModelRequest;
+import ir.bigz.springbootreal.viewmodel.UserModelResponse;
 import ir.bigz.springbootreal.viewmodel.search.UserSearchDto;
 import org.javatuples.Quartet;
 import org.springframework.cache.annotation.CacheEvict;
@@ -44,34 +45,31 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
     @Cacheable(value = "userCache", key = "#userId", condition = "#userId != null", unless = "#result==null")
-    public UserModel getUser(Long userId) {
-        try {
-            Optional<User> user = userRepository.findById(userId);
-            return userMapper.userToUserModel(user.get());
-        } catch (RuntimeException exception) {
-            throw AppException.newInstance(
-                    SampleExceptionType.USER_NOT_FOUND,
-                    String.format("user with id, %s not found", userId)
-            );
-        }
+    public UserModelResponse getUser(Long userId) {
+            User user = userRepository.findById(userId)
+                    .orElseThrow(() ->
+                            AppException.newInstance(
+                                    SampleExceptionType.USER_NOT_FOUND,
+                                    String.format("user with id, %s not found", userId)));
+            return userMapper.userToUserModelResponse(user);
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public UserModel addUser(UserModel userModel) {
+    public UserModelResponse addUser(UserModelRequest userModelRequest) {
         try {
-            if (userRepository.getUserWithNationalCode(userModel.getNationalCode()) == null) {
-                userModel.setInsertDate(Utils.getLocalTimeNow());
-                userModel.setActiveStatus(true);
-                User user = userMapper.userModelToUser(userModel);
+            if (userRepository.getUserWithNationalCode(userModelRequest.getNationalCode()) == null) {
+                userModelRequest.setInsertDate(Utils.getLocalTimeNow());
+                userModelRequest.setActiveStatus(true);
+                User user = userMapper.userModelToUser(userModelRequest);
                 User insert = userRepository.save(user);
-                return userMapper.userToUserModel(insert);
+                return userMapper.userToUserModelResponse(insert);
             }
             throw new RuntimeException("user has already exist");
 
         } catch (RuntimeException exception) {
             throw AppException.newInstance(
-                    SampleExceptionType.INVALID_ENTITY_FOR_INSERT, String.format("user has already existed with %s nationalId", userModel.getNationalCode())
+                    SampleExceptionType.INVALID_ENTITY_FOR_INSERT, String.format("user has already existed with %s nationalId", userModelRequest.getNationalCode())
             );
         }
     }
@@ -79,14 +77,17 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     @CachePut(value = "userCache", key = "#userId", condition = "#userId != null", unless = "#result==null")
-    public UserModel updateUser(long userId, UserModel userModel) {
+    public UserModelResponse updateUser(long userId, UserModelRequest userModelRequest) {
         try {
-            Optional<User> user = userRepository.findById(userId);
-            User sourceUser = user.get();
-            User updateUser = userMapper.userModelToUser(userModel);
-            mapUserForUpdate(sourceUser, updateUser);
+            User sourceUser = userRepository
+                    .findById(userId)
+                    .orElseThrow(() -> AppException.newInstance(
+                            SampleExceptionType.INVALID_ENTITY_FOR_UPDATE,
+                            String.format("user with userId %s, not found", userId)));
+            User updateUser = userMapper.userModelToUser(userModelRequest);
+            User.updateUserFields(sourceUser, updateUser);
             sourceUser.setUpdateDate(Utils.getTimestampNow());
-            return userMapper.userToUserModel(sourceUser);
+            return userMapper.userToUserModelResponse(sourceUser);
         } catch (RuntimeException exception) {
             throw AppException.newInstance(
                     SampleExceptionType.INVALID_ENTITY_FOR_UPDATE,
@@ -114,10 +115,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT)
-    public List<UserModel> getAll() {
+    public List<UserModelResponse> getAll() {
         try {
             Stream<User> allUser = userRepository.findAll();
-            return allUser.map(userMapper::userToUserModel).collect(Collectors.toList());
+            return allUser.map(userMapper::userToUserModelResponse).collect(Collectors.toList());
         } catch (RuntimeException exception) {
             throw AppException.newInstance(
                     SampleExceptionType.INTERNAL_ERROR,
@@ -129,12 +130,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT)
-    public Page<UserModel> getUserSearchResult(UserSearchDto userSearchDto, String sortOrder, Sort.Direction direction, Integer pageNumber, Integer pageSize) {
+    public Page<UserModelResponse> getUserSearchResult(UserSearchDto userSearchDto, String sortOrder, Sort.Direction direction, Integer pageNumber, Integer pageSize) {
         try {
             Sort.Order order = new Sort.Order(direction, sortOrder);
             Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(order));
             Page<User> users = userRepository.getUserSearchResult(userSearchDto, order, pageable);
-            List<UserModel> collect = users.get().map(userMapper::userToUserModel).collect(Collectors.toList());
+            List<UserModelResponse> collect = users.get().map(userMapper::userToUserModelResponse).collect(Collectors.toList());
             return new PageImpl<>(collect, pageable, users.getTotalElements());
         } catch (RuntimeException exception) {
             throw AppException.newInstance(
@@ -148,17 +149,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT)
-    public Page<UserModel> getAllUserPage(String sortOrder, Sort.Direction direction, Integer pageNumber, Integer pageSize) {
+    public Page<UserModelResponse> getAllUserPage(String sortOrder, Sort.Direction direction, Integer pageNumber, Integer pageSize) {
         Sort.Order order = new Sort.Order(direction, sortOrder);
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(order));
         Page<User> all = userRepository.findAll(pageable);
-        List<UserModel> collect = all.get().map(userMapper::userToUserModel).collect(Collectors.toList());
+        List<UserModelResponse> collect = all.get().map(userMapper::userToUserModelResponse).collect(Collectors.toList());
         return new PageImpl<>(collect, pageable, all.getTotalElements());
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT)
-    public PageResult<UserModel> getUserSearchWithNativeQuery(Map<String, String> queryString, PagedQuery pagedQuery) {
+    public PageResult<UserModelResponse> getUserSearchWithNativeQuery(Map<String, String> queryString, PagedQuery pagedQuery) {
 
         Map<String, Object> parametersMap = new HashMap<>();
         Map<String, String> conditionsMap = new HashMap<>();
@@ -183,7 +184,7 @@ public class UserServiceImpl implements UserService {
 
         PageResult<User> userPageResult = userRepository.pageCreateQuery(stringBuilder.toString(), pagedQuery, parametersMap, true);
 
-        List<UserModel> collect = userPageResult.getResult().stream().map(userMapper::userToUserModel).collect(Collectors.toList());
+        List<UserModelResponse> collect = userPageResult.getResult().stream().map(userMapper::userToUserModelResponse).collect(Collectors.toList());
 
         return new PageResult<>(collect,
                 userPageResult.getPageSize(),
@@ -193,7 +194,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<UserModel> getUserSearchWithCriteriaBuilder(Map<String, String> queryString, PagedQuery pagedQuery) {
+    public Page<UserModelResponse> getUserSearchWithCriteriaBuilder(Map<String, String> queryString, PagedQuery pagedQuery) {
 
         // tuple define for map data from queryString in query search base on sql operation and value condition rules
         List<Quartet<String, String, SqlOperation, ValueCondition>> rules = new ArrayList<>();
@@ -214,41 +215,13 @@ public class UserServiceImpl implements UserService {
         // tuples, queryString, pageable to repository
         try{
             Page<User> userQueryWithCriteriaBuilder = userRepository.getUserQueryWithCriteriaBuilder(queryString, rules, pageable);
-            List<UserModel> collect = userQueryWithCriteriaBuilder.get().map(userMapper::userToUserModel).collect(Collectors.toList());
+            List<UserModelResponse> collect = userQueryWithCriteriaBuilder.get().map(userMapper::userToUserModelResponse).collect(Collectors.toList());
             return new PageImpl<>(collect, pageable, userQueryWithCriteriaBuilder.getTotalElements());
         }catch (RuntimeException exception) {
             throw AppException.newInstance(
                     SampleExceptionType.INTERNAL_ERROR,
                     String.format("getUserSearchWithCriteriaBuilder method has error: %s", exception.getCause())
             );
-        }
-    }
-
-    private void mapUserForUpdate(User sourceUser, User updateUser) {
-        if (!sourceUser.getFirstName().equals(updateUser.getFirstName())) {
-            sourceUser.setFirstName(updateUser.getFirstName());
-        }
-        if (!sourceUser.getLastName().equals(updateUser.getLastName())) {
-            sourceUser.setLastName(updateUser.getLastName());
-        }
-        if (!sourceUser.getUserName().equals(updateUser.getUserName())) {
-            sourceUser.setUserName(updateUser.getUserName());
-        }
-        if (!sourceUser.getNationalCode().equals(updateUser.getNationalCode())) {
-            sourceUser.setNationalCode(updateUser.getNationalCode());
-        }
-        if (!sourceUser.getEmail().equals(updateUser.getEmail())) {
-            sourceUser.setEmail(updateUser.getEmail());
-        }
-        if (!sourceUser.getMobile().equals(updateUser.getMobile())) {
-            sourceUser.setMobile(updateUser.getMobile());
-        }
-        if (!sourceUser.getGender().equals(updateUser.getGender())) {
-            sourceUser.setGender(updateUser.getGender());
-        }
-
-        if (!sourceUser.isActiveStatus() == (updateUser.isActiveStatus())) {
-            sourceUser.setActiveStatus(updateUser.isActiveStatus());
         }
     }
 }

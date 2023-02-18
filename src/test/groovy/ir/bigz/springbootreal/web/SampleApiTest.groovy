@@ -6,7 +6,7 @@ import ir.bigz.springbootreal.controller.SampleController
 import ir.bigz.springbootreal.dal.UserRepository
 import ir.bigz.springbootreal.dto.entity.User
 import ir.bigz.springbootreal.service.UserService
-import ir.bigz.springbootreal.viewmodel.UserModel
+import ir.bigz.springbootreal.viewmodel.UserModelRequest
 import org.junit.jupiter.api.Test
 import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,8 +16,6 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerA
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.context.annotation.ComponentScan
-import org.springframework.http.HttpEntity
-import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
@@ -104,9 +102,9 @@ class SampleApiTest extends Specification{
     }
 
 
-    private static UserModel generateUserModel() {
+    private static UserModelRequest generateUserModel() {
         Random random = new Random()
-        new UserModel(
+        new UserModelRequest(
                 id: random.nextInt(1000),
                 version: null,
                 insertDate: Utils.getLocalTimeNow(),
@@ -138,9 +136,9 @@ class SampleApiTest extends Specification{
         )
     }
 
-    private static List<UserModel> generateUserList() {
-        List<UserModel> userModels = new ArrayList<>()
-        UserModel userModel = generateUserModel()
+    private static List<UserModelRequest> generateUserList() {
+        List<UserModelRequest> userModels = new ArrayList<>()
+        UserModelRequest userModel = generateUserModel()
         userModels.add(userModel)
         return userModels
     }

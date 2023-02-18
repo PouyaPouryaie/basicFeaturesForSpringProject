@@ -12,7 +12,7 @@
 
     <cache alias="userCache">
         <key-type>java.lang.Long</key-type>
-        <value-type>ir.bigz.springbootreal.viewmodel.UserModel</value-type>
+        <value-type>ir.bigz.springbootreal.viewmodel.UserModelResponse</value-type>
         <expiry>
             <ttl unit="seconds">10000</ttl>
         </expiry>
