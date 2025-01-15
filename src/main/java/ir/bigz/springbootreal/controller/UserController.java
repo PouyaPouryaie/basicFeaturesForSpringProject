@@ -65,6 +65,16 @@ public class UserController extends AbstractController {
         return ResponseEntity.ok(result);
     }
 
+    @GetMapping(path = "/v1/all/search", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> getAllUserPage(@RequestParam(name = "sortorder", required = false) String sortOrder,
+                                            @RequestParam(name = "direction") String sortDirection,
+                                            @RequestParam(name = "pagenumber") Integer pageNumber,
+                                            @RequestParam(name = "pagesize") Integer pageSize) {
+        Page<UserModelResponse> userPageResult = userService.getAllUserPage(sortOrder, Sort.Direction.fromString(sortDirection), pageNumber, pageSize);
+        return ResponseEntity.ok(userPageResult);
+    }
+
     @GetMapping(path = "/v1/search", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> getUserWithSearch(@RequestBody UserSearchDto userSearchDto,
@@ -73,16 +83,6 @@ public class UserController extends AbstractController {
                                                @RequestParam(name = "pagenumber", defaultValue = "1") Integer pageNumber,
                                                @RequestParam(name = "pagesize", defaultValue = "5") Integer pageSize) {
         Page<UserModelResponse> userPageResult = userService.getUserSearchResult(userSearchDto, sortOrder, Sort.Direction.fromString(direction), pageNumber, pageSize);
-        return ResponseEntity.ok(userPageResult);
-    }
-
-    @GetMapping(path = "/v1/search", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> getAllUserPage(@RequestParam(name = "sortorder", required = false) String sortOrder,
-                                            @RequestParam(name = "direction") String sortDirection,
-                                            @RequestParam(name = "pagenumber") Integer pageNumber,
-                                            @RequestParam(name = "pagesize") Integer pageSize) {
-        Page<UserModelResponse> userPageResult = userService.getAllUserPage(sortOrder, Sort.Direction.fromString(sortDirection), pageNumber, pageSize);
         return ResponseEntity.ok(userPageResult);
     }
 
