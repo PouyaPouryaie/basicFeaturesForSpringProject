@@ -1,0 +1,59 @@
+#log level visibility: off-fatal-error-warn-info-debug-trace-all
+Configuration:
+  status: DEBUG
+
+  Properties:
+    property:
+      - name: "LOG_TO_CONSOLE_PATTERN"
+        value: "[%d{HH:mm:ss.SSS}] %-5level %date{yyyy-MM-dd HH:mm:ss.SSS} [%t] %logger{1} - %msg%n"
+      - name: "LOG_TO_FILE_PATTERN"
+        value: '%d %p %c{1.} [%t] %m%n'
+
+  Appenders:
+    Console:
+      name: LogToConsole
+      target: SYSTEM_OUT
+      follow: true
+      PatternLayout:
+        pattern: '${LOG_TO_CONSOLE_PATTERN}'
+
+
+    RollingFile:
+      name: LogToRollingFile
+      fileName: appLogs/app.log
+      filePattern: appLogs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz
+      PatternLayout:
+        pattern: '${LOG_TO_FILE_PATTERN}'
+      Policies:
+        SizeBasedTriggeringPolicy:
+          size: 10 MB
+      DefaultRolloverStrategy:
+        max: 10
+
+#    Async:
+#      name: AsyncAppender
+#      bufferSize: 512
+#      AppenderRef:
+#        - ref: LogToRollingFile
+#        - ref: LogToConsole
+
+  Loggers:
+    AsyncLogger:
+      name: ir.bigz.springbootreal
+      level: DEBUG
+      additivity: false
+      includeLocation: true
+      AppenderRef:
+        - ref: LogToRollingFile
+
+    Logger:
+      - name: org.springframework.boot
+        level: ERROR
+        additivity: false
+        AppenderRef:
+          - ref: LogToConsole
+
+    Root:
+      level: ERROR
+      AppenderRef:
+        - ref: LogToConsole

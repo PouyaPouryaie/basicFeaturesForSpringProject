@@ -8,6 +8,8 @@ import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.support.CronTrigger;
 
+import java.util.Objects;
+
 @Slf4j
 @Configuration
 @EnableScheduling
@@ -18,7 +20,7 @@ public class JobsConfig {
                       AppProperties appProperties) {
         for (var e: appProperties.getJobs().entrySet()){
             var bean = (Runnable) applicationContext.getBean(e.getKey());
-            if(bean == null){
+            if(Objects.isNull(bean)){
                 log.error("Job {} is not registered", e.getKey());
             }
             else {
