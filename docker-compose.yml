@@ -19,7 +19,7 @@ services:
       - dbpostgresql
   dbpostgresql:
     container_name: spring-db
-    image: postgres:latest
+    image: postgres:17.2
     ports:
       - "5432:5432"
     environment:

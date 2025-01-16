@@ -8,7 +8,7 @@
         <jsr107:defaults enable-statistics="true"/>
     </service>
 
-    <persistence directory="./cache"></persistence>
+    <persistence directory="${user.dir}/cache" />
 
     <cache alias="userCache">
         <key-type>java.lang.Long</key-type>
@@ -18,7 +18,7 @@
         </expiry>
         <listeners>
             <listener>
-                <class>ir.bigz.springbootreal.commons.userCacheEventLogger</class>
+                <class>ir.bigz.springbootreal.commons.UserCacheEventLogger</class>
                 <event-firing-mode>ASYNCHRONOUS</event-firing-mode>
                 <event-ordering-mode>UNORDERED</event-ordering-mode>
                 <events-to-fire-on>CREATED</events-to-fire-on>

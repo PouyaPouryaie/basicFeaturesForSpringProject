@@ -2,7 +2,8 @@
 
 This project, implement instance of basic feature, <br> you maybe want use for App base on Spring-boot <br>
 
-### Note for upgrade to 2.4.X 
+### Deprecated
+~~### Note for upgrade to 2.4.X~~ 
 1) for active profile config: <br>
 for before 2.4.x you can activate profile in pom file and add <b>@spring.profiles.active@</b> in application.properties <br>
 and then properties apply in project base on profile that active. <br>
@@ -47,10 +48,11 @@ for 2.4.x or above
 
 ## Run guide
 ### Run for develop and debug: <br>
-1 - check active profile on dev <br>
-2 - run postgre sql on 5432 and create database myapp <br>
-3 - run app <br>
-4 - app.generator.enabled properties set to true, when you want to generate fake data <br>
+1. Check active profile on dev
+2. Run Postgres SQL on 5432 and create database myapp
+    - docker command: `docker run --name postgresTest -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=myapp -p 5432:5432 -d postgres:17.2` 
+3. Run app
+4. app.generator.enabled properties set to true, when you want to generate fake data
 
 ### Run as docker image: <br>
 1 - check active profile on docker and package project <br>

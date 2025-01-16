@@ -6,9 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class userCacheEventLogger implements CacheEventListener<Object, Object> {
+public class UserCacheEventLogger implements CacheEventListener<Object, Object> {
 
-    private final Logger LOG = LoggerFactory.getLogger(userCacheEventLogger.class);
+    private final Logger LOG = LoggerFactory.getLogger(UserCacheEventLogger.class);
 
     @Override
     public void onEvent(CacheEvent<?, ?> cacheEvent) {
